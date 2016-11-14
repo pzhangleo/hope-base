@@ -9,10 +9,10 @@ android:
     - platform-tools
 
     # The BuildTools version used by your project
-    - build-tools-24.0.2
+    - build-tools-25.0.0
 
     # The SDK version used to compile your project
-    - android-24
+    - android-25
 
     # Additional components
     - extra
@@ -24,7 +24,6 @@ android:
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-24
-    - sys-img-x86-android-24
 
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
