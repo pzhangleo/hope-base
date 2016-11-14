@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <color name="white_transparent30">#4cffffff</color>
+    <color name="white_transparent50">#7fffffff</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="black_transparent30">#46000000</color>
+    <color name="black_transparent50">#7f000000</color>
+    <color name="black_transparent60">#96000000</color>
+    <color name="black_transparent70">#b4000000</color>
+    <color name="arc_seek_thumb_color">#BD007A</color>
+</resources>

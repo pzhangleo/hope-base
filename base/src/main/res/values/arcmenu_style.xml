@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ArcMenu">
+        <attr name="position">
+            <enum name="left_top" value="0"/>
+            <enum name="right_top" value="1"/>
+            <enum name="left_bottom" value="2"/>
+            <enum name="right_bottom" value="3"/>
+            <enum name="use_default" value="4"/>
+        </attr>
+        <attr name="arc_radius" format="dimension"></attr>
+        <attr name="imgRadius" format="dimension"></attr>
+    </declare-styleable>
+</resources>
