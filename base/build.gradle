@@ -17,6 +17,12 @@ android {
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        disable 'InvalidPackage'
+        abortOnError true
+        textReport true
+        textOutput "stdout"
+    }
 }
 
 dependencies {
