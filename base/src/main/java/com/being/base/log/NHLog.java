@@ -137,7 +137,7 @@ public class NHLog {
     /** A {@link Timber.Tree Tree} for debug builds. Automatically infers the tag from the calling class. */
     public static class NHDebugTree extends Timber.Tree {
         private static final int MAX_LOG_LENGTH = 4000;
-        private static final int CALL_STACK_INDEX = 6;//another call stack index in nhlog
+        private static final int CALL_STACK_INDEX = 7;//another call stack index in nhlog
         private static final Pattern ANONYMOUS_CLASS = Pattern.compile("(\\$\\d+)+$");
 
         /**
