@@ -18,24 +18,14 @@ import android.widget.FrameLayout;
  */
 public class StatusBarCompat {
 
-    private static final int COLOR_TRANSLUCENT = Color.parseColor("#00000000");
+    private static final int COLOR_TRANSLUCENT = Color.parseColor("#70000000");
 
-    public static final int DEFAULT_COLOR_ALPHA = 112;
+    private static int STATUSBARHEIGHT = 0;
 
     public static boolean statusCanChanged() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
             return true;
         return false;
-    }
-
-    /**
-     * set statusBarColor
-     *
-     * @param statusColor color
-     * @param alpha       0 - 255
-     */
-    public static void setStatusBarColor(Activity activity, int statusColor, int alpha) {
-        setStatusBarColor(activity, calculateStatusBarColor(statusColor, alpha));
     }
 
     @TargetApi(19)
@@ -117,9 +107,9 @@ public class StatusBarCompat {
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                 if (hideStatusBarBackground) {
                     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                    window.setStatusBarColor(COLOR_TRANSLUCENT);
+                    window.setStatusBarColor(Color.TRANSPARENT);
                 } else {
-                    window.setStatusBarColor(calculateStatusBarColor(COLOR_TRANSLUCENT, DEFAULT_COLOR_ALPHA));
+                    window.setStatusBarColor(COLOR_TRANSLUCENT);
                 }
                 //must call requestApplyInsets, otherwise it will have space in screen bottom
                 if (mChildView != null) {
@@ -147,13 +137,16 @@ public class StatusBarCompat {
     }
 
     //Get status bar height
-    public static int getStatusBarHeight(Context context) {
-        int result = 0;
-        int resId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resId > 0) {
-            result = context.getResources().getDimensionPixelOffset(resId);
+    private static int getStatusBarHeight(Context context) {
+        if (STATUSBARHEIGHT == 0) {
+            int result = 0;
+            int resId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+            if (resId > 0) {
+                result = context.getResources().getDimensionPixelOffset(resId);
+            }
+            STATUSBARHEIGHT = result;
         }
-        return result;
+        return STATUSBARHEIGHT;
     }
 
     //Get alpha color
