@@ -10,7 +10,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
-        versionName "0.0.38"
+        versionName "0.0.39"
     }
     buildTypes {
         release {
@@ -50,9 +50,9 @@ dependencies {
     compile 'com.birbit:android-priority-jobqueue:2.0.1'
     compile 'com.bugtags.library:bugtags-lib:2.1.0'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v2.5.0'
-    compile 'com.facebook.fresco:fresco:0.14.1'
-    compile 'com.facebook.fresco:animated-webp:0.14.1'
-    compile 'com.facebook.fresco:webpsupport:0.14.1'
+    compile 'com.facebook.fresco:fresco:1.0.0'
+    compile 'com.facebook.fresco:animated-webp:1.0.0'
+    compile 'com.facebook.fresco:webpsupport:1.0.0'
 }
 
 // build a jar with source files
