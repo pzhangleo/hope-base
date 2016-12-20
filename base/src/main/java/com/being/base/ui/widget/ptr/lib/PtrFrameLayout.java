@@ -375,17 +375,7 @@ public class PtrFrameLayout extends ViewGroup {
             case MotionEvent.ACTION_MOVE:
                 mLastMoveEvent = event;
                 mPtrIndicator.onMove(event.getX(), event.getY());
-                float offsetX = mPtrIndicator.getOffsetX();
                 float offsetY = mPtrIndicator.getOffsetY();
-
-                if (mDisableWhenHorizontalMove && !mPreventForHorizontal && (Math.abs(offsetX) > mPagingTouchSlop && Math.abs(offsetX) > Math.abs(offsetY))) {
-                    if (mPtrIndicator.isInStartPosition()) {
-                        mPreventForHorizontal = true;
-                    }
-                }
-                if (mPreventForHorizontal) {
-                    return false;
-                }
 
                 boolean moveDown = offsetY > 0;
                 boolean moveUp = !moveDown;
@@ -396,14 +386,7 @@ public class PtrFrameLayout extends ViewGroup {
                     PtrCLog.v(LOG_TAG, "ACTION_MOVE: offsetY:%s, currentPos: %s, moveUp: %s, canMoveUp: %s, moveDown: %s: canMoveDown: %s", offsetY, mPtrIndicator.getCurrentPosY(), moveUp, canMoveUp, moveDown, canMoveDown);
                 }
 
-                // disable move when header not reach top
-                if (moveDown && mPtrHandler != null && !mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView)) {
-                    return false;
-                }
-
-                if ((moveUp && canMoveUp) || moveDown) {
-                    return movePos(offsetY);
-                }
+                return movePos(offsetY);
         }
         return false;
     }
