@@ -50,7 +50,7 @@ public class PtrIndicator {
     protected void processOnMove(float currentX, float currentY, float offsetX, float offsetY) {
         float resistance = mResistance;
         if (mResistance > 1 && Math.abs(mCurrentPos) > (mHeaderHeight)) {
-            resistance = (float) Math.pow(resistance, mCurrentPos * 1.5 / (float) mHeaderHeight);
+            resistance = (float) Math.pow(resistance, mCurrentPos * mResistance / (float) mHeaderHeight);
         }
         setOffset(offsetX, offsetY / (resistance));
     }
