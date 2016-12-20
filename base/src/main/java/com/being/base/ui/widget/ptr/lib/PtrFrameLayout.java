@@ -67,6 +67,7 @@ public class PtrFrameLayout extends ViewGroup {
     private int mLoadingMinTime = 500;
     private long mLoadingStartTime = 0;
     private PtrIndicator mPtrIndicator;
+    private PtrIndicator mInterceptPtrIndicator;
     private boolean mHasSendCancelEvent = false;
     private Runnable mPerformRefreshCompleteDelay = new Runnable() {
         @Override
@@ -87,6 +88,8 @@ public class PtrFrameLayout extends ViewGroup {
         super(context, attrs, defStyle);
 
         mPtrIndicator = new PtrIndicator();
+
+        mInterceptPtrIndicator = new PtrIndicator();
 
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.PtrFrameLayout, 0, 0);
         if (arr != null) {
@@ -290,7 +293,7 @@ public class PtrFrameLayout extends ViewGroup {
                 return false;
             case MotionEvent.ACTION_DOWN:
                 mHasSendCancelEvent = false;
-                mPtrIndicator.onPressDown(e.getX(), e.getY());
+                mInterceptPtrIndicator.onPressDown(e.getX(), e.getY());
 
                 mScrollChecker.abortIfWorking();
 
@@ -298,12 +301,12 @@ public class PtrFrameLayout extends ViewGroup {
                 break;
             case MotionEvent.ACTION_MOVE:
                 mLastMoveEvent = e;
-                mPtrIndicator.onMove(e.getX(), e.getY());
-                float offsetX = mPtrIndicator.getOffsetX();
-                float offsetY = mPtrIndicator.getOffsetY();
+                mInterceptPtrIndicator.onMove(e.getX(), e.getY());
+                float offsetX = mInterceptPtrIndicator.getOffsetX();
+                float offsetY = mInterceptPtrIndicator.getOffsetY();
                 boolean moveDown = offsetY > 0;
                 boolean moveUp = !moveDown;
-                boolean canMoveUp = mPtrIndicator.hasLeftStartPosition();
+                boolean canMoveUp = mInterceptPtrIndicator.hasLeftStartPosition();
                 PtrCLog.d(LOG_TAG, "offsetX %s, offsetY %s, PagingTouchSlop, %s", offsetX, offsetY, mPagingTouchSlop);
                 if (!mPreventForHorizontal && (Math.abs(offsetY) <  mPagingTouchSlop) || (Math.abs(offsetX) > Math.abs(offsetY))) {
                     PtrCLog.e(LOG_TAG, "ACTION_MOVE: NOT INTERCEPT");
