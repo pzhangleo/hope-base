@@ -75,12 +75,12 @@ public class PtrIndicator {
 
     public final void onMove(float x, float y) {
         float offsetX = x - mPtLastMove.x;
-        float offsetY = (y - mPtLastMove.y);
+        float offsetY = y - mPtLastMove.y;
         processOnMove(x, y, offsetX, offsetY);
         mPtLastMove.set(x, y);
     }
 
-    protected void setOffset(float x, float y) {
+    private void setOffset(float x, float y) {
         mOffsetX = x;
         mOffsetY = y;
     }

@@ -308,9 +308,9 @@ public class PtrFrameLayout extends ViewGroup {
                 boolean moveDown = offsetY > 0;
                 boolean moveUp = !moveDown;
                 boolean canMoveUp = mInterceptPtrIndicator.hasLeftStartPosition();
-                PtrCLog.d(LOG_TAG, "offsetX %s, offsetY %s, PagingTouchSlop, %s", offsetX, offsetY, mPagingTouchSlop);
+                PtrCLog.d(LOG_TAG, "onInterceptTouchEvent offsetX %s, offsetY %s, PagingTouchSlop, %s", offsetX, offsetY, mPagingTouchSlop);
                 if (!mPreventForHorizontal && (Math.abs(offsetY) <  mPagingTouchSlop) || (Math.abs(offsetX) > Math.abs(offsetY))) {
-                    PtrCLog.e(LOG_TAG, "ACTION_MOVE: NOT INTERCEPT");
+                    PtrCLog.i(LOG_TAG, "onInterceptTouchEvent ACTION_MOVE: NOT INTERCEPT");
                     return false;
                 }
                 if (mPreventForHorizontal) {
@@ -320,11 +320,13 @@ public class PtrFrameLayout extends ViewGroup {
 
                 if (DEBUG) {
                     boolean canMoveDown = mPtrHandler != null && mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView);
-                    PtrCLog.v(LOG_TAG, "ACTION_MOVE: offsetY:%s, currentPos: %s, moveUp: %s, canMoveUp: %s, moveDown: %s: canMoveDown: %s", offsetY, mInterceptPtrIndicator.getCurrentPosY(), moveUp, canMoveUp, moveDown, canMoveDown);
+                    PtrCLog.v(LOG_TAG, "onInterceptTouchEvent ACTION_MOVE: offsetY:%s, currentPos: %s, moveUp: %s, canMoveUp: %s, moveDown: %s: canMoveDown: %s",
+                            offsetY, mInterceptPtrIndicator.getCurrentPosY(), moveUp, canMoveUp, moveDown, canMoveDown);
                 }
 
                 // disable move when header not reach top
                 if (moveDown && mPtrHandler != null && !mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView)) {
+                    PtrCLog.e(LOG_TAG, "onInterceptTouchEvent ACTION_MOVE: NOT INTERCEPT");
                     return false;
                 }
 
