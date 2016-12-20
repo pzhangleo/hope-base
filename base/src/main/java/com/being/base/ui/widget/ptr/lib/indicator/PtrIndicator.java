@@ -47,7 +47,7 @@ public class PtrIndicator {
 
     protected void processOnMove(float currentX, float currentY, float offsetX, float offsetY) {
         int factor = 1;
-        if (Math.abs(offsetX) > mHeaderHeight * 2) {
+        if (Math.abs(mCurrentPos) > mHeaderHeight * 2) {
             factor = 3;
         }
         setOffset(offsetX, offsetY / (mResistance * factor));
