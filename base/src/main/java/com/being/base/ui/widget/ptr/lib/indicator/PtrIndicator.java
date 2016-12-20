@@ -80,7 +80,7 @@ public class PtrIndicator {
         mPtLastMove.set(x, y);
     }
 
-    private void setOffset(float x, float y) {
+    protected void setOffset(float x, float y) {
         mOffsetX = x;
         mOffsetY = y;
     }
