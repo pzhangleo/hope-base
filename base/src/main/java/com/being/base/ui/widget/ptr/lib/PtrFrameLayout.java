@@ -291,6 +291,8 @@ public class PtrFrameLayout extends ViewGroup {
         switch (action) {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
+                mPtrIndicator.onRelease();
+                mInterceptPtrIndicator.onRelease();
                 return false;
             case MotionEvent.ACTION_DOWN:
                 mHasSendCancelEvent = false;
