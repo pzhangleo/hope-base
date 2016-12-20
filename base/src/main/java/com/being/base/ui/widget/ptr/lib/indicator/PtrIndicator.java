@@ -2,24 +2,26 @@ package com.being.base.ui.widget.ptr.lib.indicator;
 
 import android.graphics.PointF;
 
+import com.being.base.log.NHLog;
+
 public class PtrIndicator {
 
     public final static int POS_START = 0;
     protected int mOffsetToRefresh = 0;
     private PointF mPtLastMove = new PointF();
-    private float mOffsetX;
-    private float mOffsetY;
-    private int mCurrentPos = 0;
-    private int mLastPos = 0;
-    private int mHeaderHeight;
-    private int mPressedPos = 0;
+    protected float mOffsetX;
+    protected float mOffsetY;
+    protected int mCurrentPos = 0;
+    protected int mLastPos = 0;
+    protected int mHeaderHeight;
+    protected int mPressedPos = 0;
 
-    private float mRatioOfHeaderHeightToRefresh = 1.2f;
-    private float mResistance = 1.7f;
-    private boolean mIsUnderTouch = false;
-    private int mOffsetToKeepHeaderWhileLoading = -1;
+    protected float mRatioOfHeaderHeightToRefresh = 1.2f;
+    protected float mResistance = 1.7f;
+    protected boolean mIsUnderTouch = false;
+    protected int mOffsetToKeepHeaderWhileLoading = -1;
     // record the refresh complete position
-    private int mRefreshCompleteY = 0;
+    protected int mRefreshCompleteY = 0;
 
     public boolean isUnderTouch() {
         return mIsUnderTouch;
@@ -46,11 +48,11 @@ public class PtrIndicator {
     }
 
     protected void processOnMove(float currentX, float currentY, float offsetX, float offsetY) {
-        float factor = 1;
-        if (mResistance > 1 && Math.abs(mCurrentPos) > (mHeaderHeight * mRatioOfHeaderHeightToRefresh)) {
-            factor = mCurrentPos - mHeaderHeight;
+        float resistance = mResistance;
+        if (mResistance > 1 && Math.abs(mCurrentPos) > (mHeaderHeight)) {
+            resistance = (float) Math.pow(resistance, mCurrentPos * 1.5 / (float) mHeaderHeight);
         }
-        setOffset(offsetX, offsetY / (mResistance * factor));
+        setOffset(offsetX, offsetY / (resistance));
     }
 
     public void setRatioOfHeaderHeightToRefresh(float ratio) {
