@@ -194,4 +194,10 @@ public class PtrIndicator {
     public boolean willOverTop(int to) {
         return to < POS_START;
     }
+
+    public void reset() {
+        mOffsetX = 0;
+        mOffsetY = 0;
+        mIsUnderTouch = false;
+    }
 }
