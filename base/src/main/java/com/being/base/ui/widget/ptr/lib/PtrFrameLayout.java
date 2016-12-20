@@ -294,6 +294,7 @@ public class PtrFrameLayout extends ViewGroup {
                 return false;
             case MotionEvent.ACTION_DOWN:
                 mHasSendCancelEvent = false;
+                mPtrIndicator.onPressDown(e.getX(), e.getY());
                 mInterceptPtrIndicator.onPressDown(e.getX(), e.getY());
 
                 mScrollChecker.abortIfWorking();
