@@ -97,7 +97,7 @@ public abstract class CountUpTimer {
 
                 if (millisLeft <= 0 && mMillisInFuture > 0) {
                     onFinish();
-                } else if (millisElapsed < mCountdownInterval) {
+                } else if (millisLeft < mCountdownInterval && mMillisInFuture > 0) {
                     // no tick, just delay until done
                     sendMessageDelayed(obtainMessage(MSG), millisLeft);
                 } else {
