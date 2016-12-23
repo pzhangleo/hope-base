@@ -31,8 +31,8 @@ public abstract class CountUpTimer {
 
     /**
      * @param millisInFuture The number of millis in the future from the call
-     *   to {@link #start()} until the countdown is done and {@link #onFinish()}
-     *   is called.
+     *   to {@link #start()} until the countup is done and {@link #onFinish()}
+     *   is called.if set 0, the countup will never end...
      * @param countDownInterval The interval along the way to receive
      *   {@link #onTick(long)} callbacks.
      */
