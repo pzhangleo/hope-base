@@ -152,8 +152,10 @@ public class AsyncOkHttp {
     }
 
     public CallHandler doExecute(Request.Builder requestBuilder, final ResponseCallback responseCallback) {
-        mOkHttpClient = mOkHttpClient.newBuilder()
-                .addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR).build();
+        if (requestBuilder.build().method().equalsIgnoreCase("get")) {
+            mOkHttpClient = mOkHttpClient.newBuilder()
+                    .addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR).build();
+        }
         requestBuilder.addHeader("User-Agent", DeviceInfoUtils.getUserAgent());
         Request request = requestBuilder.build();
         responseCallback.setRequest(request);
@@ -303,6 +305,9 @@ public class AsyncOkHttp {
 
     private boolean loadCache(final Call call, final ResponseCallback responseCallback,
                               CallHandler callHandler) {
+        if (call.request().method().equalsIgnoreCase("post")) {
+            return false;
+        }
         boolean result = false;
         //发生IO异常时,尝试从Http Cache中获取数据
         Request request = call.request().newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();
