@@ -35,46 +35,6 @@ import java.util.Date;
 @SuppressWarnings({"unused", "JavaDoc", "SimpleDateFormat"})
 public class ImageUtils {
 
-    public static final String TEMP_PATH = "TempCache";
-
-    public static final String JPG = ".jpg";
-
-    public static final String MP4 = ".mp4";
-
-    public static File generateTempFilePath(Context context, String fileName) {
-        String dir = StorageUtils.getOwnCacheDirectory(context, TEMP_PATH).getAbsolutePath();
-        return new File(dir, fileName);
-    }
-
-    public static File generateTempPictureFilePath(Context context) {
-        String dir = StorageUtils.getOwnCacheDirectory(context, TEMP_PATH).getAbsolutePath();
-        return new File(dir, generatePictureFilename());
-    }
-
-    public static File generateTempVideoFilePath(Context context) {
-        String dir = StorageUtils.getOwnCacheDirectory(context, TEMP_PATH).getAbsolutePath();
-        return new File(dir, generateVideoFilename());
-    }
-
-    public static File getPictureFileDir(Context context) {
-        String dir = StorageUtils.getOwnCacheDirectory(context, TEMP_PATH).getAbsolutePath();
-        return new File(dir);
-    }
-
-    public static String generatePictureFilename() {
-        long dateTake = System.currentTimeMillis();
-        Date date = new Date(dateTake);
-        SimpleDateFormat sdf = new SimpleDateFormat("'pic'_yyyyMMdd_HHmmss");
-        return sdf.format(date) + "_" + dateTake + JPG;
-    }
-
-    public static String generateVideoFilename() {
-        long dateTake = System.currentTimeMillis();
-        Date date = new Date(dateTake);
-        SimpleDateFormat sdf = new SimpleDateFormat("'video'_yyyyMMdd_HHmmss");
-        return sdf.format(date) + "_" + dateTake + MP4;
-    }
-
     public static boolean storeCapturedImage(byte[] data, String filePath) {
         Bitmap bm = BitmapFactory.decodeByteArray(data, 0, data.length, getBitmapOptions(false));
         return storeCapturedImage(bm, filePath);
@@ -361,7 +321,7 @@ public class ImageUtils {
         Bitmap bm;
         bm = decodeSampledBitmapFromFile(oriFile.getAbsolutePath(), width, height);
         bm = rotateImage(bm, rotation);
-        File destFile = generateTempPictureFilePath(context);
+        File destFile = CacheFileUtils.generateTempPictureFilePath(context);
         if (writeBitmapToFile(bm, Bitmap.CompressFormat.JPEG, 95, destFile)) {
             return destFile;
         }
