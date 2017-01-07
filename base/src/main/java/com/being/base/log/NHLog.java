@@ -4,8 +4,6 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.being.base.Constant;
-import com.being.base.utils.BugTagsUtils;
-import com.bugtags.library.Bugtags;
 
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
@@ -69,7 +67,6 @@ public class NHLog {
 
     public static void e(String msg, Object... params) {
         if (!LOG_TOGGLE) {
-            BugTagsUtils.sendLog(formatMessage(msg, params));
             return;
         }
         Timber.e(msg, params);
@@ -77,7 +74,6 @@ public class NHLog {
 
 	public static void e(String msg, Throwable e, Object... params) {
         if (!LOG_TOGGLE) {
-            BugTagsUtils.sendLog(formatMessage(msg, params));
             return;
         }
         Timber.e(e, msg, params);
