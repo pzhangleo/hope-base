@@ -11,9 +11,12 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
+import com.being.base.log.NHLog;
 
 import java.io.File;
 
@@ -212,6 +215,43 @@ public class AndroidUtils {
         } catch (android.content.ActivityNotFoundException anfe) {
             context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
         }
+    }
+
+    /**
+     * 解析选择图片或者拍照后的result
+     * @param context
+     * @param selFile 设置的文件
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     * @param camera 请求拍照或者录像的requestCode
+     * @param album 请求相册的requestCode
+     * @return
+     */
+    @Nullable
+    public static File parseActivityMediaResult(Context context, File selFile, int requestCode,
+                                                int resultCode, Intent data, int camera,
+                                                int album) {
+        File resultFile = null;
+        if (resultCode == Activity.RESULT_CANCELED) {
+            return resultFile;
+        }
+        Uri photoUri = null;
+        if (requestCode == camera) {
+            if (data != null && data.getAction() != null) {//用line等第三方camera可能action为0
+                photoUri = Uri.parse(data.getAction());
+            } else {
+                photoUri = Uri.fromFile(selFile);
+            }
+        } else if (requestCode == album) {
+            if (data != null) {
+                photoUri = data.getData();
+            } else {
+                photoUri = Uri.fromFile(selFile);
+            }
+            resultFile = new File(AndroidUtils.getRealPathFromURI(context, photoUri));
+        }
+        return resultFile;
     }
 
     /**
