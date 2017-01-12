@@ -20,11 +20,10 @@ public class CacheFileUtils {
     /**
      * 生成临时文件目录
      * @param context
-     * @param fileName
      * @return
      */
-    public static File generateTempDir(Context context, String fileName) {
-        return StorageUtils.getOwnCacheDirectory(context, TEMP);
+    public static File generateTempDir(Context context) {
+        return StorageUtils.getOwnFilesDirectory(context, TEMP);
     }
 
     /**
@@ -34,7 +33,7 @@ public class CacheFileUtils {
      * @return
      */
     public static File generateTempFilePath(Context context, String fileName) {
-        String dir = StorageUtils.getOwnCacheDirectory(context, TEMP).getAbsolutePath();
+        String dir = StorageUtils.getOwnFilesDirectory(context, TEMP).getAbsolutePath();
         return new File(dir, fileName);
     }
 
@@ -44,7 +43,7 @@ public class CacheFileUtils {
      * @return
      */
     public static File generateTempPictureFilePath(Context context) {
-        String dir = StorageUtils.getOwnCacheDirectory(context, TEMP).getAbsolutePath();
+        String dir = StorageUtils.getOwnFilesDirectory(context, TEMP).getAbsolutePath();
         return new File(dir, generatePictureFilename());
     }
 
@@ -54,12 +53,12 @@ public class CacheFileUtils {
      * @return
      */
     public static File generateTempVideoFilePath(Context context) {
-        String dir = StorageUtils.getOwnCacheDirectory(context, TEMP).getAbsolutePath();
+        String dir = StorageUtils.getOwnFilesDirectory(context, TEMP).getAbsolutePath();
         return new File(dir, generateVideoFilename());
     }
 
     public static File getPictureFileDir(Context context) {
-        String dir = StorageUtils.getOwnCacheDirectory(context, TEMP).getAbsolutePath();
+        String dir = StorageUtils.getOwnFilesDirectory(context, TEMP).getAbsolutePath();
         return new File(dir);
     }
 
