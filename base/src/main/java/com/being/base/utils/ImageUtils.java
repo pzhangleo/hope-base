@@ -341,9 +341,15 @@ public class ImageUtils {
         int rotation = getExifOrientation(oriFile.getPath());
         Bitmap bm;
         bm = decodeSampledBitmapFromFile(oriFile.getAbsolutePath(), width, height);
-        bm = rotateImage(bm, rotation);
-        if (writeBitmapToFile(bm, Bitmap.CompressFormat.JPEG, 95, destFile)) {
-            return destFile;
+        if (bm != null) {
+            if (rotation != 0) {
+                bm = rotateImage(bm, rotation);
+                if (writeBitmapToFile(bm, Bitmap.CompressFormat.JPEG, 95, destFile)) {
+                    return destFile;
+                }
+            }
+        } else {
+            return null;
         }
         return oriFile;
     }
