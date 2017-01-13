@@ -78,18 +78,6 @@ public class DeviceInfoUtils {
         }
     }
 
-    /**
-     * 7.0以后只会返回虚假的值
-     * @param context
-     * @return
-     */
-    @Deprecated
-    public static String getLocalMacAddress(Context context) {
-        WifiManager wifi = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
-        WifiInfo info = wifi.getConnectionInfo();
-        return info.getMacAddress();
-    }
-
     public static String getDeviceName() {
         return Build.DEVICE;
     }
