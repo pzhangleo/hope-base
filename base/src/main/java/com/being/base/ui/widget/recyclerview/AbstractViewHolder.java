@@ -12,7 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 public abstract class AbstractViewHolder<T> extends BaseViewHolder {
 
     public AbstractViewHolder(ViewGroup parent, @LayoutRes int id) {
-        super(LayoutInflater.from(parent.getContext()).inflate(id, parent));
+        super(LayoutInflater.from(parent.getContext()).inflate(id, parent, false));
 
     }
 
