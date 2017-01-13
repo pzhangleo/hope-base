@@ -328,8 +328,6 @@ public class ImageUtils {
                     return destFile;
                 }
             }
-        } else {
-            return null;
         }
         return oriFile;
     }
@@ -354,8 +352,6 @@ public class ImageUtils {
                     return destFile;
                 }
             }
-        } else {
-            return null;
         }
         return oriFile;
     }
