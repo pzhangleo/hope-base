@@ -207,8 +207,8 @@ public abstract class LoadMoreContainerBase extends LinearLayout implements Load
             mLoadMoreUIHandler.onLoadFinish(this, emptyResult, hasMore);
         }
         if (hasMore) {
-//            removeFooterView(mFooterView);
-//            addFooterView(mFooterView);
+            removeFooterView(mFooterView);
+            addFooterView(mFooterView);
         } else {
             removeFooterView(mFooterView);
         }

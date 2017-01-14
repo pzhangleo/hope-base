@@ -323,10 +323,10 @@ public class ImageUtils {
         if (bm != null) {
             if (rotation != 0) {
                 bm = rotateImage(bm, rotation);
-                File destFile = CacheFileUtils.generateTempPictureFilePath(context);
-                if (writeBitmapToFile(bm, Bitmap.CompressFormat.JPEG, 95, destFile)) {
-                    return destFile;
-                }
+            }
+            File destFile = CacheFileUtils.generateTempPictureFilePath(context);
+            if (writeBitmapToFile(bm, Bitmap.CompressFormat.JPEG, 90, destFile)) {
+                return destFile;
             }
         }
         return oriFile;
@@ -348,9 +348,9 @@ public class ImageUtils {
         if (bm != null) {
             if (rotation != 0) {
                 bm = rotateImage(bm, rotation);
-                if (writeBitmapToFile(bm, Bitmap.CompressFormat.JPEG, 95, destFile)) {
-                    return destFile;
-                }
+            }
+            if (writeBitmapToFile(bm, Bitmap.CompressFormat.JPEG, 90, destFile)) {
+                return destFile;
             }
         }
         return oriFile;
