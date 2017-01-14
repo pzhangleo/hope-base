@@ -48,7 +48,7 @@ dependencies {
     compile 'com.artemzin.rxjava:proguard-rules:1.2.2.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.birbit:android-priority-jobqueue:2.0.1'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v2.5.0'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v2.7.8'
     compile 'com.facebook.fresco:fresco:1.0.0'
     compile 'com.facebook.fresco:animated-webp:1.0.0'
     compile 'com.facebook.fresco:webpsupport:1.0.0'
