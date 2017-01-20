@@ -2,15 +2,14 @@ package com.being.base.job;
 
 import android.content.Context;
 import android.support.annotation.WorkerThread;
+import android.util.Log;
 
 import com.being.base.log.NHLog;
-import com.birbit.android.jobqueue.AsyncAddCallback;
 import com.birbit.android.jobqueue.CancelResult;
 import com.birbit.android.jobqueue.Job;
 import com.birbit.android.jobqueue.JobManager;
 import com.birbit.android.jobqueue.TagConstraint;
 import com.birbit.android.jobqueue.config.Configuration;
-import com.birbit.android.jobqueue.log.JqLog;
 
 /**`
  * android-priority-jobqueue管理类
@@ -32,12 +31,17 @@ public class NHJobManager {
     }
 
     public void init(Context context, String id) {
+        init(context, id, Log.ERROR);
+    }
+
+    public void init(Context context, String id, int l) {
+        JobLogger logger = new JobLogger();
+        logger.setDebugLevel(l);
         Configuration configuration = new Configuration.Builder(context)
                 .id(id)
-                .customLogger(new JobLogger())
+                .customLogger(logger)
                 .build();
         jobManager = new JobManager(configuration);
-        JqLog.setCustomLogger(new JobLogger());
         NHLog.d("create new jobmanager for userid: %s", id);
     }
 

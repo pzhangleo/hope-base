@@ -29,7 +29,7 @@ public class AndroidUtils {
         if (view == null) {
             return;
         }
-        InputMethodManager inputManager = (InputMethodManager)view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager inputManager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
     }
 
@@ -146,7 +146,7 @@ public class AndroidUtils {
         }
         Uri contentUri = uri;
 
-        String[] projection = { MediaStore.Images.Media.DATA };
+        String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = null;
         try {
             if (Build.VERSION.SDK_INT > 19) {
@@ -159,7 +159,7 @@ public class AndroidUtils {
 
                 cursor = context.getContentResolver().query(
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        projection, sel, new String[] { id }, null);
+                        projection, sel, new String[]{id}, null);
             } else {
                 cursor = context.getContentResolver().query(contentUri,
                         projection, null, null, null);
@@ -179,7 +179,7 @@ public class AndroidUtils {
             int column_index = cursor
                     .getColumnIndex(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
-            path = cursor.getString(column_index).toString();
+            path = cursor.getString(column_index);
             cursor.close();
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -191,7 +191,7 @@ public class AndroidUtils {
         try {
             Intent smsIntent = new Intent(Intent.ACTION_VIEW);
             smsIntent.setType("vnd.android-dir/mms-sms");
-            smsIntent.putExtra("sms_body",content);
+            smsIntent.putExtra("sms_body", content);
             context.startActivity(smsIntent);
         } catch (Exception e) {
             e.printStackTrace();
@@ -200,7 +200,7 @@ public class AndroidUtils {
 
     public static void sendEmail(Context context, String content) {
         try {
-            Intent data=new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
+            Intent data = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
             data.putExtra(Intent.EXTRA_TEXT, content);
             context.startActivity(data);
         } catch (Exception e) {
@@ -219,13 +219,14 @@ public class AndroidUtils {
 
     /**
      * 解析选择图片或者拍照后的result
+     *
      * @param context
-     * @param selFile 设置的文件
+     * @param selFile     设置的文件
      * @param requestCode
      * @param resultCode
      * @param data
-     * @param camera 请求拍照或者录像的requestCode
-     * @param album 请求相册的requestCode
+     * @param camera      请求拍照或者录像的requestCode
+     * @param album       请求相册的requestCode
      * @return
      */
     @Nullable
@@ -234,7 +235,7 @@ public class AndroidUtils {
                                                 int album) {
         File resultFile = null;
         if (resultCode == Activity.RESULT_CANCELED) {
-            return resultFile;
+            return selFile;
         }
         Uri photoUri = null;
         if (requestCode == camera) {
@@ -249,7 +250,10 @@ public class AndroidUtils {
             } else {
                 photoUri = Uri.fromFile(selFile);
             }
-            resultFile = new File(AndroidUtils.getRealPathFromURI(context, photoUri));
+        }
+        String pathFromURI = getRealPathFromURI(context, photoUri);
+        if (pathFromURI != null) {
+            resultFile = new File(pathFromURI);
         }
         return resultFile;
     }

@@ -1,6 +1,7 @@
 package com.being.base.job;
 
-import com.being.base.Constant;
+import android.util.Log;
+
 import com.being.base.log.NHLog;
 import com.birbit.android.jobqueue.log.CustomLogger;
 
@@ -9,29 +10,45 @@ import com.birbit.android.jobqueue.log.CustomLogger;
  */
 public class JobLogger implements CustomLogger {
 
+    public static final int NONE = 0;
+
+    private int mLogLevel = Log.ERROR;
+
     @Override
     public boolean isDebugEnabled() {
-        return Constant.DEBUG;
+        return mLogLevel >= Log.VERBOSE;
+    }
+
+    public void setDebugLevel(int l) {
+        mLogLevel = l;
     }
 
     @Override
     public void d(String text, Object... args) {
-        NHLog.v(text, args);
+        if (mLogLevel >= Log.DEBUG) {
+            NHLog.v(text, args);
+        }
     }
 
     @Override
     public void e(Throwable t, String text, Object... args) {
-        NHLog.e(text, t, args);
+        if (mLogLevel >= Log.ERROR) {
+            NHLog.e(text, t, args);
+        }
     }
 
     @Override
     public void e(String text, Object... args) {
-        NHLog.e(text);
+        if (mLogLevel >= Log.ERROR) {
+            NHLog.e(text);
+        }
     }
 
     @Override
     public void v(String text, Object... args) {
-        NHLog.v(text, args);
+        if (mLogLevel >= Log.VERBOSE) {
+            NHLog.v(text, args);
+        }
     }
 
 }
