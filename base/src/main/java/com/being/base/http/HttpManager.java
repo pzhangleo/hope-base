@@ -1,5 +1,6 @@
 package com.being.base.http;
 
+import com.being.base.utils.FileUtils;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
@@ -53,7 +54,7 @@ import javax.net.ssl.X509TrustManager;
         });
  * </pre>
  */
-@SuppressWarnings({"unchecked", "unused"})
+@SuppressWarnings({"unchecked", "unused", "WeakerAccess"})
 public class HttpManager {
 
     private static HttpManager mInstance;
@@ -129,7 +130,7 @@ public class HttpManager {
      * @return CallHandler
      */
     public BaseDownloadTask download(final String url, final String filePath, boolean sync, final DownloadCallback responseCallback) {
-        BaseDownloadTask baseDownloadTask = FileDownloader.getImpl().create(url).setPath(filePath).setListener(new FileDownloadListener() {
+        BaseDownloadTask baseDownloadTask = FileDownloader.getImpl().create(url).setPath(filePath, new File(filePath).isDirectory()).setListener(new FileDownloadListener() {
             @Override
             protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
 
@@ -145,7 +146,7 @@ public class HttpManager {
             @Override
             protected void completed(BaseDownloadTask task) {
                 if (responseCallback != null) {
-                    long total = task.getTotalBytes();
+                    long total = task.getSmallFileTotalBytes();
                     responseCallback.onProgress(total, total, true);
                     responseCallback.onSuccess(new File(filePath));
                 }
