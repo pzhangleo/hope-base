@@ -142,7 +142,7 @@ public class AndroidUtils {
             return null;
         }
         if (uri.getScheme().contains("file")) {
-            return uri.toString();
+            return uri.getPath();
         }
         Uri contentUri = uri;
 
@@ -230,12 +230,11 @@ public class AndroidUtils {
      * @return
      */
     @Nullable
-    public static File parseActivityMediaResult(Context context, File selFile, int requestCode,
+    public static String parseActivityMediaResult(Context context, File selFile, int requestCode,
                                                 int resultCode, Intent data, int camera,
                                                 int album) {
-        File resultFile = null;
         if (resultCode == Activity.RESULT_CANCELED) {
-            return selFile;
+            return selFile.getPath();
         }
         Uri photoUri = null;
         if (requestCode == camera) {
@@ -253,9 +252,9 @@ public class AndroidUtils {
         }
         String pathFromURI = getRealPathFromURI(context, photoUri);
         if (pathFromURI != null) {
-            resultFile = new File(pathFromURI);
+            return pathFromURI;
         }
-        return resultFile;
+        return selFile.getPath();
     }
 
     /**
