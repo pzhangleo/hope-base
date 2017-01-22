@@ -37,7 +37,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * 异步OkHttp
  * Created by Zhp on 2015/9/22.
  */
-@SuppressWarnings({"JavaDoc", "unused", "unchecked"})
+@SuppressWarnings({"JavaDoc", "unused", "unchecked", "WeakerAccess"})
 public class AsyncOkHttp {
 
     public static final String LOG_TAG = AsyncOkHttp.class.getSimpleName();
@@ -128,10 +128,31 @@ public class AsyncOkHttp {
                 .url(urlWithQueryString)
                 .get();
         setHeader(builder, requestParams);
-//        if (!NetworkUtils.isConnected()) {
-//            builder.cacheControl(CacheControl.FORCE_CACHE);
-//            NHLog.d("force offline cacheResponse for request: %s", builder.toString());
-//        }
+        return doExecute(builder, responseCallback);
+    }
+
+    public CallHandler put(String url, RequestParams requestParams, ResponseCallback responseCallback) {
+        RequestBody requestBody = requestParams.getRequestBody();
+        HttpUrl urlWithPathSegment;
+        urlWithPathSegment = requestParams.getUrlWithPathSegment(url);
+        Request.Builder builder = new Request.Builder()
+                .url(urlWithPathSegment)
+                .put(requestBody);
+        setHeader(builder, requestParams);
+        return doExecute(builder, responseCallback);
+    }
+
+    public CallHandler delete(String url, RequestParams requestParams, ResponseCallback responseCallback) {
+        HttpUrl urlWithQueryString;
+        if (requestParams != null) {
+            urlWithQueryString = requestParams.getUrlWithQueryString(url);
+        } else {
+            urlWithQueryString = HttpUrl.parse(url);
+        }
+        Request.Builder builder = new Request.Builder()
+                .url(urlWithQueryString)
+                .delete();
+        setHeader(builder, requestParams);
         return doExecute(builder, responseCallback);
     }
 

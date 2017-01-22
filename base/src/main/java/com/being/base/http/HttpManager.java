@@ -106,6 +106,32 @@ public class HttpManager {
     }
 
     /**
+     * 基础put请求，在回调中返回获取的数据。
+     * 所有的回调都运行在UI线程中
+     * 使用Gson处理数据
+     * @param url     请求的url
+     * @param params  请求的参数
+     * @param responseCallback   请求的回调
+     * @return RequestHandle
+     */
+    public CallHandler put(final String url, final RequestParams params, final ResponseCallback responseCallback) {
+        return mAsyncOkHttp.put(url, params, new GsonResponseCallbackImpl(responseCallback));
+    }
+
+    /**
+     * 基础delte请求，在回调中返回获取的数据。
+     * 所有的回调都运行在UI线程中
+     * 使用Gson处理数据
+     * @param url     请求的url
+     * @param params  请求的参数
+     * @param responseCallback   请求的回调
+     * @return RequestHandle
+     */
+    public CallHandler delete(final String url, final RequestParams params, final ResponseCallback responseCallback) {
+        return mAsyncOkHttp.delete(url, params, new GsonResponseCallbackImpl(responseCallback));
+    }
+
+    /**
      * 基础download请求，在回调中返回获取的数据。
      * 所有的回调都运行在UI线程中
      *
