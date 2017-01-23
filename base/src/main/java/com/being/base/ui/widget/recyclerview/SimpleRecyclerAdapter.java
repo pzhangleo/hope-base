@@ -46,6 +46,7 @@ public abstract class SimpleRecyclerAdapter<T, K extends AbstractViewHolder> ext
         if (data == null) return;
         mData.clear();
         mData.addAll(data);
+        notifyDataSetChanged();
     }
 
     @SuppressWarnings("unchecked")
