@@ -45,10 +45,6 @@ public abstract class SimpleRecyclerAdapter<T, K extends AbstractViewHolder> ext
     }
 
     public void setData(List<T> data) {
-        setData(data, null);
-    }
-
-    public void setData(List<T> data, DiffUtil.Callback cb) {
         if (data == null) return;
         mOldData.clear();
         if (mData.size() == 0) {
@@ -58,7 +54,6 @@ public abstract class SimpleRecyclerAdapter<T, K extends AbstractViewHolder> ext
             mData.clear();
             mData.addAll(data);
         }
-        caculateDiff(mOldData, mData, cb);
     }
 
     @SuppressWarnings("unchecked")
