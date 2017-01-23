@@ -18,8 +18,6 @@ import java.util.List;
 @SuppressWarnings({"unused", "JavaDoc", "unchecked"})
 public abstract class SimpleRecyclerAdapter<T, K extends AbstractViewHolder> extends BaseQuickAdapter<T, K> {
 
-    protected List<T> mOldData = new ArrayList<>();
-
     private SimpleRecyclerAdapter(int layoutResId) {
         super(layoutResId, new ArrayList<T>());
     }
@@ -46,14 +44,8 @@ public abstract class SimpleRecyclerAdapter<T, K extends AbstractViewHolder> ext
 
     public void setData(List<T> data) {
         if (data == null) return;
-        mOldData.clear();
-        if (mData.size() == 0) {
-            mData.addAll(data);
-        } else {
-            mOldData.addAll(mData);
-            mData.clear();
-            mData.addAll(data);
-        }
+        mData.clear();
+        mData.addAll(data);
     }
 
     @SuppressWarnings("unchecked")
@@ -71,10 +63,8 @@ public abstract class SimpleRecyclerAdapter<T, K extends AbstractViewHolder> ext
 
     @SuppressWarnings("unchecked")
     public void addNewData(List<T> data, DiffUtil.Callback cb) {
-        mOldData.clear();
-        mOldData.addAll(mData);
         mData.addAll(0, data);
-        caculateDiff(mOldData, mData, cb);
+        notifyItemInserted(0);
     }
 
     public void addSomeData(T data) {
