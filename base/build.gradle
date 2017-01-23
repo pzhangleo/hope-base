@@ -10,7 +10,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
-        versionName "0.0.58"
+        versionName "0.0.60"
     }
     buildTypes {
         release {
@@ -52,6 +52,9 @@ dependencies {
     compile 'com.facebook.fresco:fresco:1.0.0'
     compile 'com.facebook.fresco:animated-webp:1.0.0'
     compile 'com.facebook.fresco:webpsupport:1.0.0'
+    compile('jp.wasabeef:fresco-processors:2.0.0') {
+        exclude group: 'jp.wasabeef.fresco.processors.gpu'
+    }
 }
 
 // build a jar with source files

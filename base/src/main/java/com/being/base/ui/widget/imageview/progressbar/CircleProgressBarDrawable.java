@@ -38,9 +38,9 @@ public class CircleProgressBarDrawable extends ProgressBarDrawable {
         float centerY = bounds.centerY();
         float diff;
         if (bounds.width() > bounds.height()) {
-            diff = bounds.height() * 0.1f;
+            diff = bounds.height() * 0.06f;
         } else {
-            diff = bounds.width() * 0.1f;
+            diff = bounds.width() * 0.06f;
         }
         RectF rectF = new RectF((centerX - diff), centerY-diff,
                 centerX+diff, centerY+diff);

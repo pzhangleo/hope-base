@@ -13,7 +13,6 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
-import com.being.base.R;
 import com.being.base.ui.widget.fresco.FrescoDraweeView;
 import com.being.base.ui.widget.fresco.FrescoHelper;
 import com.being.base.ui.widget.imageview.progressbar.CircleProgressBarDrawable;
@@ -25,8 +24,10 @@ import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.common.RotationOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.facebook.imagepipeline.request.Postprocessor;
 
 /**
  * 网络图片控件
@@ -71,19 +72,20 @@ public class WebImageView extends FrescoDraweeView {
      * @param url 图片地址
      */
     public void setImageUrl(String url) {
-        setImageUrl(url, 0);
+        setImageUrl(url, 0, ScalingUtils.ScaleType.CENTER_CROP,
+                FrescoHelper.TransformType.NONE, FrescoHelper.ProgressBarType.NONE, null, null);
     }
 
     /**
      * 设置图片
      * 默认为CENTER_CROP
      *
-     * @param url                图片地址
-     * @param scaleType          缩放模式
-     * @param controllerListener 图片展示控制器
+     * @param url 图片地址
+     * @param postprocessor 图片处理器
      */
-    public void setImageUrl(String url, ScalingUtils.ScaleType scaleType, ControllerListener controllerListener) {
-        setImageUrl(url, 0, scaleType, FrescoHelper.TransformType.NONE, FrescoHelper.ProgressBarType.NONE, controllerListener);
+    public void setImageUrl(String url, Postprocessor postprocessor) {
+        setImageUrl(url, 0, ScalingUtils.ScaleType.CENTER_CROP,
+                FrescoHelper.TransformType.NONE, FrescoHelper.ProgressBarType.NONE, null, postprocessor);
     }
 
     /**
@@ -92,18 +94,8 @@ public class WebImageView extends FrescoDraweeView {
      * @param url            图片地址
      * @param placeHolderRes 默认图片，URL为空，图片加载中，加载失败时显示的
      */
-    public void setImageUrl(String url, @DrawableRes int placeHolderRes) {
-        setImageUrl(url, placeHolderRes, FrescoHelper.TransformType.NONE, FrescoHelper.ProgressBarType.NONE);
-    }
-
-    /**
-     * 设置图片
-     *
-     * @param url       图片地址
-     * @param scaleType 缩放模式
-     */
-    public void setImageUrl(String url, ScalingUtils.ScaleType scaleType) {
-        setImageUrl(url, 0, scaleType, FrescoHelper.TransformType.NONE, FrescoHelper.ProgressBarType.NONE, null);
+    public void setImageUrl(String url, @DrawableRes int placeHolderRes, Postprocessor postprocessor) {
+        setImageUrl(url, placeHolderRes, FrescoHelper.TransformType.NONE, FrescoHelper.ProgressBarType.NONE, postprocessor);
     }
 
     /**
@@ -114,34 +106,36 @@ public class WebImageView extends FrescoDraweeView {
      * @param transformType
      */
     public void setImageUrl(String url, @DrawableRes int placeHolderRes,
-                            FrescoHelper.TransformType transformType, FrescoHelper.ProgressBarType progressBarType) {
-        setImageUrl(url, placeHolderRes, ScalingUtils.ScaleType.CENTER_CROP, transformType, progressBarType, null);
+                            FrescoHelper.TransformType transformType,
+                            FrescoHelper.ProgressBarType progressBarType,
+                            Postprocessor postprocessor) {
+        setImageUrl(url, placeHolderRes, ScalingUtils.ScaleType.CENTER_CROP, transformType, progressBarType, null, postprocessor);
     }
 
     /**
      * 设置图片
-     *
-     * @param url           地址
+     *  @param url           地址
      * @param imageRes      默认图片，URL为空，图片加载中，加载失败时显示的
      * @param transformType
+     * @param postprocessor
      */
     public void setImageUrl(String url, int imageRes, ScalingUtils.ScaleType scaleType,
                             FrescoHelper.TransformType transformType,
-                            FrescoHelper.ProgressBarType progressBarType) {
-        setImageUrl(url, imageRes, scaleType, transformType, progressBarType, null);
+                            FrescoHelper.ProgressBarType progressBarType, Postprocessor postprocessor) {
+        setImageUrl(url, imageRes, scaleType, transformType, progressBarType, null, postprocessor);
     }
 
     /**
      * 设置图片
-     *
-     * @param url           地址
+     *  @param url           地址
      * @param imageRes      默认图片，URL为空，图片加载中，加载失败时显示的
      * @param transformType
+     * @param postprocessor
      */
     public void setImageUrl(String url, int imageRes, ScalingUtils.ScaleType scaleType,
                             FrescoHelper.TransformType transformType,
                             FrescoHelper.ProgressBarType progressBarType,
-                            ControllerListener controllerListener) {
+                            ControllerListener controllerListener, Postprocessor postprocessor) {
         setPlaceHolder(imageRes, scaleType);
         switch (transformType) {
             case NONE:
@@ -170,7 +164,8 @@ public class WebImageView extends FrescoDraweeView {
             imageRequestBuilder.setResizeOptions(new ResizeOptions(mWidth, mHeight));
         }
         ImageRequest mRequest = imageRequestBuilder
-                .setAutoRotateEnabled(true)
+                .setRotationOptions(RotationOptions.autoRotate())
+                .setPostprocessor(postprocessor)
                 .build();
         DraweeController controller = Fresco.newDraweeControllerBuilder()
 //				.setUri(formatUri(url))
