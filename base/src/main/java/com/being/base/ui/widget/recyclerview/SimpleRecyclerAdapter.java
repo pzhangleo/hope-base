@@ -65,7 +65,7 @@ public abstract class SimpleRecyclerAdapter<T, K extends AbstractViewHolder> ext
     @SuppressWarnings("unchecked")
     public void addNewData(List<T> data, DiffUtil.Callback cb) {
         mData.addAll(0, data);
-        notifyItemInserted(0);
+        notifyItemInserted(getRealPosition(0));
     }
 
     public void addSomeData(T data) {
