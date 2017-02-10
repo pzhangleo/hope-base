@@ -218,7 +218,7 @@ public class AndroidUtils {
     }
 
     /**
-     * 解析选择图片或者拍照后的result
+     * 解析选择图片或者拍照后的resulto
      *
      * @param context
      * @param selFile     设置的文件
@@ -255,6 +255,28 @@ public class AndroidUtils {
             return pathFromURI;
         }
         return selFile.getPath();
+    }
+
+    /**
+     * 启用系统播放器播放网络流媒体视频
+     * @param context
+     * @param url
+     */
+    public static void openVideoPlayer(Context context, String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse(url), "video/mp4");
+        context.startActivity(intent);
+    }
+
+    /**
+     * 使用系统播放器播放本地视频文件
+     * @param context
+     * @param file
+     */
+    public static void openVideoPlayer(Context context, File file) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(file), "video/mp4");
+        context.startActivity(intent);
     }
 
     /**
