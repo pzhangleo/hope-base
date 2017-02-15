@@ -40,7 +40,8 @@ public class FPtrHeader extends FrameLayout implements PtrUIHandler{
     }
 
     private void initView() {
-        View v = LayoutInflater.from(getContext()).inflate(R.layout.item_refresh_header, this);
+        View v = LayoutInflater.from(getContext()).inflate(R.layout.item_refresh_header, this, false);
+        addView(v);
     }
 
     @Override
