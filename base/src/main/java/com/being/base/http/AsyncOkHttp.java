@@ -217,7 +217,7 @@ public class AsyncOkHttp {
             } catch (Exception e) {
                 e.printStackTrace();
                 exception = new HttpRequestException(
-                        HttpRequestException.format(call.request().url().toString(), call.request(), response), e);
+                        HttpRequestException.format(call.request(), response), e);
             }
             if (gsonType != null) {
                 final Object finalGsonType = gsonType;
@@ -235,7 +235,7 @@ public class AsyncOkHttp {
             response.body().close();
         } else {
             exception = new HttpRequestException(
-                    HttpRequestException.format(call.request().url().toString(),
+                    HttpRequestException.format(
                             call.request(), response), new Throwable(response.message()));
         }
         if (exception != null) {
@@ -290,7 +290,7 @@ public class AsyncOkHttp {
         builder.networkInterceptors().remove(REWRITE_CACHE_CONTROL_INTERCEPTOR);
         mOkHttpClient = builder.build();
         final HttpRequestException execption = new HttpRequestException(
-                HttpRequestException.format(call.request().url().toString(), call.request(), null), e);
+                HttpRequestException.format(call.request(), null), e);
         if (!responseCallback.isSync()) {
             mThreadHandler.post(new Runnable() {
                 @Override
