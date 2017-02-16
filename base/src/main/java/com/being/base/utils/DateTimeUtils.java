@@ -61,7 +61,24 @@ public final class DateTimeUtils {
         return formatDateTime(timeString,fromPattern,toPattern);
     }
 
-
+    /**
+     * 格式化日期时间
+     * @param timeInMillis 需要格式化的毫秒数
+     * @param toPattern 格式化样式
+     * @return
+     */
+    public static String formatDate(long timeInMillis, String toPattern) {
+        String result = "";
+        if (!TextUtils.isEmpty(toPattern)) {
+            try {
+                DateTime dateTime = new DateTime(timeInMillis);
+                result = dateTime.toString(toPattern, Locale.US);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 
     /**
      * 格式化显示日期和时间
