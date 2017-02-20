@@ -106,6 +106,10 @@ public class AsyncOkHttp {
         mOkHttpClient = mOkHttpClient.newBuilder().hostnameVerifier(hostnameVerifier).build();
     }
 
+    public void addInterceptor(Interceptor interceptor) {
+        mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(interceptor).build();
+    }
+
     public CallHandler post(String url, RequestParams requestParams, ResponseCallback responseCallback) {
         RequestBody requestBody = requestParams.getRequestBody();
         HttpUrl urlWithPathSegment;
