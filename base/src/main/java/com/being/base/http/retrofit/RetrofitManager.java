@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.being.base.Constant;
 import com.being.base.http.intercept.TryCacheInterceptor;
+import com.being.base.http.retrofit.calladapter.RxThreadCallAdapter;
 
 import java.util.concurrent.TimeUnit;
 
@@ -68,7 +69,7 @@ public class RetrofitManager {
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.baseUrl(baseUrl);
         builder.addConverterFactory(GsonConverterFactory.create());
-        builder.addCallAdapterFactory(RxJavaCallAdapterFactory.create());
+        builder.addCallAdapterFactory(RxThreadCallAdapter.create());
         builder.client(mOkHttpClient);
         mRetrofit = builder.build();
     }

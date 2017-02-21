@@ -9,6 +9,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import rx.Observable;
 import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by zhangpeng on 17/2/21.
@@ -18,6 +20,14 @@ public class RxThreadCallAdapter extends CallAdapter.Factory {
     private RxJavaCallAdapterFactory rxFactory = RxJavaCallAdapterFactory.create();
     private Scheduler subscribeScheduler;
     private Scheduler observerScheduler;
+
+    public static RxThreadCallAdapter create() {
+        return new RxThreadCallAdapter(Schedulers.io(), AndroidSchedulers.mainThread());
+    }
+
+    public static RxThreadCallAdapter create(Scheduler subscribeScheduler, Scheduler observerScheduler) {
+        return new RxThreadCallAdapter(subscribeScheduler, observerScheduler);
+    }
 
     public RxThreadCallAdapter(Scheduler subscribeScheduler, Scheduler observerScheduler) {
         this.subscribeScheduler = subscribeScheduler;
