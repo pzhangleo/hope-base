@@ -87,7 +87,7 @@ public class AsyncOkHttp {
                 .connectTimeout(DEFAULT_CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .dispatcher(dispatcher)
                 .dns(Dns.SYSTEM)
-                .addNetworkInterceptor(mCacheIntercept)
+                .addInterceptor(mCacheIntercept)
                 .build();
         setupInceptor();
 
