@@ -9,7 +9,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
-        versionName "0.1.4"
+        versionName "snapshot-0.2.0"
     }
     buildTypes {
         release {
@@ -62,6 +62,11 @@ dependencies {
     compile('jp.wasabeef:fresco-processors:2.0.0') {
         exclude group: 'jp.wasabeef.fresco.processors.gpu'
     }
+    compile ('com.squareup.retrofit2:retrofit:2.1.0', {
+        exclude group: 'com.squareup.okhttp3:okhttp'
+    })
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
 }
 
 // build a jar with source files
