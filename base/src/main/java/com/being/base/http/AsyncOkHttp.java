@@ -73,8 +73,6 @@ public class AsyncOkHttp {
 
     private Handler mThreadHandler;
 
-    private TryCacheInterceptor mCacheIntercept;
-
     public AsyncOkHttp() {
         mThreadHandler = new Handler(Looper.getMainLooper());
         Dispatcher dispatcher = new Dispatcher();
@@ -87,7 +85,6 @@ public class AsyncOkHttp {
                 .dispatcher(dispatcher)
                 .dns(Dns.SYSTEM)
                 .build();
-        mCacheIntercept = new TryCacheInterceptor(mOkHttpClient);
         setupInceptor();
 
     }
@@ -114,6 +111,10 @@ public class AsyncOkHttp {
         mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(interceptor).build();
     }
 
+    public void addNetworkInterceptor(Interceptor interceptor) {
+        mOkHttpClient = mOkHttpClient.newBuilder().addNetworkInterceptor(interceptor).build();
+    }
+
     public CallHandler post(String url, RequestParams requestParams, ResponseCallback responseCallback) {
         RequestBody requestBody = requestParams.getRequestBody();
         HttpUrl urlWithPathSegment;
@@ -136,10 +137,6 @@ public class AsyncOkHttp {
                 .url(urlWithQueryString)
                 .get();
         setHeader(builder, requestParams);
-//        if (!NetworkUtils.isConnected()) {
-//            builder.cacheControl(CacheControl.FORCE_CACHE);
-//            NHLog.d("force offline cacheResponse for request: %s", builder.toString());
-//        }
         return doExecute(builder, responseCallback);
     }
 
@@ -363,7 +360,6 @@ public class AsyncOkHttp {
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
             mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(logging).build();
         }
-        mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(mCacheIntercept).build();
     }
 
     private void setHeader(Request.Builder builder, RequestParams params) {

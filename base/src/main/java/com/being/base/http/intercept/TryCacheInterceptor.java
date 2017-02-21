@@ -2,7 +2,6 @@ package com.being.base.http.intercept;
 
 import java.io.IOException;
 
-import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -10,6 +9,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
+ * 没有网络的情况下,尝试使用cache
  * Created by zhangpeng on 17/2/21.
  */
 
@@ -29,10 +29,7 @@ public class TryCacheInterceptor implements Interceptor {
         }
         Response cacheResponse;
         try {
-            Response netWorkResponse = chain.proceed(request);
-            return netWorkResponse.newBuilder()
-                    .header("Cache-Control", "max-age=3")
-                    .build();
+            return chain.proceed(request);
         } catch (IOException e) {
             e.printStackTrace();
             cacheResponse = mClient.newCall(request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build()).execute();
