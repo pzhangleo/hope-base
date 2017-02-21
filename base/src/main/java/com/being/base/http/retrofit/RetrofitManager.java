@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Cache;
 import okhttp3.Dispatcher;
@@ -93,6 +94,12 @@ public class RetrofitManager {
     public void setSslSocketFactory(SSLSocketFactory sslSocketFactory) {
         if (mOkHttpClient != null) {
             mOkHttpClient = mOkHttpClient.newBuilder().sslSocketFactory(sslSocketFactory).build();
+        }
+    }
+
+    public void setSslSocketFactory(SSLSocketFactory sslSocketFactory, X509TrustManager x509TrustManager) {
+        if (mOkHttpClient != null) {
+            mOkHttpClient = mOkHttpClient.newBuilder().sslSocketFactory(sslSocketFactory, x509TrustManager).build();
         }
     }
 
