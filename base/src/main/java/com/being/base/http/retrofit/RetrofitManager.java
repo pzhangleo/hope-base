@@ -3,9 +3,8 @@ package com.being.base.http.retrofit;
 import android.util.Log;
 
 import com.being.base.Constant;
-import com.being.base.http.intercept.CacheIntercept;
+import com.being.base.http.intercept.TryCacheInterceptor;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -16,9 +15,6 @@ import okhttp3.Dispatcher;
 import okhttp3.Dns;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.internal.cache.InternalCache;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -54,10 +50,10 @@ public class RetrofitManager {
 
     private Retrofit mRetrofit;
 
-    private CacheIntercept mCacheIntercept;
+    private TryCacheInterceptor mCacheIntercept;
 
     private RetrofitManager() {
-        mCacheIntercept = new CacheIntercept();
+        mCacheIntercept = new TryCacheInterceptor();
         Dispatcher dispatcher = new Dispatcher();
         dispatcher.setMaxRequests(DEFAULT_MAX_CONNECTIONS);
         dispatcher.setMaxRequestsPerHost(DEFAULT_MAX_CONNECTIONS);
