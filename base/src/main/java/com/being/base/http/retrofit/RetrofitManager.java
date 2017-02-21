@@ -53,7 +53,7 @@ public class RetrofitManager {
     private TryCacheInterceptor mCacheIntercept;
 
     private RetrofitManager() {
-        mCacheIntercept = new TryCacheInterceptor();
+        mCacheIntercept = new TryCacheInterceptor(mOkHttpClient);
         Dispatcher dispatcher = new Dispatcher();
         dispatcher.setMaxRequests(DEFAULT_MAX_CONNECTIONS);
         dispatcher.setMaxRequestsPerHost(DEFAULT_MAX_CONNECTIONS);
