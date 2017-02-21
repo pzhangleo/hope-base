@@ -111,6 +111,10 @@ public class RetrofitManager {
         return mOkHttpClient;
     }
 
+    public Retrofit getRetrofit() {
+        return mRetrofit;
+    }
+
     private void setupInceptor() {
         if (Constant.DEBUG) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
