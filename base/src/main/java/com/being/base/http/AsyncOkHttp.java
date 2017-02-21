@@ -77,7 +77,6 @@ public class AsyncOkHttp {
 
     public AsyncOkHttp() {
         mThreadHandler = new Handler(Looper.getMainLooper());
-        mCacheIntercept = new TryCacheInterceptor(mOkHttpClient);
         Dispatcher dispatcher = new Dispatcher();
         dispatcher.setMaxRequests(DEFAULT_MAX_CONNECTIONS);
         dispatcher.setMaxRequestsPerHost(DEFAULT_MAX_CONNECTIONS);
@@ -89,6 +88,7 @@ public class AsyncOkHttp {
                 .dns(Dns.SYSTEM)
                 .addInterceptor(mCacheIntercept)
                 .build();
+        mCacheIntercept = new TryCacheInterceptor(mOkHttpClient);
         setupInceptor();
 
     }
@@ -364,7 +364,7 @@ public class AsyncOkHttp {
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
             mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(logging).build();
         }
-
+        mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(mCacheIntercept).build();
     }
 
     private void setHeader(Request.Builder builder, RequestParams params) {

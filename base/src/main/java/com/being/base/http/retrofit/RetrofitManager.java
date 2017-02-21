@@ -53,7 +53,6 @@ public class RetrofitManager {
     private TryCacheInterceptor mCacheIntercept;
 
     private RetrofitManager() {
-        mCacheIntercept = new TryCacheInterceptor(mOkHttpClient);
         Dispatcher dispatcher = new Dispatcher();
         dispatcher.setMaxRequests(DEFAULT_MAX_CONNECTIONS);
         dispatcher.setMaxRequestsPerHost(DEFAULT_MAX_CONNECTIONS);
@@ -65,6 +64,7 @@ public class RetrofitManager {
                 .dns(Dns.SYSTEM)
                 .addNetworkInterceptor(mCacheIntercept)
                 .build();
+        mCacheIntercept = new TryCacheInterceptor(mOkHttpClient);
         setupInceptor();
     }
 
@@ -123,5 +123,6 @@ public class RetrofitManager {
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
             mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(logging).build();
         }
+        mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(mCacheIntercept).build();
     }
 }
