@@ -385,4 +385,7 @@ public class AsyncOkHttp {
 
     }
 
+    public OkHttpClient getOkHttpClient() {
+        return mOkHttpClient;
+    }
 }

@@ -107,6 +107,10 @@ public class RetrofitManager {
         mOkHttpClient = mOkHttpClient.newBuilder().hostnameVerifier(hostnameVerifier).build();
     }
 
+    public OkHttpClient getOkHttpClient() {
+        return mOkHttpClient;
+    }
+
     private void setupInceptor() {
         if (Constant.DEBUG) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
