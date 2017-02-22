@@ -4,6 +4,7 @@ import com.being.base.http.callback.ICallback;
 import com.being.base.http.exception.ApiException;
 import com.being.base.http.model.IResponse;
 
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -50,7 +51,7 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
         }
 
         @Override
-        public <R> InternalCallAdapter adapt(Call<R> call) {
+        public <O> InternalCallAdapter adapt(Call<O> call) {
             return new InternalCallAdapter<>(call, callbackExecutor);
         }
 
@@ -60,6 +61,8 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
         void cancel();
 
         void enqueue(ICallback<T> callback);
+
+        Response<T> execute() throws IOException;
 
         CompactCall<T> clone();
 
@@ -116,6 +119,11 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
                     }
                 }
             });
+        }
+
+        @Override
+        public Response<T> execute() throws IOException {
+            return call.execute();
         }
 
         private void handleResponse(Response<T> response, ICallback<T> callback) {
