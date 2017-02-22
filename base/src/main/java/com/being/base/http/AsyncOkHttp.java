@@ -86,8 +86,6 @@ public class AsyncOkHttp {
                 .dispatcher(dispatcher)
                 .dns(Dns.SYSTEM)
                 .build();
-        setupInceptor();
-
     }
 
     public void setSslSocketFactory(SSLSocketFactory sslSocketFactory) {
@@ -168,6 +166,16 @@ public class AsyncOkHttp {
         Request request = requestBuilder.build();
         responseCallback.setRequest(request);
         request = responseCallback.updateRequestHeaders(request);
+        if (!responseCallback.isSync()) {
+            mThreadHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    responseCallback.onStart();
+                }
+            });
+        } else {
+            responseCallback.onStart();
+        }
         final Call newCall = mOkHttpClient.newCall(request);
         final CallHandler callHandler = new CallHandler(newCall);
         if (!responseCallback.isSync()) {//异步模式
@@ -343,20 +351,6 @@ public class AsyncOkHttp {
 
     public void cancelAll() {
         mOkHttpClient.dispatcher().cancelAll();
-    }
-
-    private void setupInceptor() {
-        if (Constant.DEBUG) {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-                @Override
-                public void log(String message) {
-                    Log.v("OkHttp", message);
-                }
-            });
-            //下载文件时，如果使用BODY级别，会将整个ResponseBody缓存到内存，造成oom
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-            mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(logging).build();
-        }
     }
 
     private void setHeader(Request.Builder builder, RequestParams params) {
