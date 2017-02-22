@@ -168,16 +168,6 @@ public class AsyncOkHttp {
         Request request = requestBuilder.build();
         responseCallback.setRequest(request);
         request = responseCallback.updateRequestHeaders(request);
-        if (!responseCallback.isSync()) {
-            mThreadHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    responseCallback.onStart();
-                }
-            });
-        } else {
-            responseCallback.onStart();
-        }
         final Call newCall = mOkHttpClient.newCall(request);
         final CallHandler callHandler = new CallHandler(newCall);
         if (!responseCallback.isSync()) {//异步模式
