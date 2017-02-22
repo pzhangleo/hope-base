@@ -1,7 +1,7 @@
 package com.being.base.http.retrofit.calladapter;
 
 import com.being.base.http.callback.ICallback;
-import com.being.base.http.exception.ApiExecption;
+import com.being.base.http.exception.ApiException;
 import com.being.base.http.model.IResponse;
 
 import java.lang.annotation.Annotation;
@@ -126,13 +126,13 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
                         callback.onSuccess(body);
                     } else {
                         callback.onFail(((IResponse) body).getErrorCode(), body,
-                                new ApiExecption(((IResponse) body).getErrorCode(), ((IResponse) body).getErrorMessage()));
+                                new ApiException(((IResponse) body).getErrorCode(), ((IResponse) body).getErrorMessage()));
                     }
                 } else {
                     callback.onSuccess(body);
                 }
             } else {
-                callback.onFail(response.code(), response.body(), new ApiExecption(response.code(), response.message()));
+                callback.onFail(response.code(), response.body(), new ApiException(response.code(), response.message()));
             }
         }
 
