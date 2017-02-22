@@ -27,14 +27,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitManager {
 
-    public static final int DEFAULT_MAX_CONNECTIONS = 5;
-    public static final int DEFAULT_CONNECT_TIMEOUT = 10 * 1000;
-    public static final int DEFAULT_SOCKET_TIMEOUT = 30 * 1000;
-
-    private int maxConnections = DEFAULT_MAX_CONNECTIONS;
-    private int connectTimeout = DEFAULT_SOCKET_TIMEOUT;
-    private int responseTimeout = DEFAULT_SOCKET_TIMEOUT;
-
     private static RetrofitManager mInstance;
     private Retrofit.Builder mBuilder;
 
@@ -49,21 +41,11 @@ public class RetrofitManager {
         return mInstance;
     }
 
-    private OkHttpClient mOkHttpClient;
-
     private Retrofit mRetrofit;
 
+    private OkHttpClient mOkHttpClient;
+
     private RetrofitManager() {
-        Dispatcher dispatcher = new Dispatcher();
-        dispatcher.setMaxRequests(DEFAULT_MAX_CONNECTIONS);
-        dispatcher.setMaxRequestsPerHost(DEFAULT_MAX_CONNECTIONS);
-        mOkHttpClient = new OkHttpClient.Builder()
-                .readTimeout(DEFAULT_SOCKET_TIMEOUT, TimeUnit.MILLISECONDS)
-                .writeTimeout(DEFAULT_SOCKET_TIMEOUT, TimeUnit.MILLISECONDS)
-                .connectTimeout(DEFAULT_CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
-                .dispatcher(dispatcher)
-                .dns(Dns.SYSTEM)
-                .build();
         mBuilder = new Retrofit.Builder();
     }
 
@@ -71,64 +53,24 @@ public class RetrofitManager {
      * 初始化方法必须在各种设置完成后最后调用
      * @param baseUrl
      */
-    public void initRetrofit(String baseUrl) {
+    public void initRetrofit(String baseUrl, OkHttpClient client) {
         mBuilder.baseUrl(baseUrl);
         mBuilder.addConverterFactory(GsonConverterFactory.create());
         mBuilder.addCallAdapterFactory(new CompactCallAdapterFactory());
         mBuilder.addCallAdapterFactory(RxJavaCallAdapterFactory.createAsync());
-        initRetrofit(mBuilder);
+        initRetrofit(mBuilder, client);
     }
 
     /**
      * 初始化方法必须在各种设置完成后最后调用
      * @param baseUrl
      */
-    public void initRetrofit(Retrofit.Builder builder) {
-        mRetrofit = builder.client(mOkHttpClient).build();
-        setupLogInceptor();
+    public void initRetrofit(Retrofit.Builder builder, OkHttpClient client) {
+        mRetrofit = builder.client(client).build();
     }
 
     public <T> T create(final Class<T> service) {
         return mRetrofit.create(service);
-    }
-
-    public void addInterceptor(Interceptor interceptor) {
-        mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(interceptor).build();
-        mRetrofit = mBuilder.client(mOkHttpClient).build();
-    }
-
-    public void addNetworkInterceptor(Interceptor interceptor) {
-        mOkHttpClient = mOkHttpClient.newBuilder().addNetworkInterceptor(interceptor).build();
-        mRetrofit = mBuilder.client(mOkHttpClient).build();
-    }
-
-    public void setSslSocketFactory(SSLSocketFactory sslSocketFactory) {
-        if (mOkHttpClient != null) {
-            mOkHttpClient = mOkHttpClient.newBuilder().sslSocketFactory(sslSocketFactory).build();
-        }
-        mRetrofit = mBuilder.client(mOkHttpClient).build();
-    }
-
-    public void setSslSocketFactory(SSLSocketFactory sslSocketFactory, X509TrustManager x509TrustManager) {
-        if (mOkHttpClient != null) {
-            mOkHttpClient = mOkHttpClient.newBuilder().sslSocketFactory(sslSocketFactory, x509TrustManager).build();
-        }
-        mRetrofit = mBuilder.client(mOkHttpClient).build();
-    }
-
-    public void setCacheDir(Cache cache) {
-        mOkHttpClient = mOkHttpClient.newBuilder().cache(cache).build();
-        mRetrofit = mBuilder.client(mOkHttpClient).build();
-    }
-
-    public void setDns(Dns dns) {
-        mOkHttpClient = mOkHttpClient.newBuilder().dns(dns).build();
-        mRetrofit = mBuilder.client(mOkHttpClient).build();
-    }
-
-    public void setHostnameVerifier(HostnameVerifier hostnameVerifier) {
-        mOkHttpClient = mOkHttpClient.newBuilder().hostnameVerifier(hostnameVerifier).build();
-        mRetrofit = mBuilder.client(mOkHttpClient).build();
     }
 
     public OkHttpClient getOkHttpClient() {
@@ -139,17 +81,4 @@ public class RetrofitManager {
         return mRetrofit;
     }
 
-    private void setupLogInceptor() {
-        if (Constant.DEBUG) {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-                @Override
-                public void log(String message) {
-                    Log.v("OkHttp", message);
-                }
-            });
-            //下载文件时，如果使用BODY级别，会将整个ResponseBody缓存到内存，造成oom
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-            mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(logging).build();
-        }
-    }
 }
