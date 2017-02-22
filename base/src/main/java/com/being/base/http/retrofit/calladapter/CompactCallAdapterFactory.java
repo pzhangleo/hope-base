@@ -22,7 +22,7 @@ import retrofit2.Retrofit;
  */
 public class CompactCallAdapterFactory extends CallAdapter.Factory {
     @Override
-    public CallAdapter<?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
         if (getRawType(returnType) != CompactCall.class) {
             return null;
         }
@@ -36,7 +36,7 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
     }
 
     @SuppressWarnings("unchecked")
-    private static final class ErrorHandlingCallAdapter<R> implements CallAdapter<CompactCall<R>> {
+    private static final class ErrorHandlingCallAdapter<R> implements CallAdapter<R, CompactCall<R>> {
         private final Type responseType;
         private final Executor callbackExecutor;
 
@@ -51,7 +51,7 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
         }
 
         @Override
-        public <O> InternalCallAdapter adapt(Call<O> call) {
+        public CompactCall<R> adapt(Call<R> call) {
             return new InternalCallAdapter<>(call, callbackExecutor);
         }
 

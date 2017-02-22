@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.being.base.Constant;
 import com.being.base.http.retrofit.calladapter.CompactCallAdapterFactory;
-import com.being.base.http.retrofit.calladapter.RxThreadCallAdapter;
+import com.being.base.http.retrofit.calladapter.RxThreadCallAdapterFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,6 +19,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -35,6 +36,7 @@ public class RetrofitManager {
     private int responseTimeout = DEFAULT_SOCKET_TIMEOUT;
 
     private static RetrofitManager mInstance;
+    private Retrofit.Builder mBuilder;
 
     public static RetrofitManager get() {
         if (mInstance == null) {
@@ -62,19 +64,28 @@ public class RetrofitManager {
                 .dispatcher(dispatcher)
                 .dns(Dns.SYSTEM)
                 .build();
+        mBuilder = new Retrofit.Builder();
     }
 
-    public void init(String baseUrl) {
-        Retrofit.Builder builder = new Retrofit.Builder();
-        builder.baseUrl(baseUrl);
-        builder.addConverterFactory(GsonConverterFactory.create());
-        builder.addCallAdapterFactory(new CompactCallAdapterFactory());
-        builder.addCallAdapterFactory(RxThreadCallAdapter.create());
-        init(builder);
+    /**
+     * 初始化方法必须在各种设置完成后最后调用
+     * @param baseUrl
+     */
+    public void initRetrofit(String baseUrl) {
+        mBuilder.baseUrl(baseUrl);
+        mBuilder.addConverterFactory(GsonConverterFactory.create());
+        mBuilder.addCallAdapterFactory(new CompactCallAdapterFactory());
+        mBuilder.addCallAdapterFactory(RxJavaCallAdapterFactory.createAsync());
+        initRetrofit(mBuilder);
     }
 
-    public void init(Retrofit.Builder builder) {
+    /**
+     * 初始化方法必须在各种设置完成后最后调用
+     * @param baseUrl
+     */
+    public void initRetrofit(Retrofit.Builder builder) {
         mRetrofit = builder.client(mOkHttpClient).build();
+        setupLogInceptor();
     }
 
     public <T> T create(final Class<T> service) {
@@ -83,34 +94,41 @@ public class RetrofitManager {
 
     public void addInterceptor(Interceptor interceptor) {
         mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(interceptor).build();
+        mRetrofit = mBuilder.client(mOkHttpClient).build();
     }
 
     public void addNetworkInterceptor(Interceptor interceptor) {
         mOkHttpClient = mOkHttpClient.newBuilder().addNetworkInterceptor(interceptor).build();
+        mRetrofit = mBuilder.client(mOkHttpClient).build();
     }
 
     public void setSslSocketFactory(SSLSocketFactory sslSocketFactory) {
         if (mOkHttpClient != null) {
             mOkHttpClient = mOkHttpClient.newBuilder().sslSocketFactory(sslSocketFactory).build();
         }
+        mRetrofit = mBuilder.client(mOkHttpClient).build();
     }
 
     public void setSslSocketFactory(SSLSocketFactory sslSocketFactory, X509TrustManager x509TrustManager) {
         if (mOkHttpClient != null) {
             mOkHttpClient = mOkHttpClient.newBuilder().sslSocketFactory(sslSocketFactory, x509TrustManager).build();
         }
+        mRetrofit = mBuilder.client(mOkHttpClient).build();
     }
 
     public void setCacheDir(Cache cache) {
         mOkHttpClient = mOkHttpClient.newBuilder().cache(cache).build();
+        mRetrofit = mBuilder.client(mOkHttpClient).build();
     }
 
     public void setDns(Dns dns) {
         mOkHttpClient = mOkHttpClient.newBuilder().dns(dns).build();
+        mRetrofit = mBuilder.client(mOkHttpClient).build();
     }
 
     public void setHostnameVerifier(HostnameVerifier hostnameVerifier) {
         mOkHttpClient = mOkHttpClient.newBuilder().hostnameVerifier(hostnameVerifier).build();
+        mRetrofit = mBuilder.client(mOkHttpClient).build();
     }
 
     public OkHttpClient getOkHttpClient() {
@@ -121,7 +139,7 @@ public class RetrofitManager {
         return mRetrofit;
     }
 
-    public void setupLogInceptor() {
+    private void setupLogInceptor() {
         if (Constant.DEBUG) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
                 @Override
