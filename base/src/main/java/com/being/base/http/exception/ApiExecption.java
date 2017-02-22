@@ -6,7 +6,7 @@ package com.being.base.http.exception;
 
 public class ApiExecption extends Throwable {
 
-    private int mCode;
+    protected int mCode;
 
     public ApiExecption(int code, String message) {
         super(message);
