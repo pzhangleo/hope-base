@@ -62,11 +62,11 @@ dependencies {
     compile('jp.wasabeef:fresco-processors:2.0.0') {
         exclude group: 'jp.wasabeef.fresco.processors.gpu'
     }
-    compile ('com.squareup.retrofit2:retrofit:2.1.0', {
+    compile ('com.squareup.retrofit2:retrofit:2.2.0', {
         exclude group: 'com.squareup.okhttp3:okhttp'
     })
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
 }
 
 // build a jar with source files
