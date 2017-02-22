@@ -1,5 +1,7 @@
 package com.being.base.http.retrofit.calladapter;
 
+import android.support.annotation.Nullable;
+
 import com.being.base.http.callback.ICallback;
 import com.being.base.http.exception.ApiException;
 import com.being.base.http.model.IResponse;
@@ -57,10 +59,11 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
 
     }
 
+    @SuppressWarnings("unused")
     public interface CompactCall<T> {
         void cancel();
 
-        void enqueue(ICallback<T> callback);
+        void enqueue(@Nullable ICallback<T> callback);
 
         Response<T> execute() throws IOException;
 
@@ -89,7 +92,7 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
         }
 
         @Override
-        public void enqueue(final ICallback<T> callback) {
+        public void enqueue(@Nullable final ICallback<T> callback) {
             call.enqueue(new Callback<T>() {
                 @Override
                 public void onResponse(Call<T> call, final Response<T> response) {
@@ -111,11 +114,15 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
                         callbackExecutor.execute(new Runnable() {
                             @Override
                             public void run() {
-                                callback.onFail(ICallback.NO_NETWORK_STATUS_CODE, null, t);
+                                if (callback != null) {
+                                    callback.onFail(ICallback.NO_NETWORK_STATUS_CODE, null, t);
+                                }
                             }
                         });
                     } else {
-                        callback.onFail(ICallback.NO_NETWORK_STATUS_CODE, null, t);
+                        if (callback != null) {
+                            callback.onFail(ICallback.NO_NETWORK_STATUS_CODE, null, t);
+                        }
                     }
                 }
             });
@@ -126,21 +133,29 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
             return call.execute();
         }
 
-        private void handleResponse(Response<T> response, ICallback<T> callback) {
+        private void handleResponse(Response<T> response, @Nullable ICallback<T> callback) {
             if (response.isSuccessful()) {
                 T body = response.body();
                 if (body instanceof IResponse) {
                     if (((IResponse) body).isSucceeded()) {
-                        callback.onSuccess(body);
+                        if (callback != null) {
+                            callback.onSuccess(body);
+                        }
                     } else {
-                        callback.onFail(((IResponse) body).getErrorCode(), body,
-                                new ApiException(((IResponse) body).getErrorCode(), ((IResponse) body).getErrorMessage()));
+                        if (callback != null) {
+                            callback.onFail(((IResponse) body).getErrorCode(), body,
+                                    new ApiException(((IResponse) body).getErrorCode(), ((IResponse) body).getErrorMessage()));
+                        }
                     }
                 } else {
-                    callback.onSuccess(body);
+                    if (callback != null) {
+                        callback.onSuccess(body);
+                    }
                 }
             } else {
-                callback.onFail(response.code(), response.body(), new ApiException(response.code(), response.message()));
+                if (callback != null) {
+                    callback.onFail(response.code(), response.body(), new ApiException(response.code(), response.message()));
+                }
             }
         }
 
