@@ -1,5 +1,7 @@
 package com.being.base.http.callback;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -15,12 +17,16 @@ import okhttp3.Response;
  */
 public abstract class ResponseCallback<GSON_TYPE> implements ICallback<GSON_TYPE> {
 
+    public static final int NO_NETWORK_STATUS_CODE = -1;
+
     protected Request mRequest;
 
     /**
      * 同步模式,在调用者的线程中执行
      */
     private boolean mSync;
+
+    private boolean mCacheResponse = false;
 
     public ResponseCallback() {
     }
@@ -29,6 +35,9 @@ public abstract class ResponseCallback<GSON_TYPE> implements ICallback<GSON_TYPE
         mSync = sync;
     }
 
+    /**
+     * 请求开始
+     */
     public void onStart() {
     }
 
@@ -50,6 +59,16 @@ public abstract class ResponseCallback<GSON_TYPE> implements ICallback<GSON_TYPE
 
     public Request updateRequestHeaders(Request request) {
         return request;
+    }
+
+    /**
+     * 本地缓存获取成功
+     *
+     * @param responseJsonType 本地缓存数据
+     * @param time             缓存被修改的时间
+     *                         用来判断该缓存是否有效
+     */
+    public void onCacheLoaded(GSON_TYPE responseJsonType, long time) {
     }
 
     /**
@@ -77,4 +96,15 @@ public abstract class ResponseCallback<GSON_TYPE> implements ICallback<GSON_TYPE
         return mSync;
     }
 
+    public void setSync(boolean sync) {
+        mSync = sync;
+    }
+
+    public boolean isCacheResponse() {
+        return mCacheResponse;
+    }
+
+    public void setCacheResponse(boolean cacheResponse) {
+        mCacheResponse = cacheResponse;
+    }
 }
