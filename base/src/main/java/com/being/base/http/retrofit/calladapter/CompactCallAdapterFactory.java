@@ -23,7 +23,7 @@ import retrofit2.Retrofit;
 public class CompactCallAdapterFactory extends CallAdapter.Factory {
     @Override
     public CallAdapter<?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
-        if (getRawType(returnType) != ICallback.class) {
+        if (getRawType(returnType) != CompactCall.class) {
             return null;
         }
         if (!(returnType instanceof ParameterizedType)) {

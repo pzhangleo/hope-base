@@ -36,7 +36,7 @@ public class RetrofitManager {
 
     private static RetrofitManager mInstance;
 
-    public static RetrofitManager getInstance() {
+    public static RetrofitManager get() {
         if (mInstance == null) {
             synchronized (RetrofitManager.class) {
                 if (mInstance == null) {
@@ -62,7 +62,6 @@ public class RetrofitManager {
                 .dispatcher(dispatcher)
                 .dns(Dns.SYSTEM)
                 .build();
-        setupInceptor();
     }
 
     public void init(String baseUrl) {
@@ -71,12 +70,12 @@ public class RetrofitManager {
         builder.addConverterFactory(GsonConverterFactory.create());
         builder.addCallAdapterFactory(new CompactCallAdapterFactory());
         builder.addCallAdapterFactory(RxThreadCallAdapter.create());
-        builder.client(mOkHttpClient);
-        mRetrofit = builder.build();
+        init(builder);
     }
 
     public void init(Retrofit.Builder builder) {
         mRetrofit = builder.client(mOkHttpClient).build();
+        setupLogInceptor();
     }
 
     public <T> T create(final Class<T> service) {
@@ -123,7 +122,7 @@ public class RetrofitManager {
         return mRetrofit;
     }
 
-    private void setupInceptor() {
+    private void setupLogInceptor() {
         if (Constant.DEBUG) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
                 @Override
