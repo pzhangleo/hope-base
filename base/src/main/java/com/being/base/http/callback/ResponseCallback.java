@@ -29,6 +29,9 @@ public abstract class ResponseCallback<GSON_TYPE> implements ICallback<GSON_TYPE
         mSync = sync;
     }
 
+    public void onStart() {
+    }
+
     /**
      * 请求进度
      * @param bytesWritten 已写入
