@@ -75,7 +75,6 @@ public class RetrofitManager {
 
     public void init(Retrofit.Builder builder) {
         mRetrofit = builder.client(mOkHttpClient).build();
-        setupLogInceptor();
     }
 
     public <T> T create(final Class<T> service) {
@@ -122,7 +121,7 @@ public class RetrofitManager {
         return mRetrofit;
     }
 
-    private void setupLogInceptor() {
+    public void setupLogInceptor() {
         if (Constant.DEBUG) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
                 @Override
