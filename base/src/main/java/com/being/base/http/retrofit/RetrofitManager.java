@@ -54,7 +54,8 @@ public class RetrofitManager {
 
     /**
      * 初始化方法必须在各种设置完成后最后调用
-     * @param baseUrl
+     * @param builder
+     * @param client
      */
     public void initRetrofit(Retrofit.Builder builder, OkHttpClient client) {
         mRetrofit = builder.client(client).build();
@@ -64,7 +65,7 @@ public class RetrofitManager {
         if (Debug) {
             long start = System.nanoTime();
             T t =  mRetrofit.create(service);
-            NHLog.d("create %s cost: %ms", service.getSimpleName(),
+            NHLog.d("create %s cost: %sms", service.getSimpleName(),
                     String.valueOf((System.nanoTime() - start)/ 1000000));
             return t;
         } else {
