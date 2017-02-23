@@ -1,6 +1,8 @@
 package com.being.base.http.retrofit;
 
+import android.icu.util.TimeUnit;
 import android.os.SystemClock;
+import android.util.TimeUtils;
 
 import com.being.base.http.retrofit.calladapter.CompactCallAdapterFactory;
 import com.being.base.log.NHLog;
@@ -62,8 +64,8 @@ public class RetrofitManager {
         if (Debug) {
             long start = System.nanoTime();
             T t =  mRetrofit.create(service);
-            NHLog.d("create %s cost: %snanoseconds", service.getSimpleName(),
-                    String.valueOf(System.nanoTime() - start));
+            NHLog.d("create %s cost: %ms", service.getSimpleName(),
+                    String.valueOf((System.nanoTime() - start)/ 1000000));
             return t;
         } else {
             return mRetrofit.create(service);
