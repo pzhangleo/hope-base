@@ -66,7 +66,7 @@ public class RetrofitManager {
             long start = System.nanoTime();
             T t =  mRetrofit.create(service);
             NHLog.d("create %s cost: %sms", service.getSimpleName(),
-                    String.valueOf((System.nanoTime() - start)/ 1000000));
+                    String.valueOf((System.nanoTime() - start)/ 1000000.0));
             return t;
         } else {
             return mRetrofit.create(service);
