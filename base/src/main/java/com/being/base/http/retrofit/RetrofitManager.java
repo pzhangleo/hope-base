@@ -60,10 +60,10 @@ public class RetrofitManager {
 
     public <T> T create(final Class<T> service) {
         if (Debug) {
-            long start = System.currentTimeMillis();
+            long start = System.nanoTime();
             T t =  mRetrofit.create(service);
-            NHLog.d("create %s cost: %sms", service.getSimpleName(),
-                    String.valueOf(System.currentTimeMillis() - start));
+            NHLog.d("create %s cost: %snanoseconds", service.getSimpleName(),
+                    String.valueOf(System.nanoTime() - start));
             return t;
         } else {
             return mRetrofit.create(service);
