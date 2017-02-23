@@ -1,6 +1,9 @@
 package com.being.base.http.retrofit;
 
+import android.os.SystemClock;
+
 import com.being.base.http.retrofit.calladapter.CompactCallAdapterFactory;
+import com.being.base.log.NHLog;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -14,6 +17,7 @@ public class RetrofitManager {
 
     private static RetrofitManager mInstance;
     private Retrofit.Builder mBuilder;
+    private static boolean Debug = false;
 
     public static RetrofitManager get() {
         if (mInstance == null) {
@@ -55,7 +59,15 @@ public class RetrofitManager {
     }
 
     public <T> T create(final Class<T> service) {
-        return mRetrofit.create(service);
+        if (Debug) {
+            long start = System.currentTimeMillis();
+            T t =  mRetrofit.create(service);
+            NHLog.d("create %s cost: %sms", service.getSimpleName(),
+                    String.valueOf(System.currentTimeMillis() - start));
+            return t;
+        } else {
+            return mRetrofit.create(service);
+        }
     }
 
     public OkHttpClient getOkHttpClient() {
@@ -64,6 +76,10 @@ public class RetrofitManager {
 
     public Retrofit getRetrofit() {
         return mRetrofit;
+    }
+
+    public static void enableDebug() {
+        Debug = true;
     }
 
 }
