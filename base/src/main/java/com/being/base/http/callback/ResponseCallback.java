@@ -38,6 +38,7 @@ public abstract class ResponseCallback<GSON_TYPE> implements ICallback<GSON_TYPE
     /**
      * 请求开始
      */
+    @Deprecated
     public void onStart() {
     }
 
@@ -55,8 +56,10 @@ public abstract class ResponseCallback<GSON_TYPE> implements ICallback<GSON_TYPE
      * @param response 返回数据
      * @return
      */
+    @Deprecated
     public abstract GSON_TYPE parseResponse(Response response) throws IOException;
 
+    @Deprecated
     public Request updateRequestHeaders(Request request) {
         return request;
     }
@@ -68,6 +71,7 @@ public abstract class ResponseCallback<GSON_TYPE> implements ICallback<GSON_TYPE
      * @param time             缓存被修改的时间
      *                         用来判断该缓存是否有效
      */
+    @Deprecated
     public void onCacheLoaded(GSON_TYPE responseJsonType, long time) {
     }
 
@@ -84,10 +88,12 @@ public abstract class ResponseCallback<GSON_TYPE> implements ICallback<GSON_TYPE
      */
     public abstract Type getClazz();
 
+    @Deprecated
     public Request getRequest() {
         return mRequest;
     }
 
+    @Deprecated
     public void setRequest(Request request) {
         this.mRequest = request;
     }
@@ -100,10 +106,12 @@ public abstract class ResponseCallback<GSON_TYPE> implements ICallback<GSON_TYPE
         mSync = sync;
     }
 
+    @Deprecated
     public boolean isCacheResponse() {
         return mCacheResponse;
     }
 
+    @Deprecated
     public void setCacheResponse(boolean cacheResponse) {
         mCacheResponse = cacheResponse;
     }
