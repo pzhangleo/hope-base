@@ -1,15 +1,11 @@
 package com.being.base.http.retrofit;
 
-import android.icu.util.TimeUnit;
-import android.os.SystemClock;
-import android.util.TimeUtils;
-
 import com.being.base.http.retrofit.calladapter.CompactCallAdapterFactory;
 import com.being.base.log.NHLog;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -48,7 +44,7 @@ public class RetrofitManager {
         mBuilder.baseUrl(baseUrl);
         mBuilder.addConverterFactory(GsonConverterFactory.create());
         mBuilder.addCallAdapterFactory(new CompactCallAdapterFactory());
-        mBuilder.addCallAdapterFactory(RxJavaCallAdapterFactory.createAsync());
+        mBuilder.addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync());
         initRetrofit(mBuilder, client);
     }
 
