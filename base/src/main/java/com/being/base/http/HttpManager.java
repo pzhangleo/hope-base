@@ -1,36 +1,17 @@
 package com.being.base.http;
 
-import com.being.base.utils.FileUtils;
-import com.liulishuo.filedownloader.BaseDownloadTask;
-import com.liulishuo.filedownloader.FileDownloadListener;
-import com.liulishuo.filedownloader.FileDownloader;
 import com.being.base.http.callback.DownloadCallback;
 import com.being.base.http.callback.GsonResponseCallbackImpl;
 import com.being.base.http.callback.ResponseCallback;
 import com.being.base.http.exception.FileDownloadExecption;
-import com.being.base.http.security.NHX509TrustManager;
-import com.being.base.log.NHLog;
+import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.liulishuo.filedownloader.FileDownloadListener;
+import com.liulishuo.filedownloader.FileDownloader;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
 
-import javax.net.ssl.KeyManager;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.net.ssl.X509TrustManager;
 
 /**
  * Http请求管理类
@@ -58,18 +39,11 @@ import javax.net.ssl.X509TrustManager;
 @SuppressWarnings({"unchecked", "unused", "WeakerAccess"})
 public class HttpManager {
 
-    private static HttpManager mInstance;
+    private static HttpManager mInstance = new HttpManager();
 
     private AsyncOkHttp mAsyncOkHttp;
 
     public static HttpManager getInstance() {
-        if (mInstance == null) {
-            synchronized (HttpManager.class) {
-                if (mInstance == null) {
-                    mInstance = new HttpManager();
-                }
-            }
-        }
         return mInstance;
     }
 

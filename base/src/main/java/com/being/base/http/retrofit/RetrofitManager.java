@@ -11,20 +11,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by zhangpeng on 17/2/20.
  */
+@SuppressWarnings("unused")
 public class RetrofitManager {
 
-    private static RetrofitManager mInstance;
+    private static RetrofitManager mInstance = new RetrofitManager();
     private Retrofit.Builder mBuilder;
     private static boolean Debug = false;
 
     public static RetrofitManager get() {
-        if (mInstance == null) {
-            synchronized (RetrofitManager.class) {
-                if (mInstance == null) {
-                    mInstance = new RetrofitManager();
-                }
-            }
-        }
         return mInstance;
     }
 
