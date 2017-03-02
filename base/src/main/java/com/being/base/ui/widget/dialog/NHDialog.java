@@ -25,6 +25,7 @@ import com.being.base.R;
  * @author Administrator
  *
  */
+@SuppressWarnings("unused")
 public class NHDialog extends Dialog {
 
 	protected NHDialog(Context context) {
@@ -278,7 +279,7 @@ public class NHDialog extends Dialog {
 		return (int) (dpValue * density + 0.5f);
 	}
 
-	public static interface ListDialogInterface<T> {
+	public interface ListDialogInterface<T> {
 		public CharSequence[] getData();
 
 		public View getView(int position, T item, View convertView);
