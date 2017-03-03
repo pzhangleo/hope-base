@@ -63,6 +63,19 @@ public class RetrofitManager {
         }
     }
 
+    public final void create(final Class ...services) {
+        for (Class service : services) {
+            if (Debug) {
+                long start = System.nanoTime();
+                mRetrofit.create(service);
+                NHLog.d("create %s cost: %sms", service.getSimpleName(),
+                        String.valueOf((System.nanoTime() - start)/ 1000000.0));
+            } else {
+                mRetrofit.create(service);
+            }
+        }
+    }
+
     public OkHttpClient getOkHttpClient() {
         return mOkHttpClient;
     }
