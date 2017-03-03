@@ -101,10 +101,16 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
                             @Override
                             public void run() {
                                 handleResponse(response, callback);
+                                if (callback != null) {
+                                    callback.onFinish();
+                                }
                             }
                         });
                     } else {
                         handleResponse(response, callback);
+                        if (callback != null) {
+                            callback.onFinish();
+                        }
                     }
                 }
 
@@ -116,12 +122,14 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
                             public void run() {
                                 if (callback != null) {
                                     callback.onFail(ICallback.NO_NETWORK_STATUS_CODE, null, t);
+                                    callback.onFinish();
                                 }
                             }
                         });
                     } else {
                         if (callback != null) {
                             callback.onFail(ICallback.NO_NETWORK_STATUS_CODE, null, t);
+                            callback.onFinish();
                         }
                     }
                 }
