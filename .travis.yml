@@ -1,6 +1,5 @@
 language: android
 jdk: oraclejdk8
-sudo: required
 android:
   components:
     # Uncomment the lines below if you want to
@@ -31,5 +30,6 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
     - $HOME/.m2
+    - $HOME/android-sdk/extras/
 
 script: ./gradlew clean build
