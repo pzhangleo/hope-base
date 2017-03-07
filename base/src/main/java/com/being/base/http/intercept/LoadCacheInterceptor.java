@@ -28,7 +28,12 @@ public class LoadCacheInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         if (!NetworkUtils.isConnected(context) && "get".equalsIgnoreCase(request.method())) {
-            return chain.proceed(request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build());
+            Response cache = chain.proceed(request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build());
+            if (cache.code() != 504) {
+                return cache;
+            } else {
+                throw new IOException("Network is unavailable");
+            }
         }
         return chain.proceed(request);
     }
