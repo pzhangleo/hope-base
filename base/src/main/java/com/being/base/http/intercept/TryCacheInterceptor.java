@@ -33,9 +33,6 @@ public class TryCacheInterceptor implements Interceptor {
         } catch (IOException e) {
             e.printStackTrace();
             cacheResponse = mClient.newCall(request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build()).execute();
-            if (cacheResponse != null && cacheResponse.code() == 504) {
-                throw e;
-            }
             return cacheResponse;
         }
     }
