@@ -1,5 +1,7 @@
 package com.being.base.http.intercept;
 
+import android.app.Application;
+
 import com.being.base.utils.NetworkUtils;
 
 import java.io.IOException;
@@ -16,13 +18,16 @@ import okhttp3.Response;
 
 public class LoadCacheInterceptor implements Interceptor {
 
-    public LoadCacheInterceptor() {
+    private Application context;
+
+    public LoadCacheInterceptor(Application application) {
+        context = application;
     }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-        if (!NetworkUtils.isOnline() && "get".equalsIgnoreCase(request.method())) {
+        if (!NetworkUtils.isConnected(context) && "get".equalsIgnoreCase(request.method())) {
             return chain.proceed(request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build());
         }
         return chain.proceed(request);
