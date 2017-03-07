@@ -2,12 +2,10 @@ package com.being.base.http;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import com.being.base.Constant;
 import com.being.base.http.callback.ResponseCallback;
 import com.being.base.http.exception.HttpRequestException;
-import com.being.base.http.intercept.TryCacheInterceptor;
 import com.being.base.log.NHLog;
 import com.being.base.utils.DeviceInfoUtils;
 
@@ -20,7 +18,6 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Cache;
-import okhttp3.CacheControl;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Dispatcher;
@@ -32,7 +29,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * 异步OkHttp
