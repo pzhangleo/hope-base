@@ -315,7 +315,7 @@ public class AndroidUtils {
                 return procInfo.processName;
             }
         }
-        return null;
+        return getProcessName();
     }
 
     /**
