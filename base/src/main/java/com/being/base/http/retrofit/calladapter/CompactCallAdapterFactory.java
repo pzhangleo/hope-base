@@ -68,9 +68,6 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
         Response<T> execute() throws IOException;
 
         CompactCall<T> clone();
-
-        // Left as an exercise for the reader...
-        // TODO MyResponse<T> execute() throws MyHttpException;
     }
 
     /**
