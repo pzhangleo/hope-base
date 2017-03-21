@@ -1,7 +1,7 @@
 engines:
   # ... CONFIG CONTENT ...
   checkstyle:
-    enabled: false
+    enabled: true
     # ... CONFIG CONTENT ...
     checks:
       com.puppycrawl.tools.checkstyle.checks.naming.MemberNameCheck:
