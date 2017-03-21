@@ -9,6 +9,8 @@ public interface ICallback<GSON_TYPE> {
 
     int NO_NETWORK_STATUS_CODE = -1;
 
+    int OTHER_STATUS_CODE = -2;
+
     /**
      * 请求成功
      * @param baseData 已解析的数据

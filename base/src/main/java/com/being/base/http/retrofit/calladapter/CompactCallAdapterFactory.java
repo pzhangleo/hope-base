@@ -25,7 +25,7 @@ import retrofit2.Retrofit;
 public class CompactCallAdapterFactory extends CallAdapter.Factory {
     @Override
     public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
-        if (getRawType(returnType) != CompactCall.class) {
+        if (getRawType(returnType) != BaseCall.class) {
             return null;
         }
         if (!(returnType instanceof ParameterizedType)) {
@@ -38,7 +38,7 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
     }
 
     @SuppressWarnings("unchecked")
-    private static final class ErrorHandlingCallAdapter<R> implements CallAdapter<R, CompactCall<R>> {
+    private static final class ErrorHandlingCallAdapter<R> implements CallAdapter<R, BaseCall<R>> {
         private final Type responseType;
         private final Executor callbackExecutor;
 
@@ -53,28 +53,17 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
         }
 
         @Override
-        public CompactCall<R> adapt(Call<R> call) {
+        public BaseCall<R> adapt(Call<R> call) {
             return new InternalCallAdapter<>(call, callbackExecutor);
         }
 
     }
 
-    @SuppressWarnings("unused")
-    public interface CompactCall<T> {
-        void cancel();
-
-        void enqueue(@Nullable ICallback<T> callback);
-
-        Response<T> execute() throws IOException;
-
-        CompactCall<T> clone();
-    }
-
     /**
-     * Adapts a {@link Call} to {@link CompactCall}.
+     * Adapts a {@link Call} to {@link BaseCall}.
      */
     @SuppressWarnings("CloneDoesntCallSuperClone")
-    private static class InternalCallAdapter<T> implements CompactCall<T> {
+    private static class InternalCallAdapter<T> implements BaseCall<T> {
         private final Call<T> call;
         private final Executor callbackExecutor;
 
@@ -117,20 +106,30 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
                         callbackExecutor.execute(new Runnable() {
                             @Override
                             public void run() {
+                                int code = getCode(t);
                                 if (callback != null) {
-                                    callback.onFail(ICallback.NO_NETWORK_STATUS_CODE, null, t);
+                                    callback.onFail(code, null, t);
                                     callback.onFinish();
                                 }
                             }
                         });
                     } else {
+                        int code = getCode(t);
                         if (callback != null) {
-                            callback.onFail(ICallback.NO_NETWORK_STATUS_CODE, null, t);
+                            callback.onFail(code, null, t);
                             callback.onFinish();
                         }
                     }
                 }
             });
+        }
+
+        private int getCode(Throwable t) {
+            int code = ICallback.OTHER_STATUS_CODE;
+            if (t instanceof IOException) {
+                code = ICallback.NO_NETWORK_STATUS_CODE;
+            }
+            return code;
         }
 
         @Override
@@ -165,7 +164,7 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
         }
 
         @Override
-        public CompactCall<T> clone() {
+        public BaseCall<T> clone() {
             return new InternalCallAdapter<>(call.clone(), callbackExecutor);
         }
     }
