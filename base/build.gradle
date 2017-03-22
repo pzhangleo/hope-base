@@ -9,7 +9,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
-        versionName "0.2.5.7"
+        versionName "0.2.5.8"
     }
     buildTypes {
         release {
@@ -68,8 +68,11 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.0.6'
+    compile 'com.squareup.retrofit2:retrofit-mock:2.2.0'
+    compile 'com.squareup.okhttp3:mockwebserver:3.6.0'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.7.19'
+    testCompile 'com.squareup.okhttp3:mockwebserver:3.6.0'
 }
 
 // build a jar with source files
