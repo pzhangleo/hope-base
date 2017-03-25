@@ -314,11 +314,11 @@ public class PtrFrameLayout extends ViewGroup {
                 PtrCLog.d(LOG_TAG, "onInterceptTouchEvent offsetX %s, offsetY %s, PagingTouchSlop, %s", offsetX, offsetY, mPagingTouchSlop);
                 if (!mPreventForHorizontal && (Math.abs(offsetY) <  mPagingTouchSlop) || (Math.abs(offsetX) > Math.abs(offsetY))) {
                     PtrCLog.i(LOG_TAG, "onInterceptTouchEvent ACTION_MOVE: NOT INTERCEPT");
-                    mPtrIndicator.onRelease();
+                    mPtrIndicator.reset();
                     return false;
                 }
                 if (mPreventForHorizontal) {
-                    mPtrIndicator.onRelease();
+                    mPtrIndicator.reset();
                     return false;
                 }
 
@@ -332,7 +332,7 @@ public class PtrFrameLayout extends ViewGroup {
                 // disable move when header not reach top
                 if (moveDown && mPtrHandler != null && !mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView)) {
                     PtrCLog.e(LOG_TAG, "onInterceptTouchEvent ACTION_MOVE: NOT INTERCEPT");
-                    mPtrIndicator.onRelease();
+                    mPtrIndicator.reset();
                     return false;
                 }
 
