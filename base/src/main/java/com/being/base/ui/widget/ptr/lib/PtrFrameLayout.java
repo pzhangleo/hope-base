@@ -312,6 +312,11 @@ public class PtrFrameLayout extends ViewGroup {
                 boolean moveUp = !moveDown;
                 boolean canMoveUp = mInterceptPtrIndicator.hasLeftStartPosition();
                 PtrCLog.d(LOG_TAG, "onInterceptTouchEvent offsetX %s, offsetY %s, PagingTouchSlop, %s", offsetX, offsetY, mPagingTouchSlop);
+
+                if ((moveUp && canMoveUp) || moveDown) {
+                    return true;
+                }
+
                 if (!mPreventForHorizontal && (Math.abs(offsetY) <  mPagingTouchSlop) || (Math.abs(offsetX) > Math.abs(offsetY))) {
                     PtrCLog.i(LOG_TAG, "onInterceptTouchEvent ACTION_MOVE: NOT INTERCEPT");
                     mPtrIndicator.reset();
@@ -336,9 +341,6 @@ public class PtrFrameLayout extends ViewGroup {
                     return false;
                 }
 
-                if ((moveUp && canMoveUp) || moveDown) {
-                    return true;
-                }
         }
         return false;
     }
@@ -478,7 +480,7 @@ public class PtrFrameLayout extends ViewGroup {
         }
 
         mHeaderView.offsetTopAndBottom(change);
-        if (!isPinContent() && !mContent.canScrollVertically(-1)) {
+        if (!isPinContent()) {
             mContent.offsetTopAndBottom(change);
         }
         invalidate();
