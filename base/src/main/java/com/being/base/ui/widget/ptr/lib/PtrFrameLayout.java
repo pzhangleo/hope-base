@@ -478,7 +478,7 @@ public class PtrFrameLayout extends ViewGroup {
         }
 
         mHeaderView.offsetTopAndBottom(change);
-        if (!isPinContent()) {
+        if (!isPinContent() && mContent.canScrollVertically(-1)) {
             mContent.offsetTopAndBottom(change);
         }
         invalidate();
@@ -934,12 +934,15 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     public void setHeaderView(View header) {
-        if (mHeaderView != null && header != null && mHeaderView != header) {
+        if (header == null) {
+            return;
+        }
+        if (mHeaderView != null && mHeaderView != header) {
             removeView(mHeaderView);
         }
         ViewGroup.LayoutParams lp = header.getLayoutParams();
         if (lp == null) {
-            lp = new LayoutParams(-1, -2);
+            lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             header.setLayoutParams(lp);
         }
         mHeaderView = header;
