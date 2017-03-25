@@ -478,7 +478,7 @@ public class PtrFrameLayout extends ViewGroup {
         }
 
         mHeaderView.offsetTopAndBottom(change);
-        if (!isPinContent() && mContent.canScrollVertically(-1)) {
+        if (!isPinContent() && !mContent.canScrollVertically(-1)) {
             mContent.offsetTopAndBottom(change);
         }
         invalidate();
