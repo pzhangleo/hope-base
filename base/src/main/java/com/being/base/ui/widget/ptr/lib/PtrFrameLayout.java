@@ -282,6 +282,7 @@ public class PtrFrameLayout extends ViewGroup {
         super.requestDisallowInterceptTouchEvent(disallowIntercept);
     }
 
+    @SuppressWarnings("fallthrough")
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
         if (!isEnabled() || mContent == null || mHeaderView == null) {
@@ -302,7 +303,7 @@ public class PtrFrameLayout extends ViewGroup {
                 mScrollChecker.abortIfWorking();
 
                 mPreventForHorizontal = false;
-                break;
+//                break;
             case MotionEvent.ACTION_MOVE:
                 mLastMoveEvent = e;
                 mInterceptPtrIndicator.onMove(e.getX(), e.getY());
@@ -311,27 +312,29 @@ public class PtrFrameLayout extends ViewGroup {
                 boolean moveDown = offsetY > 0;
                 boolean moveUp = !moveDown;
                 boolean canMoveUp = mInterceptPtrIndicator.hasLeftStartPosition();
-                PtrCLog.d(LOG_TAG, "onInterceptTouchEvent offsetX %s, offsetY %s, PagingTouchSlop, %s", offsetX, offsetY, mPagingTouchSlop);
+                String moveLog = String.format("onInterceptTouchEvent offsetX %s, offsetY %s, PagingTouchSlop, %s ", offsetX, offsetY, mPagingTouchSlop);
 
                 if (mPreventForHorizontal) {
+                    PtrCLog.d(LOG_TAG, moveLog + "PreventForHorizontal is %s ACTION_MOVE: NOT INTERCEPT", String.valueOf(mPreventForHorizontal));
                     mPtrIndicator.reset();
                     return false;
                 }
                 if ((Math.abs(offsetY) <  mPagingTouchSlop) || (Math.abs(offsetX) > Math.abs(offsetY))) {
-                    PtrCLog.i(LOG_TAG, "onInterceptTouchEvent ACTION_MOVE: NOT INTERCEPT");
+                    PtrCLog.d(LOG_TAG, moveLog + "ACTION_MOVE: NOT INTERCEPT");
                     mPtrIndicator.reset();
                     return false;
                 }
 
+                boolean canDoRefresh = mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView);
                 if (DEBUG) {
-                    boolean canMoveDown = mPtrHandler != null && mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView);
-                    PtrCLog.v(LOG_TAG, "onInterceptTouchEvent ACTION_MOVE: offsetY:%s, currentPos: %s, moveUp: %s, canMoveUp: %s, moveDown: %s: canMoveDown: %s",
-                            offsetY, mInterceptPtrIndicator.getCurrentPosY(), moveUp, canMoveUp, moveDown, canMoveDown);
+                    boolean canMoveDown = mPtrHandler != null && canDoRefresh;
+                    PtrCLog.v(LOG_TAG, moveLog + " currentPos: %s, moveUp: %s, canMoveUp: %s, moveDown: %s: canMoveDown: %s",
+                            mInterceptPtrIndicator.getCurrentPosY(), moveUp, canMoveUp, moveDown, canMoveDown);
                 }
 
                 // disable move when header not reach top
-                if (moveDown && mPtrHandler != null && !mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView)) {
-                    PtrCLog.e(LOG_TAG, "onInterceptTouchEvent ACTION_MOVE: NOT INTERCEPT");
+                if (moveDown && mPtrHandler != null && !canDoRefresh) {
+                    PtrCLog.d(LOG_TAG, moveLog + " moveDown %s, canDoRefresh %s, ACTION_MOVE: NOT INTERCEPT", String.valueOf(moveDown), String.valueOf(canDoRefresh));
                     mPtrIndicator.reset();
                     return false;
                 }
@@ -342,6 +345,7 @@ public class PtrFrameLayout extends ViewGroup {
                 }
 
                 if ((moveUp && canMoveUp) || moveDown) {
+                    PtrCLog.e(LOG_TAG, moveLog + " ACTION_MOVE INTERCEPT");
                     return true;
                 }
         }
@@ -391,7 +395,8 @@ public class PtrFrameLayout extends ViewGroup {
 
                 if (DEBUG) {
                     boolean canMoveDown = mPtrHandler != null && mPtrHandler.checkCanDoRefresh(this, mContent, mHeaderView);
-                    PtrCLog.v(LOG_TAG, "ACTION_MOVE: offsetY:%s, currentPos: %s, moveUp: %s, canMoveUp: %s, moveDown: %s: canMoveDown: %s", offsetY, mPtrIndicator.getCurrentPosY(), moveUp, canMoveUp, moveDown, canMoveDown);
+                    PtrCLog.v(LOG_TAG, "onTouchEvent ACTION_MOVE: offsetY:%s, currentPos: %s, moveUp: %s, canMoveUp: %s, moveDown: %s: canMoveDown: %s",
+                            offsetY, mPtrIndicator.getCurrentPosY(), moveUp, canMoveUp, moveDown, canMoveDown);
                 }
 
                 return movePos(offsetY);
@@ -440,6 +445,7 @@ public class PtrFrameLayout extends ViewGroup {
         if (isUnderTouch && !mHasSendCancelEvent && mPtrIndicator.hasMovedAfterPressedDown()) {
             mHasSendCancelEvent = true;
             sendCancelEvent();
+            return false;
         }
 
         // leave initiated position or just refresh complete
@@ -975,24 +981,26 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     private void sendCancelEvent() {
-        if (DEBUG) {
-            PtrCLog.d(LOG_TAG, "send cancel event");
-        }
-        // The ScrollChecker will update position and lead to send cancel event when mLastMoveEvent is null.
-        // fix #104, #80, #92
-        if (mLastMoveEvent == null) {
-            return;
-        }
-        MotionEvent last = mLastMoveEvent;
+//        if (DEBUG) {
+//            PtrCLog.d(LOG_TAG, "send cancel event");
+//        }
+//        // The ScrollChecker will update position and lead to send cancel event when mLastMoveEvent is null.
+//        // fix #104, #80, #92
+//        if (mLastMoveEvent == null) {
+//            return;
+//        }
+//        MotionEvent last = mLastMoveEvent;
+//        MotionEvent e = MotionEvent.obtain(last.getDownTime(), last.getEventTime(), MotionEvent.ACTION_CANCEL, last.getX(), last.getY(), last.getMetaState());
+//        super.onInterceptTouchEvent(e);
     }
 
     private void sendDownEvent() {
-        if (DEBUG) {
-            PtrCLog.d(LOG_TAG, "send down event");
-        }
-        final MotionEvent last = mLastMoveEvent;
-        MotionEvent e = MotionEvent.obtain(last.getDownTime(), last.getEventTime(), MotionEvent.ACTION_DOWN, last.getX(), last.getY(), last.getMetaState());
-        super.onInterceptTouchEvent(e);
+//        if (DEBUG) {
+//            PtrCLog.d(LOG_TAG, "send down event");
+//        }
+//        final MotionEvent last = mLastMoveEvent;
+//        MotionEvent e = MotionEvent.obtain(last.getDownTime(), last.getEventTime(), MotionEvent.ACTION_DOWN, last.getX(), last.getY(), last.getMetaState());
+//        super.onInterceptTouchEvent(e);
     }
 
     public static class LayoutParams extends MarginLayoutParams {
