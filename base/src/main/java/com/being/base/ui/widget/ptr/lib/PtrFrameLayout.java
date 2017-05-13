@@ -1,5 +1,6 @@
 package com.being.base.ui.widget.ptr.lib;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -15,11 +16,14 @@ import com.being.base.R;
 import com.being.base.ui.widget.ptr.lib.indicator.PtrIndicator;
 import com.being.base.ui.widget.ptr.lib.util.PtrCLog;
 
+import java.util.Locale;
+
 /**
  * This layout view for "Pull to Refresh(Ptr)" support all of the view, you can contain everything you want.
  * support: pull to refresh / release to refresh / auto refresh / keep header view while refreshing / hide header view while refreshing
  * It defines {@link com.being.base.ui.widget.ptr.lib.PtrUIHandler}, which allows you customize the UI easily.
  */
+@SuppressWarnings({"ConstantConditions", "FieldCanBeLocal"})
 public class PtrFrameLayout extends ViewGroup {
 
     // status enum
@@ -44,7 +48,7 @@ public class PtrFrameLayout extends ViewGroup {
     private int mContainerId = 0;
     // config
     private int mDurationToClose = 200;
-    private int mDurationToCloseHeader = 1000;
+    private int mDurationToCloseHeader = 800;
     private boolean mKeepHeaderWhenRefresh = true;
     private boolean mPullToRefresh = false;
     private View mHeaderView;
@@ -120,6 +124,7 @@ public class PtrFrameLayout extends ViewGroup {
         mPagingTouchSlop = (int) (conf.getScaledTouchSlop() * 0.2f);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onFinishInflate() {
         final int childCount = getChildCount();
@@ -312,7 +317,8 @@ public class PtrFrameLayout extends ViewGroup {
                 boolean moveDown = offsetY > 0;
                 boolean moveUp = !moveDown;
                 boolean canMoveUp = mInterceptPtrIndicator.hasLeftStartPosition();
-                String moveLog = String.format("onInterceptTouchEvent offsetX %s, offsetY %s, PagingTouchSlop, %s ", offsetX, offsetY, mPagingTouchSlop);
+                String moveLog = String.format(Locale.US, "onInterceptTouchEvent x %f, y %f, offsetX %s, offsetY %s, PagingTouchSlop %s ",
+                        e.getX(), e.getY(), offsetX, offsetY, mPagingTouchSlop);
 
                 if (mPreventForHorizontal) {
                     PtrCLog.d(LOG_TAG, moveLog + "PreventForHorizontal is %s ACTION_MOVE: NOT INTERCEPT", String.valueOf(mPreventForHorizontal));
@@ -340,6 +346,7 @@ public class PtrFrameLayout extends ViewGroup {
                 }
 
                 if (moveUp && mPtrIndicator.hasLeftStartPosition()) {
+                    PtrCLog.i(LOG_TAG, moveLog + " moveup %s, canDoRefresh %s, hide headerView, ACTION_MOVE: NOT INTERCEPT", String.valueOf(moveUp), String.valueOf(canDoRefresh));
                     refreshComplete();
                     return false;
                 }
@@ -414,7 +421,7 @@ public class PtrFrameLayout extends ViewGroup {
         // has reached the top
         if ((deltaY < 0 && mPtrIndicator.isInStartPosition())) {
             if (DEBUG) {
-                PtrCLog.e(LOG_TAG, String.format("has reached the top"));
+                PtrCLog.e(LOG_TAG, "has reached the top");
             }
             return false;
         }
@@ -424,7 +431,7 @@ public class PtrFrameLayout extends ViewGroup {
         // over top
         if (mPtrIndicator.willOverTop(to)) {
             if (DEBUG) {
-                PtrCLog.e(LOG_TAG, String.format("over top"));
+                PtrCLog.e(LOG_TAG, "over top");
             }
             to = PtrIndicator.POS_START;
         }
@@ -516,21 +523,26 @@ public class PtrFrameLayout extends ViewGroup {
         if (mStatus == PTR_STATUS_LOADING) {
             // keep header for fresh
             if (mKeepHeaderWhenRefresh) {
-                // scroll header back
-                if (mPtrIndicator.isOverOffsetToKeepHeaderWhileLoading() && !stayForLoading) {
-                    mScrollChecker.tryToScrollTo(mPtrIndicator.getOffsetToKeepHeaderWhileLoading(), mDurationToClose);
-                } else {
-                    // do nothing
-                }
+                tryToScrollHeaderBack(stayForLoading);
             } else {
-                tryScrollBackToTopWhileLoading();
+                tryScrollBackToTop();
             }
         } else {
             if (mStatus == PTR_STATUS_COMPLETE) {
                 notifyUIRefreshComplete(false);
             } else {
-                tryScrollBackToTopAbortRefresh();
+                tryScrollBackToTop();
             }
+        }
+    }
+
+    /**
+     * scroll header back
+     * @param stayForLoading
+     */
+    private void tryToScrollHeaderBack(boolean stayForLoading) {
+        if (mPtrIndicator.isOverOffsetToKeepHeaderWhileLoading() && !stayForLoading) {
+            mScrollChecker.tryToScrollTo(mPtrIndicator.getOffsetToKeepHeaderWhileLoading(), mDurationToClose);
         }
     }
 
@@ -560,27 +572,6 @@ public class PtrFrameLayout extends ViewGroup {
         if (!mPtrIndicator.isUnderTouch()) {
             mScrollChecker.tryToScrollTo(PtrIndicator.POS_START, mDurationToCloseHeader);
         }
-    }
-
-    /**
-     * just make easier to understand
-     */
-    private void tryScrollBackToTopWhileLoading() {
-        tryScrollBackToTop();
-    }
-
-    /**
-     * just make easier to understand
-     */
-    private void tryScrollBackToTopAfterComplete() {
-        tryScrollBackToTop();
-    }
-
-    /**
-     * just make easier to understand
-     */
-    private void tryScrollBackToTopAbortRefresh() {
-        tryScrollBackToTop();
     }
 
     private boolean tryToPerformRefresh() {
@@ -706,8 +697,8 @@ public class PtrFrameLayout extends ViewGroup {
      * @param ignoreHook
      */
     private void notifyUIRefreshComplete(boolean ignoreHook) {
-        /**
-         * After hook operation is done, {@link #notifyUIRefreshComplete} will be call in resume action to ignore hook.
+        /*
+          After hook operation is done, {@link #notifyUIRefreshComplete} will be call in resume action to ignore hook.
          */
         if (mPtrIndicator.hasLeftStartPosition() && !ignoreHook && mRefreshCompleteHook != null) {
             if (DEBUG) {
@@ -724,7 +715,7 @@ public class PtrFrameLayout extends ViewGroup {
             mPtrUIHandlerHolder.onUIRefreshComplete(this);
         }
         mPtrIndicator.onUIRefreshComplete();
-        tryScrollBackToTopAfterComplete();
+        tryScrollBackToTop();
         tryToNotifyReset();
     }
 
@@ -793,7 +784,7 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     /**
-     * The content view will now move when {@param pinContent} set to true.
+     * The content view will not move when {@param pinContent} set to true.
      *
      * @param pinContent
      */
