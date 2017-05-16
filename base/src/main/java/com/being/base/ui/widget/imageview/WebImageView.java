@@ -214,7 +214,11 @@ public class WebImageView extends FrescoDraweeView {
         if (uri != null) {
             if (!uri.startsWith("http") && !uri.startsWith("file:///") && !uri.startsWith("content://")
                     && !uri.startsWith("assets://") && !uri.startsWith("res://")) {
-                uri = "file:///" + uri;
+                if (uri.startsWith("/")) {
+                    uri = "file://" + uri;
+                } else {
+                    uri = "file:///" + uri;
+                }
             }
         } else {
             uri = "";
