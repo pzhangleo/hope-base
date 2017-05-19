@@ -46,7 +46,7 @@ public abstract class SimpleRecyclerAdapter<T, K extends AbstractViewHolder> ext
 
     @Override
     protected void convert(K helper, T item) {
-        helper.bindDate(item);
+        helper.bindData(item);
     }
 
     public void setData(List<T> data) {
@@ -171,7 +171,7 @@ public abstract class SimpleRecyclerAdapter<T, K extends AbstractViewHolder> ext
         }
 
         @Override
-        public void bindDate(T data) {
+        public void bindData(T data) {
 
         }
     }
