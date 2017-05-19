@@ -21,5 +21,5 @@ public abstract class AbstractViewHolder<T> extends BaseViewHolder {
 
     }
 
-    public abstract void bindDate(T data);
+    public abstract void bindData(T data);
 }
