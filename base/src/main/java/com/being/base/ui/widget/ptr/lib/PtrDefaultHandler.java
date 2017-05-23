@@ -34,4 +34,9 @@ public abstract class PtrDefaultHandler implements PtrHandler {
     public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
         return checkContentCanBePulledDown(content);
     }
+
+    @Override
+    public boolean onPinContent() {
+        return false;
+    }
 }

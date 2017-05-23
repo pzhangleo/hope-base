@@ -2,8 +2,6 @@ package com.being.base.ui.widget.ptr.lib;
 
 import android.view.View;
 
-import com.being.base.ui.widget.ptr.lib.*;
-
 public interface PtrHandler {
 
     /**
@@ -19,4 +17,10 @@ public interface PtrHandler {
      * @param frame
      */
     public void onRefreshBegin(final com.being.base.ui.widget.ptr.lib.PtrFrameLayout frame);
+
+    /**
+     * 是否需要固定内容
+     * @return
+     */
+    boolean onPinContent();
 }

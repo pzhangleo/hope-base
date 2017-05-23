@@ -780,7 +780,7 @@ public class PtrFrameLayout extends ViewGroup {
     }
 
     public boolean isPinContent() {
-        return (mFlag & FLAG_PIN_CONTENT) > 0;
+        return (mPtrHandler != null && mPtrHandler.onPinContent()) || (mFlag & FLAG_PIN_CONTENT) > 0;
     }
 
     /**
