@@ -18,9 +18,4 @@ public interface PtrHandler {
      */
     public void onRefreshBegin(final com.being.base.ui.widget.ptr.lib.PtrFrameLayout frame);
 
-    /**
-     * 是否需要固定内容
-     * @return
-     */
-    boolean onPinContent();
 }

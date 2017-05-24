@@ -35,8 +35,4 @@ public abstract class PtrDefaultHandler implements PtrHandler {
         return checkContentCanBePulledDown(content);
     }
 
-    @Override
-    public boolean onPinContent() {
-        return false;
-    }
 }
