@@ -44,9 +44,9 @@ dependencies {
     compile 'com.android.support:percent:25.+'
     //noinspection GradleDynamicVersion
     compile 'com.android.support:design:25.+'
-    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.squareup.okhttp3:okhttp:3.4.0'
     compile 'com.squareup.okio:okio:1.13.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.0'
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'net.danlew:android.joda:2.9.4.1'
     compile 'com.liulishuo.filedownloader:library:1.5.6'
@@ -68,10 +68,10 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.0.6'
     compile 'com.squareup.retrofit2:retrofit-mock:2.3.0'
-    compile 'com.squareup.okhttp3:mockwebserver:3.8.1'
+    compile 'com.squareup.okhttp3:mockwebserver:3.4.0'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.7.19'
-    testCompile 'com.squareup.okhttp3:mockwebserver:3.8.1'
+    testCompile 'com.squareup.okhttp3:mockwebserver:3.4.0'
 }
 
 // build a jar with source files
