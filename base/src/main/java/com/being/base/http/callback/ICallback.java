@@ -24,8 +24,10 @@ public interface ICallback<GSON_TYPE> {
      *                   值为{@link ResponseCallback.NO_NETWORK_STATUS_CODE}时为无网络
      * @param failDate  失败的信息
      * @param error    具体的错误
+     *
+     * @return true代表自己处理错误信息提示，false由底层弹出错误toast提示
      */
-    void onFail(int statusCode, @Nullable GSON_TYPE failDate, @Nullable Throwable error);
+    boolean onFail(int statusCode, @Nullable GSON_TYPE failDate, @Nullable Throwable error);
 
     /**
      * 请求完成，无论失败或者成功，都会调用该方法。
