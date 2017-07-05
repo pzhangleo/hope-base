@@ -2,9 +2,9 @@ package com.being.base.http.callback;
 
 import android.support.annotation.Nullable;
 
+import com.being.base.Constant;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import com.being.base.Constant;
 
 import java.io.IOException;
 
@@ -73,10 +73,8 @@ public class GsonResponseCallbackImpl<T> extends ResponseCallbackImpl<T> {
      * @param error      具体的错误
      */
     @Override
-    public void onFail(int statusCode, @Nullable T failDate, @Nullable Throwable error) {
-        if (mResponseCallback != null) {
-            mResponseCallback.onFail(statusCode, failDate, error);
-        }
+    public boolean onFail(int statusCode, @Nullable T failDate, @Nullable Throwable error) {
+        return mResponseCallback != null && mResponseCallback.onFail(statusCode, failDate, error);
     }
 
     @Override

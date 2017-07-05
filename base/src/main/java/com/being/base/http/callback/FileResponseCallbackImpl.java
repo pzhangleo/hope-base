@@ -92,7 +92,7 @@ public abstract class FileResponseCallbackImpl extends ResponseCallback<File> {
      * @param error      具体的错误
      */
     @Override
-    public abstract void onFail(int statusCode, File failDate, Throwable error);
+    public abstract boolean onFail(int statusCode, File failDate, Throwable error);
 
     /**
      * 请求完成，无论失败或者成功，都会调用该方法。

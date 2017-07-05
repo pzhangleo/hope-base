@@ -13,5 +13,5 @@ public abstract class DownloadCallback extends ResponseCallbackImpl<File> {
     public abstract void onSuccess(File baseData);
 
     @Override
-    public abstract void onFail(int statusCode, @Nullable File failDate, @Nullable Throwable error);
+    public abstract boolean onFail(int statusCode, @Nullable File failDate, @Nullable Throwable error);
 }

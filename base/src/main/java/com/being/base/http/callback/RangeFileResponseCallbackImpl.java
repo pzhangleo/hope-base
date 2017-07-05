@@ -48,8 +48,8 @@ public class RangeFileResponseCallbackImpl extends FileResponseCallbackImpl {
      * @param error      具体的错误
      */
     @Override
-    public void onFail(int statusCode, File failDate, Throwable error) {
-
+    public boolean onFail(int statusCode, File failDate, Throwable error) {
+        return false;
     }
 
     public Request updateRequestHeaders(Request request) {
