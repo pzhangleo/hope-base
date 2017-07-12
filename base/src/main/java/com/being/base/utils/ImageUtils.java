@@ -312,6 +312,7 @@ public class ImageUtils {
      * 缩放，同时根据exif进行缩放和旋转，保证可以portrait模式下全屏展示
      * 在0和180时，如果width大于height会额外旋转90度
      * 注意,该方法自动生成结果文件路径
+     *
      * @param oriFile
      * @param width
      * @param height
@@ -336,6 +337,7 @@ public class ImageUtils {
     /**
      * 缩放，同时根据exif进行缩放和旋转，保证可以portrait模式下全屏展示
      * 在0和180时，如果width大于height会额外旋转90度
+     *
      * @param oriFile
      * @param destFile
      * @param width
@@ -707,7 +709,7 @@ public class ImageUtils {
                     ExifInterface.TAG_ORIENTATION, -1);
             if (orientation != -1) {
                 // We only recognize a subset of orientation tag values.
-                switch(orientation) {
+                switch (orientation) {
                     case ExifInterface.ORIENTATION_ROTATE_90:
                         degree = 90;
                         break;
@@ -740,7 +742,7 @@ public class ImageUtils {
         return bmp;
     }
 
-    public Bitmap getViewBitmap(View comBitmap, int width, int height) {
+    public static Bitmap getViewBitmap(View comBitmap, int width, int height) {
         Bitmap bitmap = null;
         if (comBitmap != null) {
             comBitmap.clearFocus();
