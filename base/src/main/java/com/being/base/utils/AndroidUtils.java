@@ -265,9 +265,13 @@ public class AndroidUtils {
      * @param url
      */
     public static void openVideoPlayer(Context context, String url) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.parse(url), "video/mp4");
-        context.startActivity(intent);
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.parse(url), "video/mp4");
+            context.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -276,9 +280,13 @@ public class AndroidUtils {
      * @param file
      */
     public static void openVideoPlayer(Context context, File file) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file), "video/mp4");
-        context.startActivity(intent);
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.fromFile(file), "video/mp4");
+            context.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
