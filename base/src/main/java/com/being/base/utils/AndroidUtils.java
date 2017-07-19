@@ -55,8 +55,12 @@ public class AndroidUtils {
     }
 
     public static void openAlbum(Activity activity, File file, boolean crop, int ox, int oy, int requestCode) {
+        openAlbum(activity, file, crop, 1, 1, ox, oy, requestCode);
+    }
+
+    public static void openAlbum(Activity activity, File file, boolean crop, int ax, int ay, int ox, int oy, int requestCode) {
         Intent intent = new Intent(Intent.ACTION_PICK);//ACTION_GET_CONTENT ACTION_PICK
-//        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        //        intent.addCategory(Intent.CATEGORY_OPENABLE);
         if (file != null) {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
         }
@@ -64,24 +68,50 @@ public class AndroidUtils {
         intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI,
                 "image/*");
         if (crop) {
-            cropIntent(intent, 1, 1, ox, oy);
+            cropIntent(intent, ax, ay, ox, oy);
         }
         intent.putExtra("return-data", false);
         activity.startActivityForResult(intent, requestCode);
     }
 
+    /**
+     *
+     * @param activity
+     * @param file
+     * @param crop 开启截取后，默认截取方图
+     * @param ox
+     * @param oy
+     * @param requestCode
+     */
     public static void openCamera(Activity activity, File file, boolean crop, int ox, int oy, int requestCode) {
+        openCamera(activity, file, crop, 1, 1, ox, oy, requestCode);
+    }
+
+    public static void openCamera(Activity activity, File file, boolean crop, int ax, int ay, int ox, int oy, int requestCode) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
         if (crop) {
-            cropIntent(intent, 1, 1, ox, oy);
+            cropIntent(intent, ax, ay, ox, oy);
         }
         activity.startActivityForResult(intent, requestCode); //启动系统拍照页面
     }
 
+    /**
+     *
+     * @param fragment
+     * @param file
+     * @param crop 开启截取后，默认截取方图
+     * @param ox
+     * @param oy
+     * @param requestCode
+     */
     public static void openAlbum(Fragment fragment, File file, boolean crop, int ox, int oy, int requestCode) {
+        openAlbum(fragment, file, crop, 1, 1, ox, oy, requestCode);
+    }
+
+    public static void openAlbum(Fragment fragment, File file, boolean crop, int ax, int ay, int ox, int oy, int requestCode) {
         Intent intent = new Intent(Intent.ACTION_PICK);//ACTION_GET_CONTENT ACTION_PICK
-//        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        //        intent.addCategory(Intent.CATEGORY_OPENABLE);
         if (file != null) {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
         }
@@ -89,17 +119,30 @@ public class AndroidUtils {
         intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI,
                 "image/*");
         if (crop) {
-            cropIntent(intent, 1, 1, ox, oy);
+            cropIntent(intent, ax, ay, ox, oy);
         }
         intent.putExtra("return-data", false);
         fragment.startActivityForResult(intent, requestCode);
     }
 
+    /**
+     *
+     * @param fragment
+     * @param file
+     * @param crop 开启截取后，默认截取方图
+     * @param ox
+     * @param oy
+     * @param requestCode
+     */
     public static void openCamera(Fragment fragment, File file, boolean crop, int ox, int oy, int requestCode) {
+        openCamera(fragment, file, crop, 1, 1, ox, oy, requestCode);
+    }
+
+    public static void openCamera(Fragment fragment, File file, boolean crop, int ax, int ay, int ox, int oy, int requestCode) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
         if (crop) {
-            cropIntent(intent, 1, 1, ox, oy);
+            cropIntent(intent, ax, ay, ox, oy);
         }
         fragment.startActivityForResult(intent, requestCode); //启动系统拍照页面
     }
