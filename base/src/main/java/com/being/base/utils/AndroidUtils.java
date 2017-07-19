@@ -75,24 +75,14 @@ public class AndroidUtils {
     }
 
     /**
-     *
+     * 打开相机后如果需要裁剪需要自己处理
      * @param activity
      * @param file
-     * @param crop 开启截取后，默认截取方图
-     * @param ox
-     * @param oy
      * @param requestCode
      */
-    public static void openCamera(Activity activity, File file, boolean crop, int ox, int oy, int requestCode) {
-        openCamera(activity, file, crop, 1, 1, ox, oy, requestCode);
-    }
-
-    public static void openCamera(Activity activity, File file, boolean crop, int ax, int ay, int ox, int oy, int requestCode) {
+    public static void openCamera(Activity activity, File file, int requestCode) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-        if (crop) {
-            cropIntent(intent, ax, ay, ox, oy);
-        }
         activity.startActivityForResult(intent, requestCode); //启动系统拍照页面
     }
 
@@ -134,16 +124,9 @@ public class AndroidUtils {
      * @param oy
      * @param requestCode
      */
-    public static void openCamera(Fragment fragment, File file, boolean crop, int ox, int oy, int requestCode) {
-        openCamera(fragment, file, crop, 1, 1, ox, oy, requestCode);
-    }
-
-    public static void openCamera(Fragment fragment, File file, boolean crop, int ax, int ay, int ox, int oy, int requestCode) {
+    public static void openCamera(Fragment fragment, File file, int requestCode) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-        if (crop) {
-            cropIntent(intent, ax, ay, ox, oy);
-        }
         fragment.startActivityForResult(intent, requestCode); //启动系统拍照页面
     }
 
@@ -163,6 +146,29 @@ public class AndroidUtils {
             intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, quality);
             intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, durationSecond);
         }
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+    public static void cropImageUri(Activity activity, Uri uri, int ax, int ay, int ox, int oy, int requestCode) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        if (ax > 0) {
+            intent.putExtra("aspectX", ax);
+        }
+        if (ay > 0) {
+            intent.putExtra("aspectY", ay);
+        }
+        if (ox > 0) {
+            intent.putExtra("outputX", ox);
+        }
+        if (oy > 0) {
+            intent.putExtra("outputY", oy);
+        }
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        intent.putExtra("return-data", false);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true); // no face detection
         activity.startActivityForResult(intent, requestCode);
     }
 
