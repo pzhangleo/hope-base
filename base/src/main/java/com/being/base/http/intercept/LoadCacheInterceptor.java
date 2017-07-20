@@ -1,6 +1,6 @@
 package com.being.base.http.intercept;
 
-import android.app.Application;
+import android.content.Context;
 
 import com.being.base.utils.NetworkUtils;
 
@@ -18,9 +18,9 @@ import okhttp3.Response;
 
 public class LoadCacheInterceptor implements Interceptor {
 
-    private Application context;
+    private Context context;
 
-    public LoadCacheInterceptor(Application application) {
+    public LoadCacheInterceptor(Context application) {
         context = application;
     }
 
