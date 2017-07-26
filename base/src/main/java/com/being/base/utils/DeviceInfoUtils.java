@@ -12,8 +12,9 @@ import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 
+import com.being.base.utils.codec.digest.DigestUtils;
+
 import java.util.TimeZone;
-import java.util.UUID;
 
 /**
  * 设备属性工具类
@@ -40,9 +41,7 @@ public class DeviceInfoUtils {
             tmSerial = "" + tm.getSimSerialNumber();
         }
         androidId = "" + android.provider.Settings.Secure.getString(context.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-
-        UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
-        return deviceUuid.toString();
+        return DigestUtils.sha1Hex(tmDevice+tmSerial+androidId);
     }
 
     public static String getNetworkCountryIso(Context context) {
