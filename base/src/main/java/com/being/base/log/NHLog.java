@@ -3,7 +3,7 @@ package com.being.base.log;
 import android.os.Environment;
 import android.util.Log;
 
-import com.being.base.Constant;
+import com.being.base.Constants;
 
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  * Log管理类
  */
 public class NHLog {
-    public static boolean LOG_TOGGLE = Constant.DEBUG;
+    public static boolean LOG_TOGGLE = Constants.DEBUG;
     public static final boolean thread_toggle = true;
 	private static final String LOG_FILE = Environment.getExternalStorageDirectory().getPath() + "log.txt";
 	private static Date date;

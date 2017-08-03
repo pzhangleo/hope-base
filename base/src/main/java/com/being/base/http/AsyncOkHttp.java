@@ -3,7 +3,7 @@ package com.being.base.http;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.being.base.Constant;
+import com.being.base.Constants;
 import com.being.base.http.callback.ResponseCallback;
 import com.being.base.http.exception.HttpRequestException;
 import com.being.base.log.NHLog;
@@ -262,7 +262,7 @@ public class AsyncOkHttp {
      */
     private void callSuccess(ResponseCallback responseCallback, Object finalGsonType,
                              Response response, CallHandler callHandler) {
-        if (Constant.DEBUG) {
+        if (Constants.DEBUG) {
             responseCallback.onFinish();
             responseCallback.onSuccess(finalGsonType);
         } else {
@@ -304,32 +304,10 @@ public class AsyncOkHttp {
         }
     }
 
-//    private boolean loadCache(final Call call, final ResponseCallback responseCallback,
-//                              CallHandler callHandler) {
-//        if (call.request().method().equalsIgnoreCase("post")) {
-//            return false;
-//        }
-//        boolean result = false;
-//        //发生IO异常时,尝试从Http Cache中获取数据
-//        Request request = call.request().newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();
-//        Response forceCacheResponse;
-//        try {
-//            forceCacheResponse = mOkHttpClient.newCall(request).execute();
-//            if (forceCacheResponse.code() != 504) {
-//                processResponse(call, forceCacheResponse, responseCallback, callHandler);
-//                responseCallback.setCacheResponse(true);
-//                result = true;
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return result;
-//    }
-
     private void callExceptionFail(Response response, ResponseCallback responseCallback, Exception exception,
                                    CallHandler callHandler, Object jsonType) {
         int statusCode = response == null ? ResponseCallback.NO_NETWORK_STATUS_CODE : response.code();
-        if (Constant.DEBUG) {
+        if (Constants.DEBUG) {
             responseCallback.onFinish();
             responseCallback.onFail(statusCode, jsonType, exception);
         } else {

@@ -2,7 +2,7 @@ package com.being.base.http.callback;
 
 import android.support.annotation.Nullable;
 
-import com.being.base.Constant;
+import com.being.base.Constants;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
@@ -42,7 +42,7 @@ public class GsonResponseCallbackImpl<T> extends ResponseCallbackImpl<T> {
             }
             responseBody.close();
         } catch (JsonIOException | JsonSyntaxException e) {
-            if (Constant.DEBUG) {//debug模式下提示json格式错误
+            if (Constants.DEBUG) {//debug模式下提示json格式错误
                 throw e;
             }
             e.printStackTrace();
