@@ -1,9 +1,9 @@
 package com.being.base.job;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 
 /**`
  * 顺序执行的job管理类
@@ -25,9 +25,18 @@ public class JobManager {
     }
 
 
-    public Future<?> addJob(FutureTask task) {
+    public <T> Future<T> addJob(Callable<T> task) {
        return mExecutorService.submit(task);
     }
+
+    public void addJob(Runnable runnable) {
+        mExecutorService.submit(runnable);
+    }
+
+    public <T> Future<T> submit(Runnable task, T result){
+        return mExecutorService.submit(task, result);
+    }
+
 
     public void stop() {
         mExecutorService.shutdown();
