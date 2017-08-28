@@ -1,5 +1,6 @@
 package com.being.base.utils;//
 
+import android.app.Application;
 import android.test.mock.MockContext;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -27,6 +28,10 @@ public final class DateTimeUtils {
 	public final static String PATTERN_YYYY_MM_DD = "yyyy-MM-dd";
 
 	public final static String PATTERN_MM_DD = "MM-dd";
+
+    public static void init(Application application) {
+        AndroidThreeTen.init(application);
+    }
 
     /**
      * 格式化日期时间
