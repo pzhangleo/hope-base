@@ -46,14 +46,6 @@ public abstract class LoadMoreContainerBase extends LinearLayout implements Load
         init();
     }
 
-    /**
-     * @deprecated It's totally wrong. Use {@link #useDefaultFooter} instead.
-     */
-    @Deprecated
-    public void useDefaultHeader() {
-        useDefaultFooter();
-    }
-
     public void useDefaultFooter() {
         LoadMoreDefaultFooterView footerView = new LoadMoreDefaultFooterView(getContext());
         footerView.setVisibility(GONE);

@@ -56,7 +56,7 @@ dependencies {
     compile 'com.liulishuo.filedownloader:library:1.6.3'
     compile 'com.jakewharton:butterknife:8.8.1'
     compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.26'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'
     compile 'com.facebook.fresco:fresco:1.5.0'
     compile 'com.facebook.fresco:animated-webp:1.5.0'
     compile 'com.facebook.fresco:webpsupport:1.5.0'
