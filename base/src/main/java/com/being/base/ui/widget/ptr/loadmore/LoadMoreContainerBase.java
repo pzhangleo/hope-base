@@ -1,6 +1,5 @@
 package com.being.base.ui.widget.ptr.loadmore;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -15,6 +14,7 @@ import android.widget.LinearLayout;
 /**
  * @author huqiu.lhq
  */
+@SuppressWarnings("FieldCanBeLocal")
 public abstract class LoadMoreContainerBase extends LinearLayout implements LoadMoreContainer {
 
     private AbsListView.OnScrollListener mOnScrollListener;
@@ -54,7 +54,6 @@ public abstract class LoadMoreContainerBase extends LinearLayout implements Load
         setLoadMoreUIHandler(footerView);
     }
 
-    @SuppressLint("NewApi")
     private void init() {
 
         if (mFooterView != null) {
@@ -200,13 +199,6 @@ public abstract class LoadMoreContainerBase extends LinearLayout implements Load
 
         if (mLoadMoreUIHandler != null) {
             mLoadMoreUIHandler.onLoadFinish(this, emptyResult, hasMore);
-        }
-        if (mFooterView != null) {
-            if (hasMore) {
-                mFooterView.setVisibility(VISIBLE);
-            } else {
-                mFooterView.setVisibility(GONE);
-            }
         }
     }
 

@@ -3,11 +3,14 @@ package com.being.base.ui.widget.ptr.loadmore;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.being.base.R;
 
 public class LoadMoreDefaultFooterView extends RelativeLayout implements LoadMoreUIHandler {
+
+    private ProgressBar mProgressBar;
 
     public LoadMoreDefaultFooterView(Context context) {
         this(context, null);
@@ -24,6 +27,7 @@ public class LoadMoreDefaultFooterView extends RelativeLayout implements LoadMor
 
     private void setupViews() {
         LayoutInflater.from(getContext()).inflate(R.layout.cube_views_load_more_default_footer, this);
+        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
     }
 
     @Override
@@ -33,15 +37,16 @@ public class LoadMoreDefaultFooterView extends RelativeLayout implements LoadMor
 
     @Override
     public void onLoadFinish(LoadMoreContainer container, boolean empty, boolean hasMore) {
-        if (!hasMore) {
-            setVisibility(VISIBLE);
+        if (hasMore) {
+            setVisibility(INVISIBLE);
+        } else {
             if (empty) {
+                setVisibility(GONE);
 //                mTextView.setText(R.string.cube_views_load_more_loaded_empty);
             } else {
+                setVisibility(VISIBLE);
 //                mTextView.setText(R.string.cube_views_load_more_loaded_no_more);
             }
-        } else {
-            setVisibility(INVISIBLE);
         }
     }
 
