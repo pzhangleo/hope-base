@@ -1,22 +1,19 @@
 package com.being.base.utils;//
 
-import android.text.TextUtils;
+import android.test.mock.MockContext;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.Hours;
-import org.joda.time.Minutes;
-import org.joda.time.Period;
-import org.joda.time.Seconds;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.PeriodFormatter;
-import org.joda.time.format.PeriodFormatterBuilder;
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.temporal.ChronoUnit;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
 /**
  * 日期时间工具类 Created by Zhp on 2014/7/8.
@@ -32,36 +29,6 @@ public final class DateTimeUtils {
 	public final static String PATTERN_MM_DD = "MM-dd";
 
     /**
-     * 格式化显示日期yyyy-MM-dd
-     *
-     * @param timeInMillis 需要格式化显示的毫秒数
-     * @return
-     */
-    public static String formatDate(long timeInMillis) {
-        return formatDateTime(timeInMillis, false, 0);
-    }
-
-    /**
-     * 格式化时间显示
-     * @param timeInMillis
-     * @param isTime 是否需要显示时分
-     * @return
-     */
-    public static String formatDate(long timeInMillis,boolean isTime){
-        return formatDateTime(timeInMillis, isTime, 0);
-    }
-
-    /**
-     * 格式化显示日期yyyy-MM-dd
-     *
-     * @param timeString 需要格式化显示的时间字符串，例如2014-8-8 12:10
-     * @return
-     */
-    public static String formatDate(String timeString,String fromPattern,String toPattern) {
-        return formatDateTime(timeString,fromPattern,toPattern);
-    }
-
-    /**
      * 格式化日期时间
      * @param timeInMillis 需要格式化的毫秒数
      * @param toPattern 格式化样式
@@ -69,10 +36,10 @@ public final class DateTimeUtils {
      */
     public static String formatDate(long timeInMillis, String toPattern) {
         String result = "";
-        if (!TextUtils.isEmpty(toPattern)) {
+        if (!StringUtils.isEmpty(toPattern)) {
             try {
-                DateTime dateTime = new DateTime(timeInMillis);
-                result = dateTime.toString(toPattern, Locale.US);
+                LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timeInMillis), ZoneId.systemDefault());
+                result = dateTime.format(DateTimeFormatter.ofPattern(toPattern));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -83,58 +50,19 @@ public final class DateTimeUtils {
     /**
      * 格式化显示日期和时间
      *
-     * @param timeInMillis 需要格式化显示的毫秒数
-     * @param time 是否需要时间显示
-     * @param type 格式化样式0：yyyy-MM-dd HH:mm
-     *             格式化样式1：MM-dd HH:mm
-     *             格式化样式2：yyyy-MM-dd HH:mm:ss
-     * @return
-     */
-    public static String formatDateTime(long timeInMillis, boolean time, int type) {
-        DateTime dateTime = new DateTime(timeInMillis);
-        String result = null;
-        switch (type) {
-            case 0:
-                if (time) {
-                    String pattern = PATTERN_YYYY_MM_DD_HH_MM;
-                    result = dateTime.toString(pattern, Locale.US);
-                } else {
-                    String pattern = PATTERN_YYYY_MM_DD;
-                    result = dateTime.toString(pattern, Locale.US);
-                }
-                break;
-            case 1:
-                result = dateTime.toString(PATTERN_MM_DD);
-                break;
-            case 2:
-                result = dateTime.toString(PATTERN_YYYY_MM_DD_HH_MM_SS);
-                break;
-            default:
-                String pattern = PATTERN_YYYY_MM_DD;
-                result = dateTime.toString(pattern, Locale.US);
-                break;
-        }
-        return result;
-    }
-
-    /**
-     * 格式化显示日期和时间
-     *
      * @param timeString 需要格式化显示的时间字符串，例如2014-8-8 12:10
-     * @param fromPattern 是否需要时间显示
      * @param toPattern 格式化样式0：yyyy-MM-dd HH:mm
      * @return
      */
-    public static String formatDateTime(String timeString, String fromPattern,String toPattern) {
-		String result = null;
+    public static String formatDateTime(String timeString,String toPattern) {
+        Instant instant = Instant.parse(timeString);
+        String result = null;
 		try {
-			if (!TextUtils.isEmpty(fromPattern)
-					&& !TextUtils.isEmpty(toPattern)) {
-				DateTimeFormatter formater = DateTimeFormat
-						.forPattern(fromPattern);
-				DateTime dateTime = DateTime.parse(timeString, formater);
-				result = dateTime.toString(toPattern, Locale.US);
-			}
+			if (!StringUtils.isEmpty(toPattern)) {
+				DateTimeFormatter formater = DateTimeFormatter.ofPattern(toPattern);
+                LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+                result = localDateTime.format(formater);
+            }
 		} catch (Exception e) {
 			return timeString;
 		}
@@ -164,7 +92,7 @@ public final class DateTimeUtils {
 //                if (days > 1) {
 //                    return String.format(FApp.getApp().getString(R.string.some_days_age), days);
 //                } else {
-//                    return FApp.getApp().getString(R.string.yestoday);
+//                    return FApp.getApp().getString(R.string.yesterday);
 //                }
 //            }
 //        }
@@ -187,81 +115,81 @@ public final class DateTimeUtils {
      * 返回一段间隔分钟数(绝对值)
      * @return
      */
-    public static int getMinutes(long currentMs, long priviousMs) {
-        DateTime current = new DateTime(currentMs);
-        DateTime privious = new DateTime(priviousMs);
-        return Math.abs(Minutes.minutesBetween(privious, current).getMinutes());
+    public static long getMinutes(long currentMs, long previousMs) {
+        Instant current = Instant.ofEpochMilli(currentMs);
+        Instant previous = Instant.ofEpochMilli(previousMs);
+        return Math.abs(ChronoUnit.MINUTES.between(current, previous));
     }
 
     /**
      * 返回一段间隔秒数(绝对值)
      * @return
      */
-    public static int getSeconds(long currentMs, long priviousMs) {
-        DateTime current = new DateTime(currentMs);
-        DateTime privious = new DateTime(priviousMs);
-        return Math.abs(Seconds.secondsBetween(privious, current).getSeconds());
+    public static long getSeconds(long currentMs, long previousMs) {
+        Instant current = Instant.ofEpochMilli(currentMs);
+        Instant previous = Instant.ofEpochMilli(previousMs);
+        return Math.abs(ChronoUnit.SECONDS.between(current, previous));
+    }
+
+    /**
+     * 返回一段间隔小时数
+     * @return
+     */
+    public static long getHours(long currentMs, long previousMs) {
+        Instant current = Instant.ofEpochMilli(currentMs);
+        Instant previous = Instant.ofEpochMilli(previousMs);
+        return Math.abs(ChronoUnit.HOURS.between(current, previous));
     }
 
     /**
      * 返回一段间隔分钟数
-     * @param priviousMs 毫秒数
+     * @param previousMs 毫秒数
      * @param timeZoneID 时区id 例如Asia/Shanghai
      *                   使用getTimeZoneID()获取
      * @return
      */
-    public static int getMinutesFromNow(long priviousMs, String timeZoneID) {
-        DateTime current = DateTime.now();
-        DateTimeZone dateTimeZone = null;
+    public static long getMinutesFromNow(long previousMs, String timeZoneID) {
+        ZonedDateTime current = ZonedDateTime.now();
+        ZoneId dateTimeZone = null;
         try {
-            dateTimeZone = DateTimeZone.forID(timeZoneID);
+            dateTimeZone = ZoneId.of(timeZoneID);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        DateTime privious = new DateTime(priviousMs, dateTimeZone);
-        return Minutes.minutesBetween(privious, current).getMinutes();
+        ZonedDateTime previous = ZonedDateTime.ofInstant(Instant.ofEpochMilli(previousMs), dateTimeZone);
+        return ChronoUnit.MINUTES.between(previous, current);
     }
 
     /**
      * 返回一段间隔小时数
-     * @param priviousMs 毫秒数
+     * @param previousMs 毫秒数
      * @param timeZoneID 时区id 例如Asia/Shanghai
      *                   使用getTimeZoneID()获取
      * @return
      */
-    public static int getHoursFromNow(long priviousMs, String timeZoneID) {
-        DateTime current = DateTime.now();
-        DateTimeZone dateTimeZone = null;
+    public static long getHoursFromNow(long previousMs, String timeZoneID) {
+        ZonedDateTime current = ZonedDateTime.now();
+        ZoneId dateTimeZone = null;
         try {
-            dateTimeZone = DateTimeZone.forID(timeZoneID);
+            dateTimeZone = ZoneId.of(timeZoneID);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        DateTime privious = new DateTime(priviousMs, dateTimeZone);
-        return Hours.hoursBetween(privious, current).getHours();
+        ZonedDateTime previous = ZonedDateTime.ofInstant(Instant.ofEpochMilli(previousMs), dateTimeZone);
+        return ChronoUnit.HOURS.between(previous, current);
     }
 
-    /**
-     * 返回一段间隔小时数
-     * @return
-     */
-    public static int getHours(long currentMs, long priviousMs) {
-        DateTime current = new DateTime(currentMs);
-        DateTime privious = new DateTime(priviousMs);
-        return Hours.hoursBetween(privious, current).getHours();
-    }
-
-    public static String formatPeriod(long start, long end) {
-        Period period = new Period(end- start);
-        PeriodFormatter formatter = new PeriodFormatterBuilder()
-                .printZeroIfSupported()
-                .appendHours().appendSeparator(":")
-                .minimumPrintedDigits(2)
-                .appendMinutes().appendSeparator(":")
-                .appendSeconds()
-                .toFormatter();
-        return formatter.print(period);
-    }
+//    public static String formatPeriod(long start, long end) {
+//        Period period = new Period(end - start);
+//        PeriodFormatter formatter = new PeriodFormatterBuilder()
+//                .printZeroIfSupported()
+//                .appendHours().appendSeparator(":")
+//                .minimumPrintedDigits(2)
+//                .appendMinutes().appendSeparator(":")
+//                .appendSeconds()
+//                .toFormatter();
+//        return formatter.print(period);
+//    }
 
     /**
      * 将2013:10:08 11:48:07如此格式的时间 转化为毫秒数
@@ -270,10 +198,10 @@ public final class DateTimeUtils {
      * @return 毫秒数
      */
     public static long dateTimeToMS(String datetime) {
-        if (TextUtils.isEmpty(datetime))
+        if (StringUtils.isEmpty(datetime))
             return 0;
-        DateTime dateTime = DateTime.parse(datetime);
-        return dateTime.getMillis();
+        Instant dateTime = Instant.parse(datetime);
+        return dateTime.toEpochMilli();
     }
 
     /**
@@ -281,18 +209,11 @@ public final class DateTimeUtils {
      * @return
      */
     public static String getDefaultTimeZoneID() {
-        return DateTimeZone.getDefault().getID();
-    }
-
-    /**
-     * 获取默认时区id
-     * @return
-     */
-    public static String getTimeZoneID(TimeZone timeZone) {
-        return DateTimeZone.forTimeZone(timeZone).getID();
+        return ZoneId.systemDefault().getId();
     }
 
     public static void main(String[] args) {
+        AndroidThreeTen.init(new MockContext());
         String dateStart = "01/14/2012 09:20:58";
         String dateStop = "01/14/2012 09:26:00";
 
@@ -302,12 +223,10 @@ public final class DateTimeUtils {
         Date d2 = null;
         long end = 1409586000000l;
         long cur = 1409586559512l;
-        Period period = new Period(cur- end);
-        PeriodFormatter formatter = new PeriodFormatterBuilder().appendHours().appendSeparator(":").appendMinutes().appendSeparator(":").toFormatter();
-        DateTimeZone dateTimeZone = DateTimeZone.getDefault();
+
         System.out.print(getMinutes(end, cur) + "\n");
-        System.out.print(formatDate(end, true) + "\n");
-        System.out.print(formatDate(cur, true) + "\n");
+        System.out.print(formatDate(end, "yyyy-MM-dd HH:mm:ss") + "\n");
+        System.out.print(formatDate(cur, "yyyy-MM-dd HH:mm:ss") + "\n");
 
     }
 }
