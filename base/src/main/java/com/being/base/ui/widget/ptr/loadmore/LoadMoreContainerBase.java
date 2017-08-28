@@ -3,6 +3,7 @@ package com.being.base.ui.widget.ptr.loadmore;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -27,7 +28,7 @@ public abstract class LoadMoreContainerBase extends LinearLayout implements Load
 
     private boolean mListEmpty = true;
     private boolean mShowLoadingForFirstPage = false;
-    protected View mFooterView;
+    protected @Nullable View mFooterView;
 
     private ViewGroup mViewGroup;
 
@@ -162,12 +163,14 @@ public abstract class LoadMoreContainerBase extends LinearLayout implements Load
 
         // add current
         mFooterView = view;
-        mFooterView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tryToPerformLoadMore();
-            }
-        });
+        if (mFooterView != null) {
+            mFooterView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    tryToPerformLoadMore();
+                }
+            });
+        }
 
         addFooterView(view);
     }
@@ -198,10 +201,12 @@ public abstract class LoadMoreContainerBase extends LinearLayout implements Load
         if (mLoadMoreUIHandler != null) {
             mLoadMoreUIHandler.onLoadFinish(this, emptyResult, hasMore);
         }
-        if (hasMore) {
-            mFooterView.setVisibility(VISIBLE);
-        } else {
-            mFooterView.setVisibility(GONE);
+        if (mFooterView != null) {
+            if (hasMore) {
+                mFooterView.setVisibility(VISIBLE);
+            } else {
+                mFooterView.setVisibility(GONE);
+            }
         }
     }
 
