@@ -40,11 +40,6 @@ public abstract class SimpleRecyclerAdapter<T, K extends AbstractViewHolder> ext
     protected abstract K onCreateAbstractViewHolder(ViewGroup parent, int viewType);
 
     @Override
-    protected K createBaseViewHolder(View view) {
-        return (K) new VH<T>(view);
-    }
-
-    @Override
     protected void convert(K helper, T item) {
         helper.bindData(item);
     }
