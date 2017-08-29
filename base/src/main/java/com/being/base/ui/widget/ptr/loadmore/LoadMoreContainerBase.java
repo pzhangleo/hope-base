@@ -1,5 +1,6 @@
 package com.being.base.ui.widget.ptr.loadmore;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -54,6 +55,7 @@ public abstract class LoadMoreContainerBase extends LinearLayout implements Load
         setLoadMoreUIHandler(footerView);
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private void init() {
 
         if (mFooterView != null) {
