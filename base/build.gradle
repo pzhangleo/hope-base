@@ -47,7 +47,7 @@ dependencies {
     //noinspection GradleDynamicVersion
     compile 'com.android.support:percent:26.0.1'
     //noinspection GradleDynamicVersion
-    compile 'com.android.support:design:26.+'
+    compile 'com.android.support:design:26.0.1'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
     compile 'com.squareup.okio:okio:1.13.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
