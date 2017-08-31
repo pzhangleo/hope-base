@@ -38,7 +38,7 @@ public class WebImageView extends FrescoDraweeView {
 
     private int mHeight;
 
-    private int mPlaceHolderResId;
+//    private int mPlaceHolderResId;
 
     public WebImageView(Context context) {
         super(context);
@@ -72,7 +72,7 @@ public class WebImageView extends FrescoDraweeView {
      * @param url 图片地址
      */
     public void setImageUrl(String url) {
-        setImageUrl(url, 0, ScalingUtils.ScaleType.CENTER_CROP,
+        setImageUrl(url, -1, ScalingUtils.ScaleType.CENTER_CROP,
                 FrescoHelper.TransformType.NONE, FrescoHelper.ProgressBarType.NONE, null, null);
     }
 
@@ -84,7 +84,7 @@ public class WebImageView extends FrescoDraweeView {
      * @param postprocessor 图片处理器
      */
     public void setImageUrl(String url, Postprocessor postprocessor) {
-        setImageUrl(url, 0, ScalingUtils.ScaleType.CENTER_CROP,
+        setImageUrl(url, -1, ScalingUtils.ScaleType.CENTER_CROP,
                 FrescoHelper.TransformType.NONE, FrescoHelper.ProgressBarType.NONE, null, postprocessor);
     }
 
@@ -181,16 +181,13 @@ public class WebImageView extends FrescoDraweeView {
     }
 
     private void setPlaceHolder(int imageRes, ScalingUtils.ScaleType scaleType) {
-        if (mPlaceHolderResId > 0) {
-            return;
-        }
         if (imageRes > 0) {
             if (scaleType != null) {
                 getHierarchy().setPlaceholderImage(getResources().getDrawable(imageRes), scaleType);
             } else {
                 getHierarchy().setPlaceholderImage(imageRes);
             }
-        } else {
+        } else if (imageRes == 0){
             Drawable phDr = new ColorDrawable(Color.TRANSPARENT);
             getHierarchy().setPlaceholderImage(phDr);
         }
@@ -254,26 +251,26 @@ public class WebImageView extends FrescoDraweeView {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            TypedArray gdhAttrs = null;
-            try {
-                gdhAttrs = getContext().obtainStyledAttributes(
-                        attrs,
-                        com.facebook.drawee.R.styleable.GenericDraweeHierarchy);
-                final int indexCount = gdhAttrs.getIndexCount();
-                for (int i = 0; i < indexCount; i++) {
-                    final int attr = gdhAttrs.getIndex(i);
-                    if (attr == com.facebook.drawee.R.styleable.GenericDraweeHierarchy_placeholderImage) {
-                        mPlaceHolderResId = gdhAttrs.getResourceId(attr, 0);
-                        break;
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (gdhAttrs != null) {
-                    gdhAttrs.recycle();
-                }
-            }
+//            TypedArray gdhAttrs = null;
+//            try {
+//                gdhAttrs = getContext().obtainStyledAttributes(
+//                        attrs,
+//                        com.facebook.drawee.R.styleable.GenericDraweeHierarchy);
+//                final int indexCount = gdhAttrs.getIndexCount();
+//                for (int i = 0; i < indexCount; i++) {
+//                    final int attr = gdhAttrs.getIndex(i);
+//                    if (attr == com.facebook.drawee.R.styleable.GenericDraweeHierarchy_placeholderImage) {
+//                        mPlaceHolderResId = gdhAttrs.getResourceId(attr, 0);
+//                        break;
+//                    }
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            } finally {
+//                if (gdhAttrs != null) {
+//                    gdhAttrs.recycle();
+//                }
+//            }
         }
     }
 
