@@ -1,5 +1,7 @@
 package com.being.base.http.intercept;
 
+import android.support.annotation.NonNull;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -13,15 +15,21 @@ import okhttp3.Response;
 
 public class RewriteCacheHeaderInterceptor implements Interceptor {
 
+    private int mAgeInSecond = 3;
+
+    public RewriteCacheHeaderInterceptor(int ageInSecond) {
+        mAgeInSecond = ageInSecond;
+    }
+
     @Override
-    public Response intercept(Chain chain) throws IOException {
+    public Response intercept(@NonNull Chain chain) throws IOException {
         Request request = chain.request();
         if (!"get".equalsIgnoreCase(request.method())) {
             return chain.proceed(request);
         } else {
             Response netWorkResponse = chain.proceed(request);
             return netWorkResponse.newBuilder()
-                    .header("Cache-Control", "max-age=3")
+                    .header("Cache-Control", "max-age=" + mAgeInSecond)
                     .build();
         }
     }
