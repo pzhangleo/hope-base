@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.being.base.application.MainActivity">
+    tools:context="zhp.base.application.zhp.base.application.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.being.base.ui.widget.ptr.FPtrFrameLayout
+    <zhp.base.ui.widget.ptr.FPtrFrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layout_ptr"
         android:layout_marginTop="60dp"
@@ -33,7 +33,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
-    </com.being.base.ui.widget.ptr.FPtrFrameLayout>
+    </zhp.base.ui.widget.ptr.FPtrFrameLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

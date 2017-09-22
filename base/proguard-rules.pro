@@ -35,7 +35,7 @@
 -dontwarn okio.**
 
 # some to to model with gson
--keep class * implements com.being.base.http.model.BaseObject { *;
+-keep class * implements BaseObject { *;
  public protected private *;}
 
 #for fresco

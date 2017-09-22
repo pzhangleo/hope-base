@@ -3,7 +3,6 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.being.base.utils.DateTimeUtils;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.junit.Assert;
@@ -13,6 +12,8 @@ import org.junit.runner.RunWith;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import zhp.base.utils.DateTimeUtils;
 
 /**
  * Created by zhangpeng on 2017/8/25.
