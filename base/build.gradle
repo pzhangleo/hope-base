@@ -66,10 +66,14 @@ dependencies {
     //noinspection GradleCompatible
     compile "com.android.support:multidex:1.0.2"
     compile "com.android.support.constraint:constraint-layout:1.0.2"
+    implementation "android.arch.lifecycle:runtime:1.0.3"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
+    implementation "android.arch.lifecycle:common-java8:1.0.0"
+    implementation "android.arch.lifecycle:extensions:1.0.0"
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.7.19'
     testCompile 'com.squareup.okhttp3:mockwebserver:3.9.0'
-    androidTestCompile 'com.android.support:support-annotations:26.1.0'
+    androidTestCompile 'com.android.support:support-annotations:27.0.0'
     androidTestCompile 'com.android.support.test:runner:1.0.1'
     // Set this dependency to use JUnit 4 rules
     androidTestCompile 'com.android.support.test:rules:1.0.1'

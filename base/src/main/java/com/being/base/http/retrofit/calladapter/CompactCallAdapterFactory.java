@@ -1,5 +1,6 @@
 package com.being.base.http.retrofit.calladapter;
 
+import android.arch.lifecycle.Lifecycle;
 import android.support.annotation.Nullable;
 
 import com.being.base.http.callback.ICallback;
@@ -77,11 +78,17 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
             call.cancel();
         }
 
+
         @Override
-        public void enqueue(@Nullable final ICallback<T> callback) {
+        public void enqueue(@Nullable final ICallback<T> callback, final Lifecycle lifecycle) {
             call.enqueue(new Callback<T>() {
                 @Override
                 public void onResponse(Call<T> call, final Response<T> response) {
+                    if (lifecycle != null) {
+                        if (lifecycle.getCurrentState() == Lifecycle.State.DESTROYED) {
+                            return;
+                        }
+                    }
                     if (callbackExecutor != null) {
                         callbackExecutor.execute(new Runnable() {
                             @Override
