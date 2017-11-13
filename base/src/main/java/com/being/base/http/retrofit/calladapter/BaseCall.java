@@ -16,6 +16,9 @@ import retrofit2.Response;
 public interface BaseCall<T> {
     void cancel();
 
+    @Deprecated
+    void enqueue(@Nullable ICallback<T> callback);
+
     void enqueue(@Nullable ICallback<T> callback, Lifecycle lifecycle);
 
     Response<T> execute() throws IOException;
