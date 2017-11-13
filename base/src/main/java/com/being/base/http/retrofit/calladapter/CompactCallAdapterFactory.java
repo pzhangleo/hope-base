@@ -1,6 +1,7 @@
 package com.being.base.http.retrofit.calladapter;
 
 import android.arch.lifecycle.Lifecycle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.being.base.http.callback.ICallback;
@@ -25,7 +26,7 @@ import retrofit2.Retrofit;
  */
 public class CompactCallAdapterFactory extends CallAdapter.Factory {
     @Override
-    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+    public CallAdapter<?, ?> get(@NonNull Type returnType, @NonNull Annotation[] annotations, @NonNull Retrofit retrofit) {
         if (getRawType(returnType) != BaseCall.class) {
             return null;
         }
@@ -54,7 +55,7 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
         }
 
         @Override
-        public BaseCall<R> adapt(Call<R> call) {
+        public BaseCall<R> adapt(@NonNull Call<R> call) {
             return new InternalCallAdapter<>(call, callbackExecutor);
         }
 
@@ -78,12 +79,17 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
             call.cancel();
         }
 
+        @Override
+        public void enqueue(@Nullable ICallback<T> callback) {
+            enqueue(callback, null);
+        }
+
 
         @Override
         public void enqueue(@Nullable final ICallback<T> callback, final Lifecycle lifecycle) {
             call.enqueue(new Callback<T>() {
                 @Override
-                public void onResponse(Call<T> call, final Response<T> response) {
+                public void onResponse(@NonNull Call<T> call, @NonNull final Response<T> response) {
                     if (lifecycle != null) {
                         if (lifecycle.getCurrentState() == Lifecycle.State.DESTROYED) {
                             return;
@@ -108,7 +114,7 @@ public class CompactCallAdapterFactory extends CallAdapter.Factory {
                 }
 
                 @Override
-                public void onFailure(Call<T> call, final Throwable t) {
+                public void onFailure(@NonNull Call<T> call, @NonNull final Throwable t) {
                     if (callbackExecutor != null) {
                         callbackExecutor.execute(new Runnable() {
                             @Override
