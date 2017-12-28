@@ -14,6 +14,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -54,15 +55,37 @@ public class AndroidUtils {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    @Deprecated
     public static void openAlbum(Activity activity, File file, boolean crop, int ox, int oy, int requestCode) {
         openAlbum(activity, file, crop, 1, 1, ox, oy, requestCode);
     }
 
+    @Deprecated
     public static void openAlbum(Activity activity, File file, boolean crop, int ax, int ay, int ox, int oy, int requestCode) {
         Intent intent = new Intent(Intent.ACTION_PICK);//ACTION_GET_CONTENT ACTION_PICK
         //        intent.addCategory(Intent.CATEGORY_OPENABLE);
         if (file != null) {
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, getUriForFile(activity, file, ""));
+        }
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI,
+                "image/*");
+        if (crop) {
+            cropIntent(intent, ax, ay, ox, oy);
+        }
+        intent.putExtra("return-data", false);
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+    public static void openAlbum(Activity activity, File file, boolean crop, int ox, int oy, int requestCode, String authority) {
+        openAlbum(activity, file, crop, 1, 1, ox, oy, requestCode, authority);
+    }
+
+    public static void openAlbum(Activity activity, File file, boolean crop, int ax, int ay, int ox, int oy, int requestCode, String authority) {
+        Intent intent = new Intent(Intent.ACTION_PICK);//ACTION_GET_CONTENT ACTION_PICK
+        //        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        if (file != null) {
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, getUriForFile(activity, file, authority));
         }
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI,
@@ -76,10 +99,12 @@ public class AndroidUtils {
 
     /**
      * 打开相机后如果需要裁剪需要自己处理
+     *
      * @param activity
      * @param file
      * @param requestCode
      */
+    @Deprecated
     public static void openCamera(Activity activity, File file, int requestCode) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
@@ -87,18 +112,32 @@ public class AndroidUtils {
     }
 
     /**
+     * 打开相机后如果需要裁剪需要自己处理
      *
+     * @param activity
+     * @param file
+     * @param requestCode
+     */
+    public static void openCamera(Activity activity, File file, int requestCode, String authority) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, getUriForFile(activity, file, authority));
+        activity.startActivityForResult(intent, requestCode); //启动系统拍照页面
+    }
+
+    /**
      * @param fragment
      * @param file
-     * @param crop 开启截取后，默认截取方图
+     * @param crop        开启截取后，默认截取方图
      * @param ox
      * @param oy
      * @param requestCode
      */
+    @Deprecated
     public static void openAlbum(Fragment fragment, File file, boolean crop, int ox, int oy, int requestCode) {
         openAlbum(fragment, file, crop, 1, 1, ox, oy, requestCode);
     }
 
+    @Deprecated
     public static void openAlbum(Fragment fragment, File file, boolean crop, int ax, int ay, int ox, int oy, int requestCode) {
         Intent intent = new Intent(Intent.ACTION_PICK);//ACTION_GET_CONTENT ACTION_PICK
         //        intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -116,17 +155,59 @@ public class AndroidUtils {
     }
 
     /**
-     *
      * @param fragment
      * @param file
-     * @param crop 开启截取后，默认截取方图
+     * @param crop        开启截取后，默认截取方图
      * @param ox
      * @param oy
      * @param requestCode
      */
+    public static void openAlbum(Fragment fragment, File file, boolean crop, int ox, int oy, int requestCode, String authority) {
+        openAlbum(fragment, file, crop, 1, 1, ox, oy, requestCode, authority);
+    }
+
+    public static void openAlbum(Fragment fragment, File file, boolean crop, int ax, int ay, int ox, int oy, int requestCode, String authority) {
+        Intent intent = new Intent(Intent.ACTION_PICK);//ACTION_GET_CONTENT ACTION_PICK
+        //        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        if (file != null) {
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, getUriForFile(fragment.getContext(), file, authority));
+        }
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI,
+                "image/*");
+        if (crop) {
+            cropIntent(intent, ax, ay, ox, oy);
+        }
+        intent.putExtra("return-data", false);
+        fragment.startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * @param fragment
+     * @param file
+     * @param crop        开启截取后，默认截取方图
+     * @param ox
+     * @param oy
+     * @param requestCode
+     */
+    @Deprecated
     public static void openCamera(Fragment fragment, File file, int requestCode) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+        fragment.startActivityForResult(intent, requestCode); //启动系统拍照页面
+    }
+
+    /**
+     * @param fragment
+     * @param file
+     * @param crop        开启截取后，默认截取方图
+     * @param ox
+     * @param oy
+     * @param requestCode
+     */
+    public static void openCamera(Fragment fragment, File file, int requestCode, String authority) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, getUriForFile(fragment.getContext(), file, authority));
         fragment.startActivityForResult(intent, requestCode); //启动系统拍照页面
     }
 
@@ -282,8 +363,8 @@ public class AndroidUtils {
      */
     @Nullable
     public static String parseActivityMediaResult(Context context, File selFile, int requestCode,
-                                                int resultCode, Intent data, int camera,
-                                                int album) {
+                                                  int resultCode, Intent data, int camera,
+                                                  int album) {
         if (resultCode == Activity.RESULT_CANCELED) {
             return selFile.getPath();
         }
@@ -310,6 +391,7 @@ public class AndroidUtils {
 
     /**
      * 启用系统播放器播放网络流媒体视频
+     *
      * @param context
      * @param url
      */
@@ -325,13 +407,14 @@ public class AndroidUtils {
 
     /**
      * 使用系统播放器播放本地视频文件
+     *
      * @param context
      * @param file
      */
-    public static void openVideoPlayer(Context context, File file) {
+    public static void openVideoPlayer(Context context, File file, String authority) {
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(file), "video/mp4");
+            intent.setDataAndType(getUriForFile(context, file, authority), "video/mp4");
             context.startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
@@ -340,6 +423,7 @@ public class AndroidUtils {
 
     /**
      * 获取当前进程名
+     *
      * @return
      */
     public static String getProcessName() {
@@ -357,6 +441,7 @@ public class AndroidUtils {
 
     /**
      * 获取该pid对应的进程名
+     *
      * @param cxt 上下文环境
      * @param pid 进程pid
      * @return
@@ -388,5 +473,19 @@ public class AndroidUtils {
         } else {
             return false;
         }
+    }
+
+
+    private static Uri getUriForFile(Context context, File file, String authority) {
+        if (context == null || file == null) {
+            throw new NullPointerException();
+        }
+        Uri uri;
+        if (Build.VERSION.SDK_INT >= 24) {
+            uri = FileProvider.getUriForFile(context.getApplicationContext(), authority, file);
+        } else {
+            uri = Uri.fromFile(file);
+        }
+        return uri;
     }
 }
