@@ -1,7 +1,7 @@
 /**
  * 图片工具类
  */
-package zhp.base.utils;
+package com.being.base.utils;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -16,8 +16,11 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.Rect;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+
+import com.being.base.log.NHLog;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -28,8 +31,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import zhp.base.log.NHLog;
 
 @SuppressWarnings({"unused", "JavaDoc", "SimpleDateFormat"})
 public class ImageUtils {
@@ -799,6 +800,41 @@ public class ImageUtils {
         }
 
         return bmpDest;
+    }
+
+    /**
+     * bitmap转为base64
+     * @param bitmap
+     * @return
+     */
+    public static String bitmapToBase64(Bitmap bitmap) throws IOException {
+
+        String result = null;
+        ByteArrayOutputStream baos = null;
+        try {
+            if (bitmap != null) {
+                baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, baos);
+
+                baos.flush();
+                baos.close();
+
+                byte[] bitmapBytes = baos.toByteArray();
+                result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT);
+            }
+        } catch (IOException e) {
+            throw e;
+        } finally {
+            try {
+                if (baos != null) {
+                    baos.flush();
+                    baos.close();
+                }
+            } catch (IOException e) {
+                throw e;
+            }
+        }
+        return result;
     }
 
 }
