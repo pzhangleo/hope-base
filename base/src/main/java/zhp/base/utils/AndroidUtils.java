@@ -1,4 +1,4 @@
-package com.being.base.utils;
+package zhp.base.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

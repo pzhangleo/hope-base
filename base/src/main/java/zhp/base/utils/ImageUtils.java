@@ -1,7 +1,7 @@
 /**
  * 图片工具类
  */
-package com.being.base.utils;
+package zhp.base.utils;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -20,8 +20,6 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 
-import com.being.base.log.NHLog;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -31,6 +29,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import zhp.base.log.NHLog;
 
 @SuppressWarnings({"unused", "JavaDoc", "SimpleDateFormat"})
 public class ImageUtils {

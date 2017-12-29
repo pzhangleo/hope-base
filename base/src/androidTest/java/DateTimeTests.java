@@ -35,8 +35,8 @@ public class DateTimeTests {
 
         Date d1 = null;
         Date d2 = null;
-        long end = 1409586000000l;
-        long cur = 1509586559512l;
+        long end = 1409586000000L;
+        long cur = 1509586559512L;
         System.out.println(DateTimeUtils.getMinutes(end, cur) + "\n");
         System.out.println(DateTimeUtils.formatDate(end, "yyyy-MM-dd HH:mm:ss") + "\n");
         System.out.println(DateTimeUtils.formatDate(cur, "yyyy-MM-dd HH:mm:ss") + "\n");
