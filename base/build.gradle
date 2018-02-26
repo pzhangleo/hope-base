@@ -4,11 +4,11 @@ apply plugin: 'maven'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    buildToolsVersion "26.0.3"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "0.3.0.4"
         multiDexEnabled true
@@ -42,10 +42,10 @@ dependencies {
     compile 'com.android.support:support-v4:26.1.0'
     compile 'com.android.support:percent:26.1.0'
     compile 'com.android.support:design:26.1.0'
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
-    compile 'com.squareup.okio:okio:1.13.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
-    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile 'com.squareup.okio:okio:1.14.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.5'
     compile 'com.liulishuo.filedownloader:library:1.6.3'
     compile 'com.jakewharton:butterknife:8.8.1'
@@ -67,10 +67,10 @@ dependencies {
     //noinspection GradleCompatible
     compile "com.android.support:multidex:1.0.2"
     compile "com.android.support.constraint:constraint-layout:1.0.2"
-    compile "android.arch.lifecycle:runtime:1.0.3"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.3"
-    implementation "android.arch.lifecycle:common-java8:1.0.0"
-    implementation "android.arch.lifecycle:extensions:1.0.0"
+    compile "android.arch.lifecycle:runtime:1.1.0"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
+    implementation "android.arch.lifecycle:common-java8:1.1.0"
+    implementation "android.arch.lifecycle:extensions:1.1.0"
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.7.19'
     testCompile 'com.squareup.okhttp3:mockwebserver:3.9.0'
