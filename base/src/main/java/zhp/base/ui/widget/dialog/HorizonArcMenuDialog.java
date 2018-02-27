@@ -9,7 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import zhp.base.ui.widget.menu.CustomArcMenu;
-import zhp.base.utils.DeviceInfoUtils;
+import zhp.base.utils.DeviceInfoUtilsKt;
 
 /**
  * Created by liuqingwei on 16/9/1.
@@ -193,7 +193,7 @@ public class HorizonArcMenuDialog extends Dialog {
             dialog.setCanceledOnTouchOutside(true);
             dialog.getWindow().setGravity(Gravity.BOTTOM);
             WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-            params.width = DeviceInfoUtils.getScreenWidth(mContext);
+            params.width = DeviceInfoUtilsKt.getScreenWidth(mContext);
 //        params.height = DeviceInfoUtils.getScreenHeight(context)/2;
             params.height= WindowManager.LayoutParams.WRAP_CONTENT;
             dialog.getWindow().setAttributes(params);

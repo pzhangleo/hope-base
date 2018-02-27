@@ -1,6 +1,6 @@
 package zhp.base;
 
-import zhp.base.utils.DeviceInfoUtils;
+import zhp.base.utils.DeviceInfoUtilsKt;
 
 /**
  * Created by zhangpeng on 16/9/7.
@@ -39,11 +39,11 @@ public class Constants {
 
     public static String TimeZone = "";
 
-    public static final String DEVICE_NAME = DeviceInfoUtils.getDeviceName();
+    public static final String DEVICE_NAME = DeviceInfoUtilsKt.getDeviceName();
 
     public static final String OS_VERSION = "Android " + android.os.Build.VERSION.RELEASE;
 
-    public static final String USER_AGENT = DeviceInfoUtils.getUserAgent();
+    public static final String USER_AGENT = DeviceInfoUtilsKt.getUserAgent();
 
     public static final int IMAGE_SACLE_SIZE = 1280;
 

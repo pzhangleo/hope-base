@@ -28,7 +28,7 @@ import com.facebook.imagepipeline.request.Postprocessor;
 import zhp.base.ui.widget.fresco.FrescoDraweeView;
 import zhp.base.ui.widget.fresco.FrescoHelper;
 import zhp.base.ui.widget.imageview.progressbar.CircleProgressBarDrawable;
-import zhp.base.utils.DeviceInfoUtils;
+import zhp.base.utils.DeviceInfoUtilsKt;
 
 /**
  * 网络图片控件
@@ -245,8 +245,8 @@ public class WebImageView extends FrescoDraweeView {
                         mHeight = getResources().getDimensionPixelSize(Integer.parseInt(heightString.replace("@", "")));
                     }
                     if (wdp > 0 && hdp > 0) {
-                        mWidth = DeviceInfoUtils.dip2px(getContext(), wdp);
-                        mHeight = DeviceInfoUtils.dip2px(getContext(), hdp);
+                        mWidth = DeviceInfoUtilsKt.dip2px(getContext(), wdp);
+                        mHeight = DeviceInfoUtilsKt.dip2px(getContext(), hdp);
                     }
                 }
             } catch (Exception e) {

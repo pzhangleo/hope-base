@@ -22,7 +22,7 @@ import android.widget.ImageView;
 
 import zhp.base.R;
 import zhp.base.ui.widget.dialog.HorizonArcMenuDialog;
-import zhp.base.utils.DeviceInfoUtils;
+import zhp.base.utils.DeviceInfoUtilsKt;
 
 /**
  * Created by liuqingwei on 16/8/30.
@@ -313,7 +313,7 @@ public class CustomArcMenu extends ViewGroup implements View.OnClickListener {
             height = getChildAt(0).getMeasuredHeight();
             Rect rect = new Rect();
             btnV.getGlobalVisibleRect(rect);
-            int statusBarHeight = DeviceInfoUtils.getStatusBarHeight(mContext);
+            int statusBarHeight = DeviceInfoUtilsKt.getStatusBarHeight(mContext);
 
             offX = (rect.right + rect.left) / 2 - width / 2;
             offY = (rect.bottom + rect.top) / 2 - height / 2 - statusBarHeight;

@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 
 import zhp.base.R;
 import zhp.base.ui.widget.menu.CustomArcMenu;
-import zhp.base.utils.DeviceInfoUtils;
+import zhp.base.utils.DeviceInfoUtilsKt;
 
 /**
  * 对话框工具类
@@ -294,7 +294,7 @@ public class DialogUtils {
         dialog.setCanceledOnTouchOutside(true);
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-        params.width = DeviceInfoUtils.getScreenWidth(context);
+        params.width = DeviceInfoUtilsKt.getScreenWidth(context);
 //        params.height = DeviceInfoUtils.getScreenHeight(context)/2;
         params.height= WindowManager.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes(params);

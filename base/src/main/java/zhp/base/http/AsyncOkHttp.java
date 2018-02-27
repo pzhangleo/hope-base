@@ -27,7 +27,7 @@ import zhp.base.Constants;
 import zhp.base.http.callback.ResponseCallback;
 import zhp.base.http.exception.HttpRequestException;
 import zhp.base.log.NHLog;
-import zhp.base.utils.DeviceInfoUtils;
+import zhp.base.utils.DeviceInfoUtilsKt;
 
 /**
  * 异步OkHttp
@@ -157,7 +157,7 @@ public class AsyncOkHttp {
     }
 
     public CallHandler doExecute(Request.Builder requestBuilder, final ResponseCallback responseCallback) {
-        requestBuilder.addHeader("User-Agent", DeviceInfoUtils.getUserAgent());
+        requestBuilder.addHeader("User-Agent", DeviceInfoUtilsKt.getUserAgent());
         Request request = requestBuilder.build();
         responseCallback.setRequest(request);
         request = responseCallback.updateRequestHeaders(request);
