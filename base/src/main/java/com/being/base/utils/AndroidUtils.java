@@ -218,9 +218,9 @@ public class AndroidUtils {
         context.sendBroadcast(intent);
     }
 
-    public static void recordVideo(Activity activity, File file, int quality, int durationSecond, int requestCode) {
+    public static void recordVideo(Activity activity, File file, int quality, int durationSecond, int requestCode, String authority) {
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, getUriForFile(activity, file, authority));
         if (Build.MANUFACTURER.contains("LG")) {
             intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 30 * 1024 * 1024);
         } else {
