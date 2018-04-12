@@ -65,10 +65,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit-mock:2.4.0'
     implementation 'com.squareup.okhttp3:mockwebserver:3.9.0'
     implementation "com.android.support.constraint:constraint-layout:1.0.2"
-    implementation "android.arch.lifecycle:runtime:1.1.1"
-    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
-    implementation "android.arch.lifecycle:common-java8:1.1.1"
-    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.7.19'
     testImplementation 'com.squareup.okhttp3:mockwebserver:3.9.0'
@@ -77,7 +74,6 @@ dependencies {
     // Set this dependency to use JUnit 4 rules
     androidTestImplementation 'com.android.support.test:rules:1.0.1'
     // Set this dependency to build and run Espresso tests
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
 
