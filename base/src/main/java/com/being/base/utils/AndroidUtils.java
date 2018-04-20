@@ -125,6 +125,22 @@ public class AndroidUtils {
     }
 
     /**
+     * 打开相机后如果需要裁剪需要自己处理
+     *
+     * @param activity
+     * @param file
+     * @param requestCode
+     */
+    public static void openCamera(Activity activity, File file, boolean crop, int ax, int ay, int ox, int oy, int requestCode, String authority) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, getUriForFile(activity, file, authority));
+        if (crop) {
+            cropIntent(intent, ax, ay, ox, oy);
+        }
+        activity.startActivityForResult(intent, requestCode); //启动系统拍照页面
+    }
+
+    /**
      * @param fragment
      * @param file
      * @param crop        开启截取后，默认截取方图
@@ -194,6 +210,23 @@ public class AndroidUtils {
     public static void openCamera(Fragment fragment, File file, int requestCode) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+        fragment.startActivityForResult(intent, requestCode); //启动系统拍照页面
+    }
+
+    /**
+     * @param fragment
+     * @param file
+     * @param crop        开启截取后，默认截取方图
+     * @param ox
+     * @param oy
+     * @param requestCode
+     */
+    public static void openCamera(Fragment fragment, File file, boolean crop, int ax, int ay, int ox, int oy, int requestCode, String authority) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, getUriForFile(fragment.getContext(), file, authority));
+        if (crop) {
+            cropIntent(intent, ax, ay, ox, oy);
+        }
         fragment.startActivityForResult(intent, requestCode); //启动系统拍照页面
     }
 
