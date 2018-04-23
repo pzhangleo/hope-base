@@ -414,6 +414,11 @@ public class AndroidUtils {
     public static void openVideoPlayer(Context context, File file, String authority) {
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            } else {
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
             intent.setDataAndType(getUriForFile(context, file, authority), "video/mp4");
             context.startActivity(intent);
         } catch (Exception e) {
