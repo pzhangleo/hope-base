@@ -9,7 +9,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
-        versionName "0.3.2"
+        versionName "0.3.3"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -50,9 +50,12 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'
-    implementation 'com.facebook.fresco:fresco:1.8.1'
-    implementation 'com.facebook.fresco:animated-webp:1.8.1'
-    implementation 'com.facebook.fresco:webpsupport:1.8.1'
+    implementation 'com.facebook.fresco:fresco:1.9.0'
+    implementation 'com.facebook.fresco:animated-webp:1.9.0'
+    implementation 'com.facebook.fresco:webpsupport:1.9.0'
+    implementation 'com.facebook.fresco:webpsupport:1.9.0'
+    // For animated GIF support
+    implementation 'com.facebook.fresco:animated-gif:1.9.0'
     implementation('jp.wasabeef:fresco-processors:2.1.0') {
         exclude group: 'jp.wasabeef.fresco.processors.gpu'
     }
@@ -63,7 +66,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     implementation 'com.squareup.retrofit2:retrofit-mock:2.4.0'
     implementation 'com.squareup.okhttp3:mockwebserver:3.9.0'
-    implementation "com.android.support.constraint:constraint-layout:1.0.2"
+    implementation "com.android.support.constraint:constraint-layout:1.1.0"
     implementation "android.arch.lifecycle:runtime:1.1.1"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
     implementation "android.arch.lifecycle:common-java8:1.1.1"
@@ -72,11 +75,11 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.7.19'
     testImplementation 'com.squareup.okhttp3:mockwebserver:3.9.0'
     androidTestImplementation 'com.android.support:support-annotations:27.1.1'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
     // Set this dependency to use JUnit 4 rules
-    androidTestImplementation 'com.android.support.test:rules:1.0.1'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
     // Set this dependency to build and run Espresso tests
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
 
 // build a jar with source files
