@@ -20,8 +20,16 @@ import android.view.inputmethod.InputMethodManager;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStream;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 和Android系统相关的工具类
@@ -302,21 +310,20 @@ public class AndroidUtils {
         }
     }
 
-    public static String getRealPathFromURI(Context context, Uri uri) {
+    public static String getRealPathFromURI(Context context, Uri uri, File file) {
         if (uri == null) {
             return null;
         }
         if (uri.getScheme().contains("file")) {
             return uri.getPath();
         }
-        Uri contentUri = uri;
 
         String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = null;
         try {
             if (Build.VERSION.SDK_INT > 19) {
                 // Will return "image:x*"
-                String wholeID = DocumentsContract.getDocumentId(contentUri);
+                String wholeID = DocumentsContract.getDocumentId(uri);
                 // Split at colon, use second item in the array
                 String id = wholeID.split(":")[1];
                 // where id is equal to
@@ -326,30 +333,57 @@ public class AndroidUtils {
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                         projection, sel, new String[]{id}, null);
             } else {
-                cursor = context.getContentResolver().query(contentUri,
+                cursor = context.getContentResolver().query(uri,
                         projection, null, null, null);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            cursor = context.getContentResolver().query(contentUri,
+            cursor = context.getContentResolver().query(uri,
                     projection, null, null, null);
         }
-
+        String path = "";
         if (cursor == null) {
-            return null;
+            if (uri.getAuthority() != null) {
+                InputStream inputStream;
+                try {
+                    inputStream = context.getContentResolver().openInputStream(uri);
+                    FileUtils.writeFile(file, inputStream);
+                    path = file.getPath();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            try {
+                int column_index = cursor
+                        .getColumnIndex(MediaStore.Images.Media.DATA);
+                cursor.moveToFirst();
+                path = cursor.getString(column_index);
+                cursor.close();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
         }
 
-        String path = null;
-        try {
-            int column_index = cursor
-                    .getColumnIndex(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            path = cursor.getString(column_index);
-            cursor.close();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
         return path;
+    }
+
+    public static Observable<String> getRealPathFromURIAsync(final Context context, final Uri uri,
+                                                             final File file) {
+        return Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> e) {
+                String realPathFromURI = null;
+                try {
+                    realPathFromURI = getRealPathFromURI(context, uri, file);
+                    e.onNext(realPathFromURI);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                    e.onError(e1);
+                }
+                e.onComplete();
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     public static void sendSms(Context context, String content) {
@@ -383,7 +417,7 @@ public class AndroidUtils {
     }
 
     /**
-     * 解析选择图片或者拍照后的resulto
+     * 解析选择图片或者拍照后的result
      *
      * @param context
      * @param selFile     设置的文件
@@ -399,7 +433,7 @@ public class AndroidUtils {
                                                   int resultCode, Intent data, int camera,
                                                   int album) {
         if (resultCode == Activity.RESULT_CANCELED) {
-            return selFile.getPath();
+            return selFile != null ? selFile.getPath() : "";
         }
         Uri photoUri = null;
         if (requestCode == camera) {
@@ -415,11 +449,25 @@ public class AndroidUtils {
                 photoUri = Uri.fromFile(selFile);
             }
         }
-        String pathFromURI = getRealPathFromURI(context, photoUri);
+        String pathFromURI = getRealPathFromURI(context, photoUri, selFile);
         if (pathFromURI != null) {
             return pathFromURI;
         }
         return selFile.getPath();
+    }
+
+    public static Observable<String> parseActivityMediaResultAsync(final Context context, final File selFile, final int requestCode,
+                                                                   final int resultCode, final Intent data, final int camera,
+                                                                   final int album) {
+        return Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) {
+                String result = parseActivityMediaResult(context, selFile, requestCode,
+                        resultCode, data, camera, album);
+                emitter.onNext(result);
+                emitter.onComplete();
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
