@@ -105,6 +105,17 @@ public class AndroidUtils {
         activity.startActivityForResult(intent, requestCode);
     }
 
+    public static void selectVideo(Activity activity, File file, int requestCode, String authority) {
+        Intent intent = new Intent(Intent.ACTION_PICK);//ACTION_GET_CONTENT ACTION_PICK
+        //        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        if (file != null) {
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, getUriForFile(activity, file, authority));
+        }
+        intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI,
+                "video/*");
+        activity.startActivityForResult(intent, requestCode);
+    }
+
     /**
      * 打开相机后如果需要裁剪需要自己处理
      *
