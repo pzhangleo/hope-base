@@ -171,7 +171,6 @@ public class WebImageView extends FrescoDraweeView {
 //				.setUri(formatUri(url))
                 .setImageRequest(mRequest)
                 .setAutoPlayAnimations(true)
-                .setTapToRetryEnabled(true)
                 .setControllerListener(controllerListener)
                 .setOldController(getController())
                 .build();
