@@ -33,6 +33,8 @@ public class LoadMoreRecyclerViewContainer extends LoadMoreContainerBase {
         }
         if (mBaseQuickAdapter != null) {
             mBaseQuickAdapter.addFooterView(view);
+        } else {
+            throw new NullPointerException("Adapter is null!");
         }
     }
 

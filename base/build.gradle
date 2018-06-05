@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin: 'maven'
 
 android {
@@ -84,6 +85,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     // Set this dependency to build and run Espresso tests
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 // build a jar with source files
@@ -94,4 +96,7 @@ task sourcesJar(type: Jar) {
 
 artifacts {
     archives sourcesJar
+}
+repositories {
+    mavenCentral()
 }

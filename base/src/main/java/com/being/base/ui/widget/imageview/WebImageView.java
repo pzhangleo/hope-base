@@ -32,6 +32,7 @@ import com.facebook.imagepipeline.request.Postprocessor;
 /**
  * 网络图片控件
  */
+@SuppressWarnings("unchecked")
 public class WebImageView extends FrescoDraweeView {
 
     private int mWidth;
@@ -73,7 +74,18 @@ public class WebImageView extends FrescoDraweeView {
      */
     public void setImageUrl(String url) {
         setImageUrl(url, -1, ScalingUtils.ScaleType.CENTER_CROP,
-                FrescoHelper.TransformType.NONE, FrescoHelper.ProgressBarType.NONE, null, null);
+                FrescoHelper.TransformType.NONE, FrescoHelper.ProgressBarType.NONE, null, null, false);
+    }
+
+    /**
+     * 设置图片
+     * 默认为CENTER_CROP
+     *
+     * @param url 图片地址
+     */
+    public void setImageUrl(String url, boolean tapToRetry) {
+        setImageUrl(url, -1, ScalingUtils.ScaleType.CENTER_CROP,
+                FrescoHelper.TransformType.NONE, FrescoHelper.ProgressBarType.NONE, null, null, tapToRetry);
     }
 
     /**
@@ -85,7 +97,7 @@ public class WebImageView extends FrescoDraweeView {
      */
     public void setImageUrl(String url, Postprocessor postprocessor) {
         setImageUrl(url, -1, ScalingUtils.ScaleType.CENTER_CROP,
-                FrescoHelper.TransformType.NONE, FrescoHelper.ProgressBarType.NONE, null, postprocessor);
+                FrescoHelper.TransformType.NONE, FrescoHelper.ProgressBarType.NONE, null, postprocessor, false);
     }
 
     /**
@@ -109,7 +121,7 @@ public class WebImageView extends FrescoDraweeView {
                             FrescoHelper.TransformType transformType,
                             FrescoHelper.ProgressBarType progressBarType,
                             Postprocessor postprocessor) {
-        setImageUrl(url, placeHolderRes, ScalingUtils.ScaleType.CENTER_CROP, transformType, progressBarType, null, postprocessor);
+        setImageUrl(url, placeHolderRes, ScalingUtils.ScaleType.CENTER_CROP, transformType, progressBarType, null, postprocessor, false);
     }
 
     /**
@@ -122,20 +134,21 @@ public class WebImageView extends FrescoDraweeView {
     public void setImageUrl(String url, int imageRes, ScalingUtils.ScaleType scaleType,
                             FrescoHelper.TransformType transformType,
                             FrescoHelper.ProgressBarType progressBarType, Postprocessor postprocessor) {
-        setImageUrl(url, imageRes, scaleType, transformType, progressBarType, null, postprocessor);
+        setImageUrl(url, imageRes, scaleType, transformType, progressBarType, null, postprocessor, false);
     }
 
     /**
      * 设置图片
-     *  @param url           地址
+     * @param url           地址
      * @param imageRes      默认图片，URL为空，图片加载中，加载失败时显示的
      * @param transformType
      * @param postprocessor
+     * @param tapToRetry
      */
     public void setImageUrl(String url, int imageRes, ScalingUtils.ScaleType scaleType,
                             FrescoHelper.TransformType transformType,
                             FrescoHelper.ProgressBarType progressBarType,
-                            ControllerListener controllerListener, Postprocessor postprocessor) {
+                            ControllerListener controllerListener, Postprocessor postprocessor, boolean tapToRetry) {
         setPlaceHolder(imageRes, scaleType);
         switch (transformType) {
             case NONE:
@@ -171,6 +184,7 @@ public class WebImageView extends FrescoDraweeView {
 //				.setUri(formatUri(url))
                 .setImageRequest(mRequest)
                 .setAutoPlayAnimations(true)
+                .setTapToRetryEnabled(tapToRetry)
                 .setControllerListener(controllerListener)
                 .setOldController(getController())
                 .build();
