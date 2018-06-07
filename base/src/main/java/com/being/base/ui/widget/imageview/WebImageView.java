@@ -1,5 +1,6 @@
 package com.being.base.ui.widget.imageview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -40,6 +41,8 @@ public class WebImageView extends FrescoDraweeView {
     private int mHeight;
 
 //    private int mPlaceHolderResId;
+
+    private ScalingUtils.ScaleType mScaleType;
 
     public WebImageView(Context context) {
         super(context);
@@ -149,7 +152,10 @@ public class WebImageView extends FrescoDraweeView {
                             FrescoHelper.TransformType transformType,
                             FrescoHelper.ProgressBarType progressBarType,
                             ControllerListener controllerListener, Postprocessor postprocessor, boolean tapToRetry) {
-        setPlaceHolder(imageRes, scaleType);
+        if (mScaleType == null) {
+            mScaleType = scaleType;
+        }
+        setPlaceHolder(imageRes, null);
         switch (transformType) {
             case NONE:
                 break;
@@ -188,9 +194,7 @@ public class WebImageView extends FrescoDraweeView {
                 .setControllerListener(controllerListener)
                 .setOldController(getController())
                 .build();
-        if (scaleType != null) {
-            getHierarchy().setActualImageScaleType(scaleType);
-        }
+        getHierarchy().setActualImageScaleType(mScaleType);
         setController(controller);
     }
 
@@ -265,6 +269,12 @@ public class WebImageView extends FrescoDraweeView {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            @SuppressLint("CustomViewStyleable")
+            TypedArray gdhAttrs = getContext().obtainStyledAttributes(
+                    attrs,
+                    com.facebook.drawee.R.styleable.GenericDraweeHierarchy);
+            mScaleType = getScaleTypeFromXml(gdhAttrs,
+                    com.facebook.drawee.R.styleable.GenericDraweeHierarchy_actualImageScaleType);
 //            TypedArray gdhAttrs = null;
 //            try {
 //                gdhAttrs = getContext().obtainStyledAttributes(
@@ -316,8 +326,7 @@ public class WebImageView extends FrescoDraweeView {
             case 7: // focusCrop
                 return ScalingUtils.ScaleType.FOCUS_CROP;
             default:
-                // this method is supposed to be called only when XML attribute is specified.
-                throw new RuntimeException("XML attribute not specified!");
+                return null;
         }
     }
 
