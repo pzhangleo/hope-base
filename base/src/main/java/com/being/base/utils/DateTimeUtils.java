@@ -21,13 +21,13 @@ import java.util.Locale;
  */
 public final class DateTimeUtils {
 
-	public final static String PATTERN_YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
+    public final static String PATTERN_YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
 
-	public final static String PATTERN_YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
+    public final static String PATTERN_YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
 
-	public final static String PATTERN_YYYY_MM_DD = "yyyy-MM-dd";
+    public final static String PATTERN_YYYY_MM_DD = "yyyy-MM-dd";
 
-	public final static String PATTERN_MM_DD = "MM-dd";
+    public final static String PATTERN_MM_DD = "MM-dd";
 
     public static void init(Application application) {
         AndroidThreeTen.init(application);
@@ -35,15 +35,58 @@ public final class DateTimeUtils {
 
     /**
      * 格式化日期时间
+     *
      * @param timeInMillis 需要格式化的毫秒数
-     * @param toPattern 格式化样式
+     * @param toPattern    格式化样式
      * @return
      */
     public static String formatDate(long timeInMillis, String toPattern) {
+        return formatDate(timeInMillis, toPattern, ZoneId.systemDefault());
+    }
+
+    /**
+     * 格式化日期时间
+     *
+     * @param timeInMillis 需要格式化的毫秒数
+     * @param toPattern    格式化样式
+     * @return
+     */
+    public static String formatDate(long timeInMillis, String toPattern, ZoneId zoneId) {
         String result = "";
         if (!StringUtils.isEmpty(toPattern)) {
             try {
-                LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timeInMillis), ZoneId.systemDefault());
+                LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timeInMillis), zoneId);
+                result = dateTime.format(DateTimeFormatter.ofPattern(toPattern));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 格式化日期时间
+     *
+     * @param timeInMillis 需要格式化的秒数
+     * @param toPattern    格式化样式
+     * @return
+     */
+    public static String formatDateSec(long timeInSeconds, String toPattern) {
+        return formatDate(timeInSeconds, toPattern, ZoneId.systemDefault());
+    }
+
+    /**
+     * 格式化日期时间
+     *
+     * @param timeInMillis 需要格式化的秒数
+     * @param toPattern    格式化样式
+     * @return
+     */
+    public static String formatDateSec(long timeInSeconds, String toPattern, ZoneId zoneId) {
+        String result = "";
+        if (!StringUtils.isEmpty(toPattern)) {
+            try {
+                LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(timeInSeconds), zoneId);
                 result = dateTime.format(DateTimeFormatter.ofPattern(toPattern));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -56,23 +99,34 @@ public final class DateTimeUtils {
      * 格式化显示日期和时间
      *
      * @param timeString 需要格式化显示的时间字符串，例如2014-8-8 12:10
-     * @param toPattern 格式化样式0：yyyy-MM-dd HH:mm
+     * @param toPattern  格式化样式0：yyyy-MM-dd HH:mm
      * @return
      */
-    public static String formatDateTime(String timeString,String toPattern) {
+    public static String formatDateTime(String timeString, String toPattern) {
+        return formatDateTime(timeString, toPattern, ZoneId.systemDefault());
+    }
+
+    /**
+     * 格式化显示日期和时间
+     *
+     * @param timeString 需要格式化显示的时间字符串，例如2014-8-8 12:10
+     * @param toPattern  格式化样式0：yyyy-MM-dd HH:mm
+     * @return
+     */
+    public static String formatDateTime(String timeString, String toPattern, ZoneId zoneId) {
         Instant instant = Instant.parse(timeString);
         String result = null;
-		try {
-			if (!StringUtils.isEmpty(toPattern)) {
-				DateTimeFormatter formater = DateTimeFormatter.ofPattern(toPattern);
-                LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        try {
+            if (!StringUtils.isEmpty(toPattern)) {
+                DateTimeFormatter formater = DateTimeFormatter.ofPattern(toPattern);
+                LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zoneId);
                 result = localDateTime.format(formater);
             }
-		} catch (Exception e) {
-			return timeString;
-		}
-		return result;
-	}
+        } catch (Exception e) {
+            return timeString;
+        }
+        return result;
+    }
 
 //    /**
 //     * 计算时间间隔
@@ -117,37 +171,47 @@ public final class DateTimeUtils {
 //    }
 
     /**
-     * 返回一段间隔分钟数(绝对值)
+     * 返回一段间隔分钟数
+     *
      * @return
      */
     public static long getMinutes(long currentMs, long previousMs) {
         Instant current = Instant.ofEpochMilli(currentMs);
         Instant previous = Instant.ofEpochMilli(previousMs);
-        return Math.abs(ChronoUnit.MINUTES.between(current, previous));
+        return ChronoUnit.MINUTES.between(current, previous);
     }
 
     /**
-     * 返回一段间隔秒数(绝对值)
+     * 返回一段间隔秒数
+     *
      * @return
      */
     public static long getSeconds(long currentMs, long previousMs) {
         Instant current = Instant.ofEpochMilli(currentMs);
         Instant previous = Instant.ofEpochMilli(previousMs);
-        return Math.abs(ChronoUnit.SECONDS.between(current, previous));
+        return ChronoUnit.SECONDS.between(current, previous);
     }
 
     /**
      * 返回一段间隔小时数
+     *
      * @return
      */
     public static long getHours(long currentMs, long previousMs) {
         Instant current = Instant.ofEpochMilli(currentMs);
         Instant previous = Instant.ofEpochMilli(previousMs);
-        return Math.abs(ChronoUnit.HOURS.between(current, previous));
+        return ChronoUnit.HOURS.between(current, previous);
+    }
+
+    public static long getDays(long currentMs, long previousMs) {
+        Instant current = Instant.ofEpochMilli(currentMs);
+        Instant previous = Instant.ofEpochMilli(previousMs);
+        return ChronoUnit.DAYS.between(current, previous);
     }
 
     /**
      * 返回一段间隔分钟数
+     *
      * @param previousMs 毫秒数
      * @param timeZoneID 时区id 例如Asia/Shanghai
      *                   使用getTimeZoneID()获取
@@ -155,18 +219,15 @@ public final class DateTimeUtils {
      */
     public static long getMinutesFromNow(long previousMs, String timeZoneID) {
         ZonedDateTime current = ZonedDateTime.now();
-        ZoneId dateTimeZone = null;
-        try {
-            dateTimeZone = ZoneId.of(timeZoneID);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ZoneId dateTimeZone;
+        dateTimeZone = ZoneId.of(timeZoneID);
         ZonedDateTime previous = ZonedDateTime.ofInstant(Instant.ofEpochMilli(previousMs), dateTimeZone);
         return ChronoUnit.MINUTES.between(previous, current);
     }
 
     /**
      * 返回一段间隔小时数
+     *
      * @param previousMs 毫秒数
      * @param timeZoneID 时区id 例如Asia/Shanghai
      *                   使用getTimeZoneID()获取
@@ -174,12 +235,8 @@ public final class DateTimeUtils {
      */
     public static long getHoursFromNow(long previousMs, String timeZoneID) {
         ZonedDateTime current = ZonedDateTime.now();
-        ZoneId dateTimeZone = null;
-        try {
-            dateTimeZone = ZoneId.of(timeZoneID);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ZoneId dateTimeZone;
+        dateTimeZone = ZoneId.of(timeZoneID);
         ZonedDateTime previous = ZonedDateTime.ofInstant(Instant.ofEpochMilli(previousMs), dateTimeZone);
         return ChronoUnit.HOURS.between(previous, current);
     }
@@ -211,6 +268,7 @@ public final class DateTimeUtils {
 
     /**
      * 获取默认时区id
+     *
      * @return
      */
     public static String getDefaultTimeZoneID() {
