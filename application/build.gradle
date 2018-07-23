@@ -5,7 +5,7 @@ android {
     buildToolsVersion "27.0.3"
 
     defaultConfig {
-        applicationId "com.being.base.application"
+        applicationId "com.zhp.base.application"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
@@ -28,5 +28,5 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testImplementation 'junit:junit:4.12'
-    implementation project(':base')
+    api project(':base')
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.being.base.application"
+<manifest package="com.zhp.base.application"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application

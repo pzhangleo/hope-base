@@ -3,8 +3,8 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.being.base.utils.DateTimeUtils;
 import com.jakewharton.threetenabp.AndroidThreeTen;
+import com.zhp.base.utils.DateTimeUtils;
 
 import org.junit.Assert;
 import org.junit.Test;
