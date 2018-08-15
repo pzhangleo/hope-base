@@ -54,12 +54,12 @@ dependencies {
     api 'com.jakewharton:butterknife:8.8.1'
     api 'org.greenrobot:eventbus:3.0.0'
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'
-    api 'com.facebook.fresco:fresco:1.9.0'
-    api 'com.facebook.fresco:animated-webp:1.9.0'
-    api 'com.facebook.fresco:webpsupport:1.9.0'
-    api 'com.facebook.fresco:webpsupport:1.9.0'
+    api 'com.facebook.fresco:fresco:1.10.0'
+    api 'com.facebook.fresco:animated-webp:1.10.0'
+    api 'com.facebook.fresco:webpsupport:1.10.0'
+    api 'com.facebook.fresco:webpsupport:1.10.0'
     // For animated GIF support
-    api 'com.facebook.fresco:animated-gif:1.9.0'
+    api 'com.facebook.fresco:animated-gif:1.10.0'
     api('jp.wasabeef:fresco-processors:2.1.0') {
         exclude group: 'jp.wasabeef.fresco.processors.gpu'
     }

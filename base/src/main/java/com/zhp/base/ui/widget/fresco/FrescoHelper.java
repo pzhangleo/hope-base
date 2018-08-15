@@ -46,12 +46,16 @@ public class FrescoHelper {
     }
 
     public static void init(Context context) {
+        ImagePipelineConfig imagePipelineConfig = getImagePipelineConfig(context);
+        Fresco.initialize(context, imagePipelineConfig);
+    }
+
+    public static ImagePipelineConfig getImagePipelineConfig(Context context) {
         ImagePipelineConfig.Builder configBuilder = ImagePipelineConfig.newBuilder(context);
         configureCaches(configBuilder, context);
         configureLoggingListeners(configBuilder);
         configureOptions(configBuilder);
-        ImagePipelineConfig imagePipelineConfig = configBuilder.build();
-        Fresco.initialize(context, imagePipelineConfig);
+        return configBuilder.build();
     }
 
     public static DataSource<Void> prefetchToDiskCache(String url) {
