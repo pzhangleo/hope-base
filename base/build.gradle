@@ -57,7 +57,6 @@ dependencies {
     api 'com.facebook.fresco:fresco:1.10.0'
     api 'com.facebook.fresco:animated-webp:1.10.0'
     api 'com.facebook.fresco:webpsupport:1.10.0'
-    api 'com.facebook.fresco:webpsupport:1.10.0'
     // For animated GIF support
     api 'com.facebook.fresco:animated-gif:1.10.0'
     api('jp.wasabeef:fresco-processors:2.1.0') {
