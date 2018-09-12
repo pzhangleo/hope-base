@@ -29,8 +29,8 @@ public class JobManager {
        return mExecutorService.submit(task);
     }
 
-    public void addJob(Runnable runnable) {
-        mExecutorService.submit(runnable);
+    public Future<?> addJob(Runnable runnable) {
+        return mExecutorService.submit(runnable);
     }
 
     public <T> Future<T> submit(Runnable task, T result){
