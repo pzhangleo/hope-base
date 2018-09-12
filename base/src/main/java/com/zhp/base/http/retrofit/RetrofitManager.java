@@ -35,6 +35,7 @@ public class RetrofitManager {
      * @param baseUrl
      */
     public void initRetrofit(String baseUrl, OkHttpClient client) {
+        mOkHttpClient = client;
         mBuilder.baseUrl(baseUrl);
         mBuilder.addConverterFactory(GsonConverterFactory.create());
         mBuilder.addCallAdapterFactory(new CompactCallAdapterFactory());
