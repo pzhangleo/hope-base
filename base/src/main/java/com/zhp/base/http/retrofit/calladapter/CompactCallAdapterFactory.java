@@ -1,9 +1,5 @@
 package com.zhp.base.http.retrofit.calladapter;
 
-import android.arch.lifecycle.Lifecycle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import com.zhp.base.http.callback.ICallback;
 import com.zhp.base.http.exception.ApiException;
 import com.zhp.base.http.model.IResponse;
@@ -14,6 +10,9 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.concurrent.Executor;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
 import retrofit2.Callback;

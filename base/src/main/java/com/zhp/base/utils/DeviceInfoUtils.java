@@ -8,13 +8,14 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 
 import com.zhp.base.utils.codec.digest.DigestUtils;
 
 import java.util.TimeZone;
+
+import androidx.core.app.ActivityCompat;
 
 /**
  * 设备属性工具类

@@ -1,8 +1,9 @@
 package com.zhp.base.ui.widget.recyclerview.itemdecoration;
 
 import android.graphics.Rect;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 用来生成grid的横向和纵向间距

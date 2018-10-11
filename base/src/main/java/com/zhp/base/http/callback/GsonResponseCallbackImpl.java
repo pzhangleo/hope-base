@@ -1,13 +1,12 @@
 package com.zhp.base.http.callback;
 
-import android.support.annotation.Nullable;
-
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.zhp.base.Constants;
 
 import java.io.IOException;
 
+import androidx.annotation.Nullable;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 

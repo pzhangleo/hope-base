@@ -229,7 +229,7 @@ public class SeekArc extends View {
 					thumbHalfheight);
 
 			mMax = a.getInteger(R.styleable.SeekArc_max, mMax);
-			mProgress = a.getInteger(R.styleable.SeekArc_progress, mProgress);
+			mProgress = a.getInteger(R.styleable.SeekArc_arcProgress, mProgress);
 			mProgressWidth = (int) a.getDimension(
 					R.styleable.SeekArc_progressWidth, mProgressWidth);
 			mArcWidth = (int) a.getDimension(R.styleable.SeekArc_arcWidth,

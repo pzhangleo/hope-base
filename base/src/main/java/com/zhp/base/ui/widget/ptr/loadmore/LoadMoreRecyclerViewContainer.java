@@ -1,11 +1,12 @@
 package com.zhp.base.ui.widget.ptr.loadmore;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Loadmore for RecyclerView

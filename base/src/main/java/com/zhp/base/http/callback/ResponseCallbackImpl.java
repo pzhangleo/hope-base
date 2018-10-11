@@ -1,7 +1,5 @@
 package com.zhp.base.http.callback;
 
-import android.support.annotation.Nullable;
-
 import com.google.gson.Gson;
 import com.zhp.base.http.GsonManager;
 import com.zhp.base.http.model.BaseObject;
@@ -10,6 +8,7 @@ import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import androidx.annotation.Nullable;
 import okhttp3.Response;
 
 /**

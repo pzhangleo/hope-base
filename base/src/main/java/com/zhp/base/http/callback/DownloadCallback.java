@@ -1,8 +1,8 @@
 package com.zhp.base.http.callback;
 
-import android.support.annotation.Nullable;
-
 import java.io.File;
+
+import androidx.annotation.Nullable;
 
 /**
  * 下载回调

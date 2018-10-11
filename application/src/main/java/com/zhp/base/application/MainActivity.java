@@ -2,18 +2,14 @@ package com.zhp.base.application;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.zhp.base.ui.widget.ptr.lib.PtrDefaultHandler;
 import com.zhp.base.ui.widget.ptr.lib.PtrFrameLayout;
 import com.zhp.base.ui.widget.ptr.lib.util.PtrCLog;
@@ -21,6 +17,11 @@ import com.zhp.base.ui.widget.recyclerview.AbstractViewHolder;
 import com.zhp.base.ui.widget.recyclerview.SimpleRecyclerAdapter;
 
 import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
 
