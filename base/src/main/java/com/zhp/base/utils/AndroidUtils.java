@@ -35,6 +35,7 @@ import io.reactivex.schedulers.Schedulers;
  * 和Android系统相关的工具类
  * Created by zhangpeng on 16/1/11.
  */
+@SuppressWarnings({"JavadocReference", "JavaDoc", "unused"})
 public class AndroidUtils {
     public static void showKeyboard(View view) {
         if (view == null) {
