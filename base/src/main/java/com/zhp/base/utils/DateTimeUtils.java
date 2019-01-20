@@ -1,7 +1,7 @@
 package com.zhp.base.utils;//
 
 import android.app.Application;
-import android.test.mock.MockContext;
+//import android.test.mock.MockContext;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -19,6 +19,7 @@ import java.util.Locale;
 /**
  * 日期时间工具类 Created by Zhp on 2014/7/8.
  */
+@SuppressWarnings({"JavadocReference", "unused", "WeakerAccess", "JavaDoc"})
 public final class DateTimeUtils {
 
     public final static String PATTERN_YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
@@ -276,20 +277,20 @@ public final class DateTimeUtils {
     }
 
     public static void main(String[] args) {
-        AndroidThreeTen.init(new MockContext());
-        String dateStart = "01/14/2012 09:20:58";
-        String dateStop = "01/14/2012 09:26:00";
-
-        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
-
-        Date d1 = null;
-        Date d2 = null;
-        long end = 1409586000000l;
-        long cur = 1409586559512l;
-
-        System.out.print(getMinutes(end, cur) + "\n");
-        System.out.print(formatDate(end, "yyyy-MM-dd HH:mm:ss") + "\n");
-        System.out.print(formatDate(cur, "yyyy-MM-dd HH:mm:ss") + "\n");
+//        AndroidThreeTen.init(new MockContext());
+//        String dateStart = "01/14/2012 09:20:58";
+//        String dateStop = "01/14/2012 09:26:00";
+//
+//        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
+//
+//        Date d1 = null;
+//        Date d2 = null;
+//        long end = 1409586000000l;
+//        long cur = 1409586559512l;
+//
+//        System.out.print(getMinutes(end, cur) + "\n");
+//        System.out.print(formatDate(end, "yyyy-MM-dd HH:mm:ss") + "\n");
+//        System.out.print(formatDate(cur, "yyyy-MM-dd HH:mm:ss") + "\n");
 
     }
 }
