@@ -13,6 +13,7 @@ buildscript {
         //noinspection GradleDynamicVersion
         classpath 'com.qiniu:qiniu-java-sdk:7.2.8'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.novoda:bintray-release:0.9'
     }
 }
 
