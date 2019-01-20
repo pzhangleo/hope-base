@@ -6,11 +6,11 @@ apply plugin: 'com.novoda.bintray-release'
 apply from: 'config.gradle'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 28
+        targetSdkVersion 27
         versionCode versionCode
         versionName versionName
         multiDexEnabled true
@@ -40,7 +40,7 @@ android {
 }
 
 ext.versions = [
-        'supportLibrary': '28.0.0'
+        'supportLibrary': '27.1.1'
 ]
 
 dependencies {
