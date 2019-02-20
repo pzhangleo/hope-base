@@ -3,14 +3,15 @@ package com.zhp.base.ui.widget.ptr.loadmore;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
+
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author huqiu.lhq
@@ -29,7 +30,8 @@ public abstract class LoadMoreContainerBase extends LinearLayout implements Load
 
     private boolean mListEmpty = true;
     private boolean mShowLoadingForFirstPage = false;
-    protected @Nullable View mFooterView;
+    protected @Nullable
+    View mFooterView;
 
     private ViewGroup mViewGroup;
 
