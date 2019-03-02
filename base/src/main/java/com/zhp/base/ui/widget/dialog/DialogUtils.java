@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -14,6 +13,8 @@ import android.widget.AdapterView;
 import com.zhp.base.R;
 import com.zhp.base.ui.widget.menu.CustomArcMenu;
 import com.zhp.base.utils.DeviceInfoUtils;
+
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * 对话框工具类

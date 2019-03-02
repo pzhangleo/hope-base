@@ -1,6 +1,6 @@
 package com.zhp.base.http.callback;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Created by zhangpeng on 17/2/21.

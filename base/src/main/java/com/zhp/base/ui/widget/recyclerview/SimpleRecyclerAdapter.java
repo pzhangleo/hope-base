@@ -1,8 +1,5 @@
 package com.zhp.base.ui.widget.recyclerview;
 
-import android.support.annotation.LayoutRes;
-import android.support.v7.util.DiffUtil;
-import android.support.v7.util.ListUpdateCallback;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -11,6 +8,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import androidx.annotation.LayoutRes;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListUpdateCallback;
 
 /**
  * 用于RecyclerView的Adapter

@@ -1,7 +1,6 @@
 package com.zhp.base.utils;//
 
 import android.app.Application;
-//import android.test.mock.MockContext;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -12,14 +11,11 @@ import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.temporal.ChronoUnit;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+//import android.test.mock.MockContext;
 
 /**
  * 日期时间工具类 Created by Zhp on 2014/7/8.
  */
-@SuppressWarnings({"JavadocReference", "unused", "WeakerAccess", "JavaDoc"})
 public final class DateTimeUtils {
 
     public final static String PATTERN_YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";

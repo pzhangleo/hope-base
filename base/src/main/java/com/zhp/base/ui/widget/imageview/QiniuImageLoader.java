@@ -1,7 +1,6 @@
 package com.zhp.base.ui.widget.imageview;
 
 import android.content.Context;
-import android.support.annotation.DimenRes;
 import android.text.TextUtils;
 
 import com.zhp.base.log.NHLog;
@@ -10,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
+
+import androidx.annotation.DimenRes;
 
 public class QiniuImageLoader<T extends QiniuImageLoader> {
 

@@ -17,9 +17,6 @@
 package com.zhp.base.ui.widget.PagerIndicator;
 
 import android.content.Context;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -27,6 +24,9 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 
 import com.zhp.base.R;
+
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import static android.view.ViewGroup.LayoutParams.FILL_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -39,7 +39,7 @@ public class IconPageIndicator extends HorizontalScrollView implements PageIndic
     private final IcsLinearLayout mIconsLayout;
 
     private ViewPager mViewPager;
-    private OnPageChangeListener mListener;
+    private ViewPager.OnPageChangeListener mListener;
     private Runnable mIconSelector;
     private int mSelectedIndex;
 
@@ -168,7 +168,7 @@ public class IconPageIndicator extends HorizontalScrollView implements PageIndic
     }
 
     @Override
-    public void setOnPageChangeListener(OnPageChangeListener listener) {
+    public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
         mListener = listener;
     }
 }

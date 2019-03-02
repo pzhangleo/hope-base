@@ -1,12 +1,11 @@
 package com.zhp.base.http.retrofit.calladapter;
 
-import android.arch.lifecycle.Lifecycle;
-import android.support.annotation.Nullable;
-
 import com.zhp.base.http.callback.ICallback;
 
 import java.io.IOException;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
 import retrofit2.Response;
 
 /**

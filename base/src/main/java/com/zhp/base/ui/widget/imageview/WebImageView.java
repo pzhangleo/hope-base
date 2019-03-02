@@ -9,8 +9,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -29,6 +27,9 @@ import com.zhp.base.ui.widget.fresco.FrescoDraweeView;
 import com.zhp.base.ui.widget.fresco.FrescoHelper;
 import com.zhp.base.ui.widget.imageview.progressbar.CircleProgressBarDrawable;
 import com.zhp.base.utils.DeviceInfoUtils;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.Nullable;
 
 /**
  * 网络图片控件
