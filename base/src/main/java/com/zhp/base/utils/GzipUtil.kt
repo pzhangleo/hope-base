@@ -29,7 +29,7 @@ class GzipUtil {
         fun decompress(compressed: ByteArray): String? {
             try {
                 GZIPInputStream(ByteArrayInputStream(compressed)).use { gzipInput ->
-                    StringWriter().use { stringWriter ->
+                    StringWriter().use {
                         val bf = BufferedReader(InputStreamReader(gzipInput, "UTF-8"))
                         var result = ""
                         var line = bf.readLine()

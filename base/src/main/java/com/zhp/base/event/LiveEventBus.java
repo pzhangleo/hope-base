@@ -20,10 +20,10 @@ import androidx.lifecycle.Observer;
 /**
  * Created by hailiangliao on 2018/7/4.
  */
-
+@SuppressWarnings("unchecked")
 public final class LiveEventBus {
 
-    private final Map<String, BusMutableLiveData<Object>> bus;
+    private final Map<String, BusMutableLiveData> bus;
 
     private LiveEventBus() {
         bus = new HashMap<>();
@@ -37,9 +37,10 @@ public final class LiveEventBus {
         return SingletonHolder.DEFAULT_BUS;
     }
 
+    @SuppressWarnings("unchecked")
     public synchronized <T> Observable<? super T> with(String key, Class<T> type) {
         if (!bus.containsKey(key)) {
-            bus.put(key, new BusMutableLiveData<>(key));
+            bus.put(key, new BusMutableLiveData<T>(key));
         }
         return bus.get(key);
     }
@@ -69,6 +70,7 @@ public final class LiveEventBus {
         void removeObserver(@NonNull Observer<? super T> observer);
     }
 
+    @SuppressWarnings("ConstantConditions")
     private static class BusMutableLiveData<T> extends MutableLiveData<T> implements Observable<T> {
 
         private class PostValueTask implements Runnable {
@@ -90,7 +92,7 @@ public final class LiveEventBus {
         private Handler mainHandler = new Handler(Looper.getMainLooper());
 
 
-        private BusMutableLiveData(String key) {
+        private BusMutableLiveData(@NonNull String key) {
             this.key = key;
         }
 
@@ -111,7 +113,7 @@ public final class LiveEventBus {
 
         @Override
         public void observe(@NonNull LifecycleOwner owner, @NonNull Observer<? super T> observer) {
-            SafeCastObserver<T> safeCastObserver = new SafeCastObserver<T>(observer);
+            SafeCastObserver<T> safeCastObserver = new SafeCastObserver<>(observer);
             //保存LifecycleOwner的当前状态
             Lifecycle lifecycle = owner.getLifecycle();
             Lifecycle.State currentState = lifecycle.getCurrentState();
@@ -140,6 +142,7 @@ public final class LiveEventBus {
             super.observe(owner, new SafeCastObserver<>(observer));
         }
 
+        @SuppressWarnings("ConstantConditions")
         @Override
         public void observeForever(@NonNull Observer<? super T> observer) {
             if (!observerMap.containsKey(observer)) {
@@ -154,7 +157,7 @@ public final class LiveEventBus {
 
         @Override
         public void removeObserver(@NonNull Observer<? super T> observer) {
-            Observer realObserver = null;
+            Observer realObserver;
             if (observerMap.containsKey(observer)) {
                 realObserver = observerMap.remove(observer);
             } else {
@@ -166,6 +169,7 @@ public final class LiveEventBus {
             }
         }
 
+        @SuppressWarnings("ConstantConditions")
         private void setLifecycleObserverMapSize(Lifecycle lifecycle, int size) {
             if (lifecycle == null) {
                 return;
@@ -259,6 +263,7 @@ public final class LiveEventBus {
             }
         }
 
+        @SuppressWarnings("SameParameterValue")
         private void hookObserverActive(@NonNull Observer<T> observer, boolean active) {
             try {
                 //get wrapper's version
@@ -297,6 +302,7 @@ public final class LiveEventBus {
             }
         }
 
+        @SuppressWarnings("ConstantConditions")
         private boolean isCallOnObserve() {
             StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
             if (stackTrace != null && stackTrace.length > 0) {
