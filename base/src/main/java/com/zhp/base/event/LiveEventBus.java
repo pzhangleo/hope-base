@@ -38,7 +38,7 @@ public final class LiveEventBus {
     }
 
     @SuppressWarnings("unchecked")
-    public synchronized <T> Observable<? super T> with(String key, Class<T> type) {
+    public synchronized <T> Observable<T> with(String key, Class<T> type) {
         if (!bus.containsKey(key)) {
             bus.put(key, new BusMutableLiveData<T>(key));
         }
