@@ -47,7 +47,7 @@ dependencies {
     api "androidx.fragment:fragment:1.0.0"
     api "androidx.annotation:annotation:1.0.2"
     api "androidx.appcompat:appcompat:1.0.2"
-    api "com.google.android.material:material:1.1.0-alpha04"
+    api "com.google.android.material:material:1.1.0-alpha06"
 //    api "androidx:cardview-v7:${versions.supportLibrary}"
 //    api "androidx:gridlayout-v7:${versions.supportLibrary}"
     api "androidx.recyclerview:recyclerview:1.0.0"
@@ -77,11 +77,11 @@ dependencies {
     api 'com.squareup.okhttp3:mockwebserver:3.13.1'
     api "androidx.constraintlayout:constraintlayout:1.1.3"
     api "androidx.constraintlayout:constraintlayout-solver:1.1.3"
-    api "androidx.lifecycle:lifecycle-runtime:2.1.0-alpha02"
-    kapt "androidx.lifecycle:lifecycle-compiler:2.1.0-alpha02"
-    api "androidx.lifecycle:lifecycle-common-java8:2.1.0-alpha02"
-    api "androidx.lifecycle:lifecycle-common:2.1.0-alpha02"
-    api "androidx.lifecycle:lifecycle-extensions:2.1.0-alpha02"
+    api "androidx.lifecycle:lifecycle-runtime:2.1.0-alpha04"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.1.0-alpha04"
+    api "androidx.lifecycle:lifecycle-common-java8:2.1.0-alpha04"
+    api "androidx.lifecycle:lifecycle-common:2.1.0-alpha04"
+    api "androidx.lifecycle:lifecycle-extensions:2.1.0-alpha04"
     api 'io.reactivex.rxjava2:rxandroid:2.0.2'
     api 'io.reactivex.rxjava2:rxjava:2.2.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -89,11 +89,11 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.19.0'
     testImplementation 'com.squareup.okhttp3:mockwebserver:3.13.1'
     androidTestImplementation "androidx.annotation:annotation:1.0.2"
-    androidTestImplementation 'androidx.test:runner:1.1.2-alpha01'
+    androidTestImplementation 'androidx.test:runner:1.2.0-alpha05'
     // Set this dependency to use JUnit 4 rules
-    androidTestImplementation 'androidx.test:rules:1.1.2-alpha01'
+    androidTestImplementation 'androidx.test:rules:1.2.0-alpha05'
     // Set this dependency to build and run Espresso tests
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.2-alpha01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha05'
 }
 
 // build a jar with source files
