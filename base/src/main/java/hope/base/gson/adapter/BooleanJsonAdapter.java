@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
@@ -23,7 +24,13 @@ public class BooleanJsonAdapter extends TypeAdapter<Boolean> {
 
     @Override
     public Boolean read(JsonReader in) throws IOException {
-        String value = in.nextString();
+        JsonToken token = in.peek();
+        String value;
+        if (token == JsonToken.STRING) {
+            value = in.nextString();
+        } else {
+            value = String.valueOf(in.nextInt());
+        }
         return !StringUtils.isEmpty(value) && Integer.parseInt(value) != 0;
     }
 
