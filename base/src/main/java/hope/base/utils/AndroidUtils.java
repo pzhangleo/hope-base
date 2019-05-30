@@ -25,11 +25,8 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+
+//import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * 和Android系统相关的工具类
@@ -380,23 +377,23 @@ public class AndroidUtils {
         return path;
     }
 
-    public static Observable<String> getRealPathFromURIAsync(final Context context, final Uri uri,
-                                                             final File file) {
-        return Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(ObservableEmitter<String> e) {
-                String realPathFromURI = null;
-                try {
-                    realPathFromURI = getRealPathFromURI(context, uri, file);
-                    e.onNext(realPathFromURI);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                    e.onError(e1);
-                }
-                e.onComplete();
-            }
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-    }
+//    public static Observable<String> getRealPathFromURIAsync(final Context context, final Uri uri,
+//                                                             final File file) {
+//        return Observable.create(new ObservableOnSubscribe<String>() {
+//            @Override
+//            public void subscribe(ObservableEmitter<String> e) {
+//                String realPathFromURI = null;
+//                try {
+//                    realPathFromURI = getRealPathFromURI(context, uri, file);
+//                    e.onNext(realPathFromURI);
+//                } catch (Exception e1) {
+//                    e1.printStackTrace();
+//                    e.onError(e1);
+//                }
+//                e.onComplete();
+//            }
+//        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+//    }
 
     public static void sendSms(Context context, String content) {
         try {
@@ -468,19 +465,19 @@ public class AndroidUtils {
         return selFile.getPath();
     }
 
-    public static Observable<String> parseActivityMediaResultAsync(final Context context, final File selFile, final int requestCode,
-                                                                   final int resultCode, final Intent data, final int camera,
-                                                                   final int album) {
-        return Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(ObservableEmitter<String> emitter) {
-                String result = parseActivityMediaResult(context, selFile, requestCode,
-                        resultCode, data, camera, album);
-                emitter.onNext(result);
-                emitter.onComplete();
-            }
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-    }
+//    public static Observable<String> parseActivityMediaResultAsync(final Context context, final File selFile, final int requestCode,
+//                                                                   final int resultCode, final Intent data, final int camera,
+//                                                                   final int album) {
+//        return Observable.create(new ObservableOnSubscribe<String>() {
+//            @Override
+//            public void subscribe(ObservableEmitter<String> emitter) {
+//                String result = parseActivityMediaResult(context, selFile, requestCode,
+//                        resultCode, data, camera, album);
+//                emitter.onNext(result);
+//                emitter.onComplete();
+//            }
+//        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+//    }
 
     /**
      * 启用系统播放器播放网络流媒体视频

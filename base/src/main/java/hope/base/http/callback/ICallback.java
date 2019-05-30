@@ -1,5 +1,7 @@
 package hope.base.http.callback;
 
+import org.jetbrains.annotations.NotNull;
+
 import androidx.annotation.Nullable;
 
 /**
@@ -15,7 +17,7 @@ public interface ICallback<GSON_TYPE> {
      * 请求成功
      * @param baseData 已解析的数据
      */
-    void onSuccess(GSON_TYPE baseData);
+    void onSuccess(@NotNull GSON_TYPE baseData);
 
     /**
      * 请求失败

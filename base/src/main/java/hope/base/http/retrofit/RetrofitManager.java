@@ -1,11 +1,8 @@
 package hope.base.http.retrofit;
 
-import hope.base.http.retrofit.calladapter.CompactCallAdapterFactory;
 import hope.base.log.NHLog;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by zhangpeng on 17/2/20.
@@ -29,18 +26,18 @@ public class RetrofitManager {
         mBuilder = new Retrofit.Builder();
     }
 
-    /**
-     * 初始化方法必须在各种设置完成后最后调用
-     * @param baseUrl
-     */
-    public void initRetrofit(String baseUrl, OkHttpClient client) {
-        mOkHttpClient = client;
-        mBuilder.baseUrl(baseUrl);
-        mBuilder.addConverterFactory(GsonConverterFactory.create());
-        mBuilder.addCallAdapterFactory(new CompactCallAdapterFactory());
-        mBuilder.addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync());
-        initRetrofit(mBuilder, client);
-    }
+//    /**
+//     * 初始化方法必须在各种设置完成后最后调用
+//     * @param baseUrl
+//     */
+//    public void initRetrofit(String baseUrl, OkHttpClient client) {
+//        mOkHttpClient = client;
+//        mBuilder.baseUrl(baseUrl);
+//        mBuilder.addConverterFactory(GsonConverterFactory.create());
+//        mBuilder.addCallAdapterFactory(new CompactCallAdapterFactory());
+//        mBuilder.addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync());
+//        initRetrofit(mBuilder, client);
+//    }
 
     /**
      * 初始化方法必须在各种设置完成后最后调用
