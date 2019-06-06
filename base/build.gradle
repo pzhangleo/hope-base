@@ -84,8 +84,10 @@ dependencies {
     api "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     testImplementation 'junit:junit:4.12'
+    testImplementation 'androidx.test.ext:junit:1.1.1'
     testImplementation 'org.mockito:mockito-core:2.19.0'
     testImplementation 'com.squareup.okhttp3:mockwebserver:3.14.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation "androidx.annotation:annotation:1.1.0"
     androidTestImplementation 'androidx.test:runner:1.2.0'
     // Set this dependency to use JUnit 4 rules

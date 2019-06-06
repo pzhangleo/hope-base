@@ -1,7 +1,4 @@
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.filters.SmallTest;
-import android.support.test.runner.AndroidJUnit4;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -13,6 +10,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.SmallTest;
 import hope.base.utils.DateTimeUtils;
 
 /**
@@ -26,7 +27,7 @@ public class DateTimeTests {
 
     @Test
     public void testDateTime() {
-        mContext = InstrumentationRegistry.getContext();
+        mContext = ApplicationProvider.getApplicationContext();
         AndroidThreeTen.init(mContext);
         String dateStart = "01/14/2012 09:20:58";
         String dateStop = "01/14/2012 09:26:00";
