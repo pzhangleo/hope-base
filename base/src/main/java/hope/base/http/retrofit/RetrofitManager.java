@@ -11,7 +11,6 @@ import retrofit2.Retrofit;
 public class RetrofitManager {
 
     private static RetrofitManager mInstance = new RetrofitManager();
-    private Retrofit.Builder mBuilder;
     private static boolean Debug = false;
 
     public static RetrofitManager get() {
@@ -23,21 +22,8 @@ public class RetrofitManager {
     private OkHttpClient mOkHttpClient;
 
     private RetrofitManager() {
-        mBuilder = new Retrofit.Builder();
+        Retrofit.Builder builder = new Retrofit.Builder();
     }
-
-//    /**
-//     * 初始化方法必须在各种设置完成后最后调用
-//     * @param baseUrl
-//     */
-//    public void initRetrofit(String baseUrl, OkHttpClient client) {
-//        mOkHttpClient = client;
-//        mBuilder.baseUrl(baseUrl);
-//        mBuilder.addConverterFactory(GsonConverterFactory.create());
-//        mBuilder.addCallAdapterFactory(new CompactCallAdapterFactory());
-//        mBuilder.addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync());
-//        initRetrofit(mBuilder, client);
-//    }
 
     /**
      * 初始化方法必须在各种设置完成后最后调用

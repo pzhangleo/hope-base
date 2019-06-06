@@ -29,7 +29,7 @@ public interface ICallback<GSON_TYPE> {
      *
      * @return true代表自己处理错误信息提示，false由底层弹出错误toast提示
      */
-    boolean onFail(int statusCode, @Nullable GSON_TYPE failDate, @Nullable Throwable error);
+    boolean onFail(int statusCode, @Nullable GSON_TYPE failDate, @NotNull Throwable error);
 
     /**
      * 请求完成，无论失败或者成功，都会调用该方法。
