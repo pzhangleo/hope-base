@@ -10,8 +10,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
-        //noinspection GradleDynamicVersion
-        classpath 'com.qiniu:qiniu-java-sdk:7.+'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.novoda:bintray-release:0.9.1'
     }
@@ -19,7 +17,7 @@ buildscript {
 
 allprojects {
     repositories {
-        maven {url "https://maven.aliyun.com/repository/public"}
+//        maven {url "https://maven.aliyun.com/repository/public"}
         jcenter()
         google()
         maven { url "https://jitpack.io" }

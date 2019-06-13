@@ -5,19 +5,16 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
-import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.util.List;
@@ -323,57 +320,28 @@ public class AndroidUtils {
         if (uri == null) {
             return null;
         }
-        if (uri.getScheme().contains("file")) {
+        if (uri.getScheme() != null && uri.getScheme().contains("file")) {
             return uri.getPath();
         }
 
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = null;
+        String path = null;
         try {
-            if (Build.VERSION.SDK_INT > 19) {
-                // Will return "image:x*"
-                String wholeID = DocumentsContract.getDocumentId(uri);
-                // Split at colon, use second item in the array
-                String id = wholeID.split(":")[1];
-                // where id is equal to
-                String sel = MediaStore.Images.Media._ID + "=?";
-
-                cursor = context.getContentResolver().query(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        projection, sel, new String[]{id}, null);
-            } else {
-                cursor = context.getContentResolver().query(uri,
-                        projection, null, null, null);
-            }
+            path = RealFilePathUtil.getPath(context, uri);
         } catch (Exception e) {
             e.printStackTrace();
-            cursor = context.getContentResolver().query(uri,
-                    projection, null, null, null);
         }
-        String path = "";
-        if (cursor == null) {
+        if (path == null && file != null) {
             if (uri.getAuthority() != null) {
                 InputStream inputStream;
                 try {
                     inputStream = context.getContentResolver().openInputStream(uri);
                     FileUtils.writeFile(file, inputStream);
                     path = file.getPath();
-                } catch (FileNotFoundException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-        } else {
-            try {
-                int column_index = cursor
-                        .getColumnIndex(MediaStore.Images.Media.DATA);
-                cursor.moveToFirst();
-                path = cursor.getString(column_index);
-                cursor.close();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }
         }
-
         return path;
     }
 
