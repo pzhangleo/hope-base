@@ -69,7 +69,7 @@ public final class DateTimeUtils {
      * @return
      */
     public static String formatDateSec(long timeInSeconds, String toPattern) {
-        return formatDate(timeInSeconds, toPattern, ZoneId.systemDefault());
+        return formatDateSec(timeInSeconds, toPattern, ZoneId.systemDefault());
     }
 
     /**
