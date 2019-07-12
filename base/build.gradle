@@ -47,7 +47,7 @@ dependencies {
     api "androidx.fragment:fragment:1.0.0"
     api "androidx.annotation:annotation:1.1.0"
     api "androidx.appcompat:appcompat:1.0.2"
-    api "com.google.android.material:material:1.1.0-alpha07"
+    api "com.google.android.material:material:1.1.0-alpha08"
 //    api "androidx:cardview-v7:${versions.supportLibrary}"
 //    api "androidx:gridlayout-v7:${versions.supportLibrary}"
     api "androidx.recyclerview:recyclerview:1.0.0"
@@ -55,20 +55,17 @@ dependencies {
 //    api "androidx:animated-vector-drawable:${versions.supportLibrary}"
 //    api "androidx:design:${versions.supportLibrary}"
 //    api "androidx.exifinterface.media.ExifInterface"
-    api 'com.squareup.okhttp3:okhttp:3.14.2'
-    api 'com.squareup.okhttp3:mockwebserver:3.14.2'
-    api 'com.squareup.okhttp3:logging-interceptor:3.14.2'
+    api 'com.squareup.okhttp3:okhttp:4.0.0'
+    api 'com.squareup.okhttp3:mockwebserver:4.0.0'
+    api 'com.squareup.okhttp3:logging-interceptor:4.0.0'
     api 'com.squareup.okio:okio:2.2.2'
     api 'com.google.code.gson:gson:2.8.5'
     api 'com.jakewharton.threetenabp:threetenabp:1.1.1'
     api 'org.greenrobot:eventbus:3.1.1'
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
-    api 'com.facebook.fresco:fresco:1.13.0'
-    api 'com.facebook.fresco:animated-webp:1.13.0'
-    api 'com.facebook.fresco:webpsupport:1.13.0'
-    api('jp.wasabeef:fresco-processors:2.1.0') {
-        exclude group: 'jp.wasabeef.fresco.processors.gpu'
-    }
+    api 'com.facebook.fresco:fresco:2.0.0'
+    api 'com.facebook.fresco:animated-webp:2.0.0'
+    api 'com.facebook.fresco:webpsupport:2.0.0'
     api ('com.squareup.retrofit2:retrofit:2.6.0', {
         exclude group: 'com.squareup.okhttp3:okhttp'
     })
@@ -82,11 +79,11 @@ dependencies {
     api "androidx.lifecycle:lifecycle-common-java8:2.2.0-alpha02"
     api "androidx.lifecycle:lifecycle-common:2.2.0-alpha02"
     api "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     testImplementation 'junit:junit:4.12'
     testImplementation 'androidx.test.ext:junit:1.1.1'
     testImplementation 'org.mockito:mockito-core:2.19.0'
-    testImplementation 'com.squareup.okhttp3:mockwebserver:3.14.2'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.0.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation "androidx.annotation:annotation:1.1.0"
     androidTestImplementation 'androidx.test:runner:1.2.0'
