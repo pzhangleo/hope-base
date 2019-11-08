@@ -20,6 +20,7 @@ import hope.base.utils.codec.digest.DigestUtils;
  * 设备属性工具类
  * Created by Zhp on 2014/5/20.
  */
+@SuppressLint({"MissingPermission"})
 public class DeviceInfoUtils {
 
     public static String getClientId(Context context) {
@@ -31,7 +32,7 @@ public class DeviceInfoUtils {
      * @param context
      * @return
      */
-    @SuppressLint("HardwareIds")
+    @SuppressLint({"HardwareIds"})
     public static String getDeviceId(Context context) {
         String tmDevice = "", tmSerial = "", androidId = "";
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)
