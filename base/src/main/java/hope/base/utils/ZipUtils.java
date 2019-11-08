@@ -10,7 +10,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import hope.base.log.NHLog;
+import hope.base.log.ZLog;
 
 /**
  * Created by zhangpeng on 16/1/19.
@@ -108,7 +108,7 @@ public class ZipUtils {
             }
         }
         catch (Exception e) {
-            NHLog.e("Unzip exception", e);
+            ZLog.e("Unzip exception", e);
         }
     }
 

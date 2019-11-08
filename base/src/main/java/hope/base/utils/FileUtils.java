@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import hope.base.log.NHLog;
+import hope.base.log.ZLog;
 
 /**
  * Created by zhangpeng on 16/1/29.
@@ -719,7 +719,7 @@ public class FileUtils {
             size = fis.available();
         } else {
             file.createNewFile();
-            NHLog.e("文件不存在!");
+            ZLog.e("文件不存在!");
         }
         return size;
     }

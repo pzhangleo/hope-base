@@ -9,7 +9,7 @@ import java.util.List;
 import javax.microedition.khronos.opengles.GL10;
 
 import androidx.annotation.DimenRes;
-import hope.base.log.NHLog;
+import hope.base.log.ZLog;
 
 public class QiniuImageLoader<T extends QiniuImageLoader> {
 
@@ -319,7 +319,7 @@ public class QiniuImageLoader<T extends QiniuImageLoader> {
 
         if (!TextUtils.isEmpty(resizeParams) || !TextUtils.isEmpty(formatParams)) {
             if (oriUrl.contains("?ImageView") || oriUrl.contains("?imageMogr2")) {
-                NHLog.e(String.format("oriUrl should create 7Niu url by self, %s", oriUrl));
+                ZLog.e(String.format("oriUrl should create 7Niu url by self, %s", oriUrl));
 
                 if (!oriUrl.contains("/format")) {
                     u = String.format("%s%s", oriUrl, formatParams);
@@ -335,7 +335,7 @@ public class QiniuImageLoader<T extends QiniuImageLoader> {
         }
 
 
-        NHLog.v(String.format("【oriUrl】: %s 【url】: %s , (w: %d, h: %d)", oriUrl, u, w, h));
+        ZLog.v(String.format("【oriUrl】: %s 【url】: %s , (w: %d, h: %d)", oriUrl, u, w, h));
         return u;
     }
 

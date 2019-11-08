@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import hope.base.log.NHLog;
+import hope.base.log.ZLog;
 
 @SuppressWarnings({"unused", "JavaDoc", "SimpleDateFormat"})
 public class ImageUtils {
@@ -701,7 +701,7 @@ public class ImageUtils {
         try {
             exif = new ExifInterface(filepath);
         } catch (IOException ex) {
-            NHLog.e("cannot read exif", ex);
+            ZLog.e("cannot read exif", ex);
         }
         if (exif != null) {
             int orientation = exif.getAttributeInt(

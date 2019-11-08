@@ -153,7 +153,7 @@ public class TrustUtils {
             try {
                 defaultTrustManager.checkServerTrusted(chain, authType);
             } catch (CertificateException ce) {
-//                NHLog.v("defaultTrustManager check failed, try localTrustManager!!!");
+//                ZLog.v("defaultTrustManager check failed, try localTrustManager!!!");
                 localTrustManager.checkServerTrusted(chain, authType);
             }
         }

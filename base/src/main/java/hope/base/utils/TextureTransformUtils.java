@@ -2,7 +2,7 @@ package hope.base.utils;
 
 import android.view.TextureView;
 
-import hope.base.log.NHLog;
+import hope.base.log.ZLog;
 
 /**
  * Created by zhangpeng on 16/5/24.
@@ -21,14 +21,14 @@ public class TextureTransformUtils {
         int vh = view.getHeight();
         float viewAspectRatio = (float) vw / vh;
         float videoAspectRatio = (float) width / height;
-        NHLog.d("view宽高比: " + viewAspectRatio + " video宽高比: " + videoAspectRatio);
+        ZLog.d("view宽高比: " + viewAspectRatio + " video宽高比: " + videoAspectRatio);
         float diff;
         float scale;
         if (width > height) {
             view.setRotation(90);
             viewAspectRatio = (float) vh / vw;
             videoAspectRatio = (float) height / width;
-            NHLog.d("view宽高比: " + viewAspectRatio + " video宽高比: " + videoAspectRatio);
+            ZLog.d("view宽高比: " + viewAspectRatio + " video宽高比: " + videoAspectRatio);
             diff = viewAspectRatio / videoAspectRatio;
             if (diff > 1) {
                 scale = viewAspectRatio;
@@ -41,7 +41,7 @@ public class TextureTransformUtils {
             }
         } else {
             videoAspectRatio = (float) width / height;
-            NHLog.d("view宽高比: " + viewAspectRatio + " video宽高比: " + videoAspectRatio);
+            ZLog.d("view宽高比: " + viewAspectRatio + " video宽高比: " + videoAspectRatio);
             diff = videoAspectRatio / viewAspectRatio;
             if (diff > 1) {
                 view.setScaleY(1/diff);

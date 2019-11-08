@@ -16,7 +16,7 @@ import hope.base.Constants;
 /**
  * Log管理类
  */
-public class NHLog {
+public class ZLog {
     public static boolean LOG_TOGGLE = Constants.DEBUG;
     public static final boolean thread_toggle = true;
 	private static final String LOG_FILE = Environment.getExternalStorageDirectory().getPath() + "log.txt";

@@ -35,7 +35,7 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
-import hope.base.log.NHLog;
+import hope.base.log.ZLog;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
@@ -165,7 +165,7 @@ public class RequestParams implements Serializable{
         if (encoding != null) {
             this.contentEncoding = encoding;
         } else {
-            NHLog.d("setContentEncoding called with null attribute");
+            ZLog.d("setContentEncoding called with null attribute");
         }
     }
 

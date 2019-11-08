@@ -6,7 +6,7 @@
 //import hope.base.Constants;
 //import hope.base.http.callback.ResponseCallback;
 //import hope.base.http.exception.HttpRequestException;
-//import hope.base.log.NHLog;
+//import hope.base.log.ZLog;
 //import hope.base.utils.DeviceInfoUtils;
 //
 //import java.io.IOException;
@@ -287,7 +287,7 @@
 //     */
 //    private void processFailure(final Call call, final IOException e,
 //                                final ResponseCallback responseCallback, final CallHandler callHandler) {
-//        NHLog.e("request fail", e);
+//        ZLog.e("request fail", e);
 //        final OkHttpClient.Builder builder = mOkHttpClient.newBuilder();
 //        mOkHttpClient = builder.build();
 //        final HttpRequestException execption = new HttpRequestException(

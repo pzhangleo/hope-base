@@ -12,12 +12,12 @@ import javax.net.ssl.X509TrustManager;
 public class NHX509TrustManager implements X509TrustManager {
     @Override
     public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-//        NHLog.v("checkClientTrusted authType: %s, chain: ", authType, chain);
+//        ZLog.v("checkClientTrusted authType: %s, chain: ", authType, chain);
     }
 
     @Override
     public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-//        NHLog.v("checkServerTrusted authType: %s, chain: ", authType,
+//        ZLog.v("checkServerTrusted authType: %s, chain: ", authType,
 //                (chain != null && chain.length > 0) ? chain[0].toString() : "");
     }
 

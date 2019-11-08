@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import java.io.File;
 import java.io.IOException;
 
-import hope.base.log.NHLog;
+import hope.base.log.ZLog;
 
 import static android.os.Environment.MEDIA_MOUNTED;
 
@@ -65,7 +65,7 @@ public class StorageUtils {
         }
         if (appCacheDir == null) {
             appCacheDir = context.getCacheDir();
-            NHLog.d("Can't define system cache directory! '%s' will be used.", "context.getCacheDir()");
+            ZLog.d("Can't define system cache directory! '%s' will be used.", "context.getCacheDir()");
         }
         return appCacheDir;
     }
@@ -86,7 +86,7 @@ public class StorageUtils {
         }
         if (appFilesDir == null) {
             appFilesDir = context.getFilesDir();
-            NHLog.d("Can't define system cache directory! '%s' will be used.", "context.getFilesDir()");
+            ZLog.d("Can't define system cache directory! '%s' will be used.", "context.getFilesDir()");
         }
         return appFilesDir;
     }
@@ -204,13 +204,13 @@ public class StorageUtils {
     protected static boolean makeNoMedia(File cacheDir) {
         if (!cacheDir.exists()) {
             if (!cacheDir.mkdirs()) {
-                NHLog.d("Unable to create external cache directory");
+                ZLog.d("Unable to create external cache directory");
                 return true;
             }
             try {
                 new File(cacheDir, ".nomedia").createNewFile();
             } catch (IOException e) {
-                NHLog.d("Can't create \".nomedia\" file in application external cache directory");
+                ZLog.d("Can't create \".nomedia\" file in application external cache directory");
             }
         }
         return false;
