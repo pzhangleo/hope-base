@@ -51,7 +51,7 @@ import androidx.fragment.app.FragmentTransaction;
  * {@sample development/samples/Support4Demos/src/com/example/android/supportv4/app/FragmentTabsFragmentSupport.java
  *      complete}
  */
-public class NHFragmentTabHost extends TabHost
+public class ZFragmentTabHost extends TabHost
         implements TabHost.OnTabChangeListener {
     private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
     private FrameLayout mRealTabContent;
@@ -128,14 +128,14 @@ public class NHFragmentTabHost extends TabHost
         };
     }
 
-    public NHFragmentTabHost(Context context) {
+    public ZFragmentTabHost(Context context) {
         // Note that we call through to the version that takes an AttributeSet,
         // because the simple Context construct can result in a broken object!
         super(context, null);
         initFragmentTabHost(context, null);
     }
 
-    public NHFragmentTabHost(Context context, AttributeSet attrs) {
+    public ZFragmentTabHost(Context context, AttributeSet attrs) {
         super(context, attrs);
         initFragmentTabHost(context, attrs);
     }
