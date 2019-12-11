@@ -48,10 +48,10 @@ dependencies {
     api "androidx.fragment:fragment:$androidx_version"
     api "androidx.annotation:annotation:$androidx_version"
     api "androidx.appcompat:appcompat:$androidx_version"
-    api "com.google.android.material:material:1.2.0-alpha01"
+    api "com.google.android.material:material:1.2.0-alpha02"
 //    api "androidx:cardview-v7:${versions.supportLibrary}"
 //    api "androidx:gridlayout-v7:${versions.supportLibrary}"
-    api "androidx.recyclerview:recyclerview:1.0.0"
+    api "androidx.recyclerview:recyclerview:1.1.0"
 //    api "androidx:support-vector-drawable:${versions.supportLibrary}"
 //    api "androidx:animated-vector-drawable:${versions.supportLibrary}"
 //    api "androidx:design:${versions.supportLibrary}"
@@ -62,23 +62,21 @@ dependencies {
     api 'com.squareup.okio:okio:2.2.2'
     api 'com.google.code.gson:gson:2.8.5'
     api 'com.jakewharton.threetenabp:threetenabp:1.2.1'
-    api 'org.greenrobot:eventbus:3.1.1'
+//    api 'org.greenrobot:eventbus:3.1.1'
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
     api 'com.facebook.fresco:fresco:2.0.0'
     api 'com.facebook.fresco:animated-webp:2.0.0'
     api 'com.facebook.fresco:webpsupport:2.0.0'
-    api ('com.squareup.retrofit2:retrofit:2.6.2', {
+    api ('com.squareup.retrofit2:retrofit:2.7.0', {
         exclude group: 'com.squareup.okhttp3:okhttp'
     })
-    api 'com.squareup.retrofit2:converter-gson:2.6.0'
-//    api 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
-//    api 'com.squareup.retrofit2:retrofit-mock:2.6.0'
+    api 'com.squareup.retrofit2:converter-gson:2.7.0'
     api "androidx.constraintlayout:constraintlayout:1.1.3"
     api "androidx.constraintlayout:constraintlayout-solver:1.1.3"
-    api "androidx.lifecycle:lifecycle-runtime:2.2.0-rc02"
-    api "androidx.lifecycle:lifecycle-common-java8:2.2.0-rc02"
-    api "androidx.lifecycle:lifecycle-common:2.2.0-rc02"
-    api "androidx.lifecycle:lifecycle-extensions:2.2.0-rc02"
+    api "androidx.lifecycle:lifecycle-runtime:2.2.0-rc03"
+    api "androidx.lifecycle:lifecycle-common-java8:2.2.0-rc03"
+    api "androidx.lifecycle:lifecycle-common:2.2.0-rc03"
+    api "androidx.lifecycle:lifecycle-extensions:2.2.0-rc03"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     testImplementation 'junit:junit:4.12'
     testImplementation 'androidx.test.ext:junit:1.1.1'
