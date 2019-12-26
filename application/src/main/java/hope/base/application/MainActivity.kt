@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 
 import androidx.appcompat.app.AppCompatActivity
+import hope.base.extensions.logv
+import hope.base.log.ZLog
 import hope.base.utils.AndroidUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,6 +19,9 @@ class MainActivity : AppCompatActivity() {
         tv.setOnClickListener {
             AndroidUtils.openAlbum(this, null, false, 0, 0, 0)
         }
+        ZLog.init(true)
+        "Test test test".logv()
+        ZLog.d("test test test")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
