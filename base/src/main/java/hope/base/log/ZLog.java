@@ -1,15 +1,17 @@
 package hope.base.log;
 
 import android.os.Environment;
-import android.util.Log;
 
-import java.io.FileWriter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import hope.base.Constants;
 import timber.log.Timber;
+
 
 /**
  * Log管理类
@@ -27,7 +29,7 @@ public class ZLog {
     public static void init(boolean toggle) {
         LOG_TOGGLE = toggle;
         if (LOG_TOGGLE) {
-            Timber.plant(new Timber.DebugTree());
+            Timber.plant(new DebugTree());
         }
     }
 
@@ -78,16 +80,16 @@ public class ZLog {
 	}
 
 	public static void f(String TAG, String msg) {
-		if (!LOG_TOGGLE) {
-			return;
-		}
-		try {
-			FileWriter fw = new FileWriter(LOG_FILE, true);
-			fw.write(sd.format(new Date()) + TAG + "\n\t" + formatMessage(msg) + "\n");
-			fw.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		if (!LOG_TOGGLE) {
+//			return;
+//		}
+//		try {
+//			FileWriter fw = new FileWriter(LOG_FILE, true);
+//			fw.write(sd.format(new Date()) + TAG + "\n\t" + formatMessage(msg) + "\n");
+//			fw.close();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	public static String GET_THREAD_INFO(Thread th) {
@@ -98,21 +100,6 @@ public class ZLog {
 
 		return sb.toString();
 	}
-
-    public static void logHttpResponse(String TAG, String content) {
-        if (LOG_TOGGLE) {
-            int logcatSize = 1024 * 4 - 40;
-            if (content != null) {
-                for (int i = 0, j = content.length() / logcatSize; i <= j; i++) {
-                    Log.v(TAG,
-                            content.substring(i == 0 ? 0 : i * logcatSize - 1,
-                                    i == j ? content.length() : (i + 1) * logcatSize - 1)
-                                    + ""
-                    );
-                }
-            }
-        }
-    }
 
     private static String formatMessage(String format, Object... params) {
         String msg = format;
@@ -128,4 +115,26 @@ public class ZLog {
         return Thread.currentThread().getName();
     }
 
+    /** A {@link Timber.Tree Tree} for debug builds. Automatically infers the tag from the calling class. */
+    static class DebugTree extends Timber.DebugTree {
+        private static final int CALL_STACK_INDEX = 6;//another call stack index in nhlog
+
+        @Nullable
+        @Override
+        public String getTag$timber_release() {
+            // DO NOT switch this to Thread.getCurrentThread().getStackTrace(). The test will pass
+            // because Robolectric runs them on the JVM but on Android the elements are different.
+            StackTraceElement[] stackTrace = new Throwable().getStackTrace();
+            if (stackTrace.length <= CALL_STACK_INDEX) {
+                throw new IllegalStateException(
+                        "Synthetic stacktrace didn't have enough elements: are you using proguard?");
+            }
+            return createStackElementTag(stackTrace[CALL_STACK_INDEX]);
+        }
+
+        @Override
+        protected void log(int priority, @Nullable String tag, @NotNull String message, @Nullable Throwable t) {
+            super.log(priority, tag, ZLog.formatMessage(message), t);
+        }
+    }
 }
