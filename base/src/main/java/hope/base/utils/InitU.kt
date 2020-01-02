@@ -1,3 +1,4 @@
+@file:JvmName("InitU")
 package hope.base.utils
 
 import android.app.Application
