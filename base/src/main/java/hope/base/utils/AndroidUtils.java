@@ -433,20 +433,6 @@ public class AndroidUtils {
         return selFile.getPath();
     }
 
-//    public static Observable<String> parseActivityMediaResultAsync(final Context context, final File selFile, final int requestCode,
-//                                                                   final int resultCode, final Intent data, final int camera,
-//                                                                   final int album) {
-//        return Observable.create(new ObservableOnSubscribe<String>() {
-//            @Override
-//            public void subscribe(ObservableEmitter<String> emitter) {
-//                String result = parseActivityMediaResult(context, selFile, requestCode,
-//                        resultCode, data, camera, album);
-//                emitter.onNext(result);
-//                emitter.onComplete();
-//            }
-//        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-//    }
-
     /**
      * 启用系统播放器播放网络流媒体视频
      *

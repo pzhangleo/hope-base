@@ -12,4 +12,5 @@ fun init(app: Application, debug: Boolean) {
     ZLog.init(debug)
     AndroidThreeTen.init(app)
     FrescoHelper.init(app)
+    DateTimeUtils.init(app)
 }
