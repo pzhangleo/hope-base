@@ -1,6 +1,5 @@
 package hope.base.http.exception;
 
-import hope.base.http.callback.ResponseCallback;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -47,7 +46,7 @@ public class HttpRequestException extends Exception {
     public static String format(Request request, Response response) {
         String string = request.url().toString();
         String method = request.method();
-        int code = response != null ? response.code() : ResponseCallback.NO_NETWORK_STATUS_CODE;
+        int code = response != null ? response.code() : -1;
         String message = response != null ? response.message() : "";
         return String.format("url: %s\n" +
                 "request method: %s\n" +
