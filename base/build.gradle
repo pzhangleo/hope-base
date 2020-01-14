@@ -72,7 +72,7 @@ dependencies {
     api ('com.squareup.retrofit2:retrofit:2.7.0', {
         exclude group: 'com.squareup.okhttp3:okhttp'
     })
-//    api 'com.squareup.retrofit2:converter-gson:2.7.0'
+    api 'com.squareup.retrofit2:converter-gson:2.7.0'
     api "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0" // JVM dependency
     api "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.4.0"
     api "androidx.constraintlayout:constraintlayout:1.1.3"
