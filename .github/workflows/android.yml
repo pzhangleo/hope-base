@@ -13,5 +13,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+      env:
+        bintray_key: ${{ secrets.bintray_key}}
+        bintray_user: ${{ secrets.bintray_user}}
     - name: Build with Gradle
       run: ./gradlew bintrayUpload

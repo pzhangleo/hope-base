@@ -126,8 +126,8 @@ publish {
     artifactId = 'android-base'
     publishVersion = versionName
     desc = 'super android base'
-    bintrayUser = 'forhope33786'
-    bintrayKey = '03f64cadb1b018f88c491ec817c5d1d23cdd41b4'
+    bintrayUser = System.getenv("bintray_user")
+    bintrayKey = System.getenv("bintray_key")
 
     dryRun = false
 }
