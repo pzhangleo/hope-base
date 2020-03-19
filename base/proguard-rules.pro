@@ -71,3 +71,8 @@
 
 # OkHttp platform used only on JVM and when Conscrypt dependency is available.
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
+
+-dontwarn android.arch.lifecycle.LiveData
+-keep class android.arch.lifecycle.LiveData { *; }
+-keep class android.arch.lifecycle.LifecycleRegistry { *; }
+-keep class android.arch.core.internal.SafeIterableMap { *; }
