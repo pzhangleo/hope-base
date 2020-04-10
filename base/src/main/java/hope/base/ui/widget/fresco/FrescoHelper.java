@@ -16,6 +16,8 @@ import com.facebook.imagepipeline.cache.MemoryCacheParams;
 import com.facebook.imagepipeline.core.ImagePipeline;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.core.ImagePipelineFactory;
+import com.facebook.imagepipeline.core.ImageTranscoderType;
+import com.facebook.imagepipeline.core.MemoryChunkType;
 import com.facebook.imagepipeline.listener.RequestListener;
 import com.facebook.imagepipeline.listener.RequestLoggingListener;
 import com.facebook.imagepipeline.request.ImageRequest;
@@ -35,13 +37,13 @@ public class FrescoHelper {
 
     private static final String IMAGE_PIPELINE_CACHE_DIR = "imagepipeline_cache";
 
-    public enum TransformType{
+    public enum TransformType {
         NONE,
         CIRCLE,
         ROUNDCORNER
     }
 
-    public enum ProgressBarType{
+    public enum ProgressBarType {
         NONE,
         CIRCLE,
     }
@@ -67,12 +69,12 @@ public class FrescoHelper {
     }
 
     public static File getImageFileFromCache(String uriString) {
-        ImageRequest imageRequest=ImageRequest.fromUri(uriString);
-        CacheKey cacheKey= DefaultCacheKeyFactory.getInstance().getEncodedCacheKey(imageRequest, null);
+        ImageRequest imageRequest = ImageRequest.fromUri(uriString);
+        CacheKey cacheKey = DefaultCacheKeyFactory.getInstance().getEncodedCacheKey(imageRequest, null);
         BinaryResource resource = ImagePipelineFactory.getInstance().getMainFileCache().getResource(cacheKey);
-        File file= null;
+        File file = null;
         if (resource != null) {
-            file = ((FileBinaryResource)resource).getFile();
+            file = ((FileBinaryResource) resource).getFile();
         }
         return file;
     }
@@ -105,6 +107,7 @@ public class FrescoHelper {
                         return bitmapCacheParams;
                     }
                 })
+                .setMemoryChunkType(MemoryChunkType.BUFFER_MEMORY)
                 .setMainDiskCacheConfig(
                         DiskCacheConfig.newBuilder(context)
                                 .setBaseDirectoryPath(StorageUtils.getCacheDirectory(context))
@@ -123,6 +126,8 @@ public class FrescoHelper {
     }
 
     private static void configureOptions(ImagePipelineConfig.Builder configBuilder) {
-        configBuilder.setDownsampleEnabled(true);
+        configBuilder.setDownsampleEnabled(true)
+                .experiment().setNativeCodeDisabled(true)
+                .setImageTranscoderType(ImageTranscoderType.JAVA_TRANSCODER);
     }
 }
