@@ -2,15 +2,11 @@ package hope.base.log;
 
 import android.os.Environment;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import hope.base.Constants;
-import timber.log.Timber;
 
 
 /**
@@ -29,7 +25,7 @@ public class ZLog {
     public static void init(boolean toggle) {
         LOG_TOGGLE = toggle;
         if (LOG_TOGGLE) {
-            Timber.plant(new DebugTree());
+            Timber.plant(new Timber.DebugTree());
         }
     }
 
@@ -115,26 +111,4 @@ public class ZLog {
         return Thread.currentThread().getName();
     }
 
-    /** A {@link Timber.Tree Tree} for debug builds. Automatically infers the tag from the calling class. */
-    static class DebugTree extends Timber.DebugTree {
-        private static final int CALL_STACK_INDEX = 6;//another call stack index in nhlog
-
-        @Nullable
-        @Override
-        public String getTag$timber_release() {
-            // DO NOT switch this to Thread.getCurrentThread().getStackTrace(). The test will pass
-            // because Robolectric runs them on the JVM but on Android the elements are different.
-            StackTraceElement[] stackTrace = new Throwable().getStackTrace();
-            if (stackTrace.length <= CALL_STACK_INDEX) {
-                throw new IllegalStateException(
-                        "Synthetic stacktrace didn't have enough elements: are you using proguard?");
-            }
-            return createStackElementTag(stackTrace[CALL_STACK_INDEX]);
-        }
-
-        @Override
-        protected void log(int priority, @Nullable String tag, @NotNull String message, @Nullable Throwable t) {
-            super.log(priority, tag, ZLog.formatMessage(message), t);
-        }
-    }
 }
