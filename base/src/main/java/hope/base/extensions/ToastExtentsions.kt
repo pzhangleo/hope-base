@@ -18,8 +18,8 @@ private var toast: Toast? = null
 
 /**
  * 显示提示信息
- * @param context        上下文信息
- * @param msg            文本内容
+ * @param context 上下文信息
+ * @param msg 文本内容
  */
 private fun showToast(context: Context?, msg: String?, duration: Int) {
     if (context == null || msg.isNullOrEmpty()) return

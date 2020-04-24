@@ -30,6 +30,5 @@ fun String.loge(tag: String? = null, throwable: Throwable? = null) {
     if (tag.isNullOrEmpty()) {
         ZLog.e(this, throwable)
     } else {
-        ZLog.tag(tag).e(this, throwable)
-    }
+        ZLog.tag(tag).e(this, throwable) }
 }

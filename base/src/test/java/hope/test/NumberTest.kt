@@ -10,9 +10,8 @@ import org.junit.runners.JUnit4
 class NumberTest {
 
     @Test
-    fun testZero(): Unit {
+    fun testZero() {
         val number = "1.023000000"
         Assert.assertEquals("1.023", number.stripTrailingZeros())
     }
-    
 }

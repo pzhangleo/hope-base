@@ -6,7 +6,6 @@ import android.util.DisplayMetrics
 import android.view.WindowManager
 import hope.base.AppConstant
 
-
 /**
  * Created by Victor on 2017/8/21. (ง •̀_•́)ง
  */
@@ -27,7 +26,8 @@ inline val scaledDensity: Float
 
 fun getStatusBarHeight(): Int {
     var result = 0
-    val resourceId = AppConstant.getApp().resources.getIdentifier("status_bar_height", "dimen", "android")
+    val resourceId = AppConstant.getApp().resources.getIdentifier("status_bar_height",
+            "dimen", "android")
     if (resourceId > 0) {
         result = AppConstant.getApp().resources.getDimensionPixelSize(resourceId)
     }
@@ -45,9 +45,9 @@ fun getVirNavBarHeight(): Int {
     val c: Class<*> = Class.forName("android.view.Display")
     val method = c.getMethod("getRealMetrics", DisplayMetrics::class.java)
     method.invoke(display, dm)
-    //横屏在右|竖屏在底
+    // 横屏在右|竖屏在底
     height = Math.max(dm.heightPixels, dm.widthPixels) - screenHeight
-    //横屏在底|竖屏在底
+    // 横屏在底|竖屏在底
     if (height == 0) {
         height = Math.min(dm.heightPixels, dm.widthPixels) - Math.min(p.y, p.x)
     }
