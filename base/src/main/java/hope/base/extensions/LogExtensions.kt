@@ -1,4 +1,6 @@
+@file:JvmName("LogExtensions")
 package hope.base.extensions
+
 
 import hope.base.log.ZLog
 

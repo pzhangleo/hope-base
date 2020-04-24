@@ -202,7 +202,8 @@ class Timber private constructor() {
                 Timber.Forest::class.java.name,
                 Tree::class.java.name,
                 DebugTree::class.java.name,
-                ZLog::class.java.name
+                ZLog::class.java.name,
+                "hope.base.extensions.LogExtensions"
         )
 
         override val tag: String?
