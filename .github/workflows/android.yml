@@ -24,4 +24,4 @@ jobs:
       env:
         bintray_key: ${{ secrets.bintray_key }}
         bintray_user: ${{ secrets.bintray_user }}
-      run: ./gradlew bintrayUpload
+      run: ./gradlew bintrayUpload publish
