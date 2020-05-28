@@ -1,11 +1,14 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'maven'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'com.novoda.bintray-release'
+plugins {
+    id( 'com.android.library')
+    id( 'kotlin-android')
+    id( 'maven')
+    id( 'maven-publish')
+    id( 'kotlin-kapt')
+    id( 'com.novoda.bintray-release')
+    id( 'kotlinx-serialization')
+    id( "org.jlleitschuh.gradle.ktlint")
+}
 apply from: 'config.gradle'
-apply plugin: 'kotlinx-serialization'
-apply plugin: "org.jlleitschuh.gradle.ktlint"
 
 android {
     compileSdkVersion 29
@@ -145,4 +148,34 @@ publish {
 ktlint {
     android.set(true)
     outputColorName.set("RED")
+}
+
+publishing {
+    publications {
+        bar(MavenPublication) {
+            groupId 'for.hope' // Replace with group ID
+            artifactId 'android-base'
+            version versionName
+            artifact("$buildDir/outputs/aar/base-release.aar")
+        }
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            /** Configure path of your package repository on Github
+             ** Replace GITHUB_USERID with your/organisation Github userID
+             ** and REPOSITORY with the repository name on GitHub
+             */
+            url = uri("https://maven.pkg.github.com/GITHUB_USERID/REPOSITORY")
+            credentials {
+                /** Create github.properties in root project folder file with
+                 ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
+                 ** Set env variable GPR_USER & GPR_API_KEY if not adding a properties file**/
+
+                username = System.getenv("GPR_USER")
+                password = System.getenv("GPR_API_KEY")
+            }
+        }
+    }
 }
