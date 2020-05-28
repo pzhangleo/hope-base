@@ -8,7 +8,7 @@ import hope.base.log.ZLog
 import hope.base.ui.widget.fresco.FrescoHelper
 
 fun init(app: Application, debug: Boolean) {
-    AppConstant.getApp()
+    AppConstant.init(app)
     ZLog.init(debug)
     AndroidThreeTen.init(app)
     FrescoHelper.init(app)
