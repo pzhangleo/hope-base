@@ -24,4 +24,6 @@ jobs:
       env:
         bintray_key: ${{ secrets.bintray_key }}
         bintray_user: ${{ secrets.bintray_user }}
-      run: ./gradlew bintrayUpload publish
+        GPR_USER: ${{ secrets.GPR_USER }}
+        GPR_API_KEY: ${{ secrets.GPR_API_KEY }}
+      run: ./gradlew asseembleRelease bintrayUpload publish
