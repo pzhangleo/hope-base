@@ -1,21 +1,19 @@
 package hope.base.utils;//
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 
-import com.jakewharton.threetenabp.AndroidThreeTen;
-
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.ZonedDateTime;
-import org.threeten.bp.format.DateTimeFormatter;
-import org.threeten.bp.temporal.ChronoUnit;
-
-//import android.test.mock.MockContext;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  * 日期时间工具类 Created by Zhp on 2014/7/8.
  */
+@SuppressLint("NewApi")
 public final class DateTimeUtils {
 
     public final static String PATTERN_YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
@@ -27,7 +25,6 @@ public final class DateTimeUtils {
     public final static String PATTERN_MM_DD = "MM-dd";
 
     public static void init(Application application) {
-        AndroidThreeTen.init(application);
     }
 
     /**
