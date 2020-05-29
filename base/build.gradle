@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'kotlin-kapt'
-//apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'com.novoda.bintray-release'
 apply from: 'config.gradle'
 
 android {
@@ -112,7 +112,7 @@ dependencies {
 // build a jar with source files
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
-    archiveClassifier = 'sources'
+    archiveClassifier.set('sources')
 }
 
 artifacts {
@@ -123,44 +123,44 @@ tasks.withType(Javadoc).all {
     enabled = false
 }
 
-//publish {
-//    userOrg = 'forhope33786'
-//    groupId = 'for.hope'
-//    artifactId = 'android-base'
-//    publishVersion = versionName
-//    desc = 'super android base'
-//    bintrayUser = System.getenv("bintray_user")
-//    bintrayKey = System.getenv("bintray_key")
-//
-//    dryRun = false
-//}
+publish {
+    userOrg = 'forhope33786'
+    groupId = 'for.hope'
+    artifactId = 'android-base'
+    publishVersion = versionName
+    desc = 'super android base'
+    bintrayUser = System.getenv("bintray_user")
+    bintrayKey = System.getenv("bintray_key")
 
-publishing {
-    publications {
-        bar(MavenPublication) {
-            groupId 'for.hope' // Replace with group ID
-            artifactId 'android-base'
-            version versionName
-            artifact("$buildDir/outputs/aar/base-release.aar")
-        }
-    }
-
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            /** Configure path of your package repository on Github
-             ** Replace GITHUB_USERID with your/organisation Github userID
-             ** and REPOSITORY with the repository name on GitHub
-             */
-            url = uri("https://maven.pkg.github.com/pzhangleo/hope-base")
-            credentials {
-                /** Create github.properties in root project folder file with
-                 ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
-                 ** Set env variable GPR_USER & GPR_API_KEY if not adding a properties file**/
-
-                username = System.getenv("GPR_USER")
-                password = System.getenv("GPR_API_KEY")
-            }
-        }
-    }
+    dryRun = false
 }
+
+//publishing {
+//    publications {
+//        bar(MavenPublication) {
+//            groupId 'for.hope' // Replace with group ID
+//            artifactId 'android-base'
+//            version versionName
+//            artifact("$buildDir/outputs/aar/base-release.aar")
+//        }
+//    }
+//
+//    repositories {
+//        maven {
+//            name = "GitHubPackages"
+//            /** Configure path of your package repository on Github
+//             ** Replace GITHUB_USERID with your/organisation Github userID
+//             ** and REPOSITORY with the repository name on GitHub
+//             */
+//            url = uri("https://maven.pkg.github.com/pzhangleo/hope-base")
+//            credentials {
+//                /** Create github.properties in root project folder file with
+//                 ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
+//                 ** Set env variable GPR_USER & GPR_API_KEY if not adding a properties file**/
+//
+//                username = System.getenv("GPR_USER")
+//                password = System.getenv("GPR_API_KEY")
+//            }
+//        }
+//    }
+//}
