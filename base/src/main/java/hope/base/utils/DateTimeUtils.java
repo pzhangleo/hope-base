@@ -10,6 +10,8 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+import kotlin.Deprecated;
+
 /**
  * 日期时间工具类 Created by Zhp on 2014/7/8.
  */
@@ -24,6 +26,7 @@ public final class DateTimeUtils {
 
     public final static String PATTERN_MM_DD = "MM-dd";
 
+    @Deprecated(message = "No need to call")
     public static void init(Application application) {
     }
 

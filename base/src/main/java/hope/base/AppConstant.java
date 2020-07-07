@@ -1,7 +1,7 @@
 package hope.base;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
+import android.content.Context;
 
 /**
  * Created by zhangpeng on 2017/7/25.
@@ -10,13 +10,13 @@ import android.app.Application;
 public class AppConstant {
 
     @SuppressLint("StaticFieldLeak")
-    private static Application sApp;
+    private static Context sApp;
 
-    public static Application getApp() {
+    public static Context getApp() {
         return sApp;
     }
 
-    public static void init(Application application) {
+    public static void init(Context application) {
         sApp = application;
     }
 }
