@@ -1,1 +1,2 @@
+includeBuild("dependenceplugin")
 include ':base', ':application'

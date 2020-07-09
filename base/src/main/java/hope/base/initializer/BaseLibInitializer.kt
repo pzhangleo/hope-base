@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.startup.Initializer
 import hope.base.ui.widget.fresco.FrescoHelper
 
-class WebImageViewInitializer : Initializer<Unit> {
+class BaseLibInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
         FrescoHelper.init(context)
