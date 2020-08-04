@@ -15,6 +15,8 @@ object AndroidX {
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.0-rc1"
     const val constraintlayoutSolver = "androidx.constraintlayout:constraintlayout-solver:2.0.0-rc1"
     const val lr = "androidx.lifecycle:lifecycle-runtime:2.2.0"
+    const val lvk = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    const val llk = "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
     const val lcj8 = "androidx.lifecycle:lifecycle-common-java8:2.2.0"
     const val lc = "androidx.lifecycle:lifecycle-common:2.2.0"
     const val le = "androidx.lifecycle:lifecycle-extensions:2.2.0"

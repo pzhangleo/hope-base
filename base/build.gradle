@@ -70,6 +70,8 @@ dependencies {
     api AndroidX.constraintlayout
     api AndroidX.constraintlayoutSolver
     api AndroidX.lr
+    api AndroidX.llk
+    api AndroidX.lvk
     api AndroidX.lcj8
     api AndroidX.le
     api AndroidX.lc
