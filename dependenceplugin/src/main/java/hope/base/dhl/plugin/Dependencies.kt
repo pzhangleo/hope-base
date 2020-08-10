@@ -25,9 +25,9 @@ object AndroidX {
 }
 
 object OkHttp {
-    const val okhttp = "com.squareup.okhttp3:okhttp:4.8.0"
-    const val mockwebserver = "com.squareup.okhttp3:mockwebserver:4.8.0"
-    const val logging = "com.squareup.okhttp3:logging-interceptor:4.8.0"
+    const val okhttp = "com.squareup.okhttp3:okhttp:4.8.1"
+    const val mockwebserver = "com.squareup.okhttp3:mockwebserver:4.8.1"
+    const val logging = "com.squareup.okhttp3:logging-interceptor:4.8.1"
     const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
     const val gson = "com.squareup.retrofit2:converter-gson:2.9.0"
 }
