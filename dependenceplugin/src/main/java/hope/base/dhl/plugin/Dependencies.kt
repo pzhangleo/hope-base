@@ -4,16 +4,16 @@ package hope.base.dhl.plugin
 
 object AndroidX {
     const val appcompat = "androidx.appcompat:appcompat:1.3.0-alpha01"
-    const val coreKtx = "androidx.core:core-ktx:1.3.0"
-    const val core = "androidx.core:core:1.3.0"
+    const val coreKtx = "androidx.core:core-ktx:1.3.1"
+    const val core = "androidx.core:core:1.3.1"
     const val coreAnimation = "androidx.core:core-animation:1.0.0-alpha01"
     const val annotation = "androidx.annotation:annotation:1.1.0"
     const val material = "com.google.android.material:material:1.3.0-alpha01"
     const val recyclerview = "androidx.recyclerview:recyclerview:1.2.0-alpha05"
     const val vectordrawable = "androidx.vectordrawable:vectordrawable:1.1.0"
     const val vectordrawableAnimated = "androidx.vectordrawable:vectordrawable-animated:1.1.0"
-    const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.0-rc1"
-    const val constraintlayoutSolver = "androidx.constraintlayout:constraintlayout-solver:2.0.0-rc1"
+    const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.0"
+    const val constraintlayoutSolver = "androidx.constraintlayout:constraintlayout-solver:2.0.0"
     const val lr = "androidx.lifecycle:lifecycle-runtime:2.2.0"
     const val lvk = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     const val llk = "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
@@ -25,9 +25,9 @@ object AndroidX {
 }
 
 object OkHttp {
-    const val okhttp = "com.squareup.okhttp3:okhttp:4.8.1"
-    const val mockwebserver = "com.squareup.okhttp3:mockwebserver:4.8.1"
-    const val logging = "com.squareup.okhttp3:logging-interceptor:4.8.1"
+    const val okhttp = "com.squareup.okhttp3:okhttp:4.9.0"
+    const val mockwebserver = "com.squareup.okhttp3:mockwebserver:4.9.0"
+    const val logging = "com.squareup.okhttp3:logging-interceptor:4.9.0"
     const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
     const val gson = "com.squareup.retrofit2:converter-gson:2.9.0"
 }
@@ -42,7 +42,7 @@ object Refresh {
 }
 
 object Kotlin {
-    const val stdlib8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.72"
+    const val stdlib8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.10"
     const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.8"
     const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.8"
 }
