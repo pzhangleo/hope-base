@@ -6,11 +6,13 @@ import android.os.Looper
 import android.widget.Toast
 import hope.base.AppConstant
 
-fun String.toast() {
+private const val NO_GRAVITY = -1
+
+fun String.toast(gravity: Int = NO_GRAVITY) {
     showToast(AppConstant.getApp(), this, Toast.LENGTH_SHORT)
 }
 
-fun String.longToast() {
+fun String.longToast(gravity: Int = NO_GRAVITY) {
     showToast(AppConstant.getApp(), this, Toast.LENGTH_LONG)
 }
 
@@ -21,13 +23,18 @@ private var toast: Toast? = null
  * @param context 上下文信息
  * @param msg 文本内容
  */
-private fun showToast(context: Context?, msg: String?, duration: Int) {
+private fun showToast(context: Context?, msg: String?, duration: Int, gravity: Int = NO_GRAVITY) {
     if (context == null || msg.isNullOrEmpty()) return
     val runnable = Runnable {
         toast?.cancel()
-        toast = Toast.makeText(context, "", duration)
-        toast!!.setText(msg)
-        toast!!.show()
+        if (toast != null) {
+            toast = Toast.makeText(context, "", duration)
+            if (gravity != NO_GRAVITY) {
+                toast!!.setGravity(gravity, 0, 0)
+            }
+            toast!!.setText(msg)
+            toast!!.show()
+        }
     }
     Handler(Looper.getMainLooper()).post(runnable)
 }
