@@ -126,7 +126,7 @@ public class FrescoHelper {
     }
 
     private static void configureOptions(ImagePipelineConfig.Builder configBuilder) {
-        configBuilder.setDownsampleEnabled(true)
+        configBuilder.setDownsampleEnabled(false)
                 .experiment().setNativeCodeDisabled(true)
                 .setImageTranscoderType(ImageTranscoderType.JAVA_TRANSCODER);
     }

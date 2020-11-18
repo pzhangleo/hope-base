@@ -4,7 +4,7 @@ package hope.base.dhl.plugin
 
 object AndroidX {
     const val appcompat = "androidx.appcompat:appcompat:1.3.0-alpha01"
-    const val coreKtx = "androidx.core:core-ktx:1.3.1"
+    const val coreKtx = "androidx.core:core-ktx:1.3.2"
     const val core = "androidx.core:core:1.3.1"
     const val coreAnimation = "androidx.core:core-animation:1.0.0-alpha01"
     const val annotation = "androidx.annotation:annotation:1.1.0"
